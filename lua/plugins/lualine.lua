@@ -46,7 +46,7 @@ local function pretty_path(opts)
       return ""
     end
 
-    local sep = package.config:sub(1, 1)
+    local sep = "/" --package.config:sub(1, 1)
     local parts = vim.split(path, "[\\/]")
 
     -- show ... if the file is too deep
@@ -81,15 +81,17 @@ return {
         component_separators = { left = "", right = "" },
         globalstatus = true,
         disabled_filetypes = {
-          "alpha",
-          "neo-tree",
-          "lazy",
-          "dap-repl",
           "dapui_breakpoints",
           "dapui_console",
           "dapui_scopes",
           "dapui_watches",
           "dapui_stacks",
+          "dap-repl",
+          winbar = {
+            "alpha",
+            "lazy",
+            "neo-tree",
+          },
         },
       },
       extensions = {

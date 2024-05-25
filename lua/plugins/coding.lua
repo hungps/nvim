@@ -2,6 +2,10 @@ return {
   {
     "stevearc/conform.nvim",
     event = "BufWritePre",
+    -- stylua: ignore
+    keys = {
+      { "<leader>cf", function() require("conform").format { lsp_fallback = true } end, desc = "[F]ormat" },
+    },
     opts = {
       formatters_by_ft = {
         lua = { "stylua" },

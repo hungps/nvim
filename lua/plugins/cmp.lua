@@ -23,7 +23,7 @@ return {
     opts = function()
       local cmp = require "cmp"
 
-      cmp.setup {
+      return {
         sources = cmp.config.sources {
           { name = "nvim_lsp" },
           { name = "luasnip" },

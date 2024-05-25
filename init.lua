@@ -13,21 +13,20 @@ if not (vim.uv or vim.loop).fs_stat(lazypath) then
     lazypath,
   }
 end
-vim.opt.rtp:prepend(lazypath)
+vim.opt.runtimepath:prepend(lazypath)
 
 require("lazy").setup {
   spec = {
     { import = "plugins" },
     { import = "plugins.extras" },
     { import = "plugins.lang" },
+    { import = "colorschemes.onedark" },
+    -- { import = "colorschemes.catppuccin" },
   },
   checker = {
     notify = false,
   },
   change_detection = {
     notify = false,
-  },
-  install = {
-    colorscheme = { "onedark", "catppuccin" },
   },
 }

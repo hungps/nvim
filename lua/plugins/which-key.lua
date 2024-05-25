@@ -14,8 +14,9 @@ return {
         ["<leader>g"] = "[G]it",
         ["<leader>d"] = "[D]iagnostic",
         ["<leader>t"] = "[T]oggle",
-        ["<leader>q"] = "[Q]uit",
+        ["<leader>tn"] = { "<cmd>set rnu!<CR>", "Toggle relative [N]umber" },
         ["<leader>w"] = "[W]orkspace",
+        ["<leader>q"] = "[Q]uit",
       }, { mode = "n" })
 
       wk.register({

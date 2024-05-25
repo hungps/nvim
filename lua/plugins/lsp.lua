@@ -8,6 +8,8 @@ return {
     opts = {
       ensure_installed = {
         "stylua",
+        "jsonlint",
+        "markdownlint",
       },
     },
     config = function(_, opts)

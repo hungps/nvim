@@ -1,8 +1,8 @@
 local opt = vim.opt
 
 vim.g.mapleader = " "
+vim.o.termguicolors = true
 
-opt.termguicolors = true
 opt.laststatus = 3
 
 opt.showmode = false

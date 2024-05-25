@@ -57,7 +57,7 @@ return {
     "akinsho/toggleterm.nvim",
     keys = {
       {
-        "<leader>ge",
+        "<leader>gg",
         function()
           require("utils.lazygit").open()
         end,
