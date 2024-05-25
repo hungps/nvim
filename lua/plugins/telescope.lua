@@ -6,13 +6,18 @@ return {
       { "nvim-lua/plenary.nvim" },
       { "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
       { "nvim-tree/nvim-web-devicons" },
+      { "nvim-telescope/telescope-ui-select.nvim" },
+      { "jvgrootveld/telescope-zoxide", dependencies = "nvim-lua/popup.nvim" },
     },
+    -- stylua: ignore
     keys = {
       { "<leader>ff", "<cmd>Telescope find_files<CR>", desc = "Find [F]ile" },
       { "<leader><leader>", "<leader>ff", desc = "which_key_ignore", remap = true },
-      { "<leader>fh", "<cmd>Telescope oldfiles<CR>", desc = "Find previously opened file ([H]istory)" },
-      { "<leader>ss", "<cmd>Telescope live_grep<CR>", desc = "Search [S]tring (grep)" },
-      { "<leader>H", "<cmd>Telescope help_tags<CR>", desc = "[H]elp" },
+      { "<leader>fd", "<cmd>Telescope zoxide list<CR>", desc = "[F]ind [D]irectory" },
+      { "<leader>ss", "<cmd>Telescope live_grep<CR>", desc = "Search [S]tring" },
+      { "<leader>sf", "<cmd>Telescope current_buffer_fuzzy_find<CR>", desc = "Search in current [F]ile" },
+      { "<leader>se", "<cmd>Telescope find_files follow=true no_ignore=true hidden=true<CR>", desc = "Search [E]verywhere" },
+      { "<leader>?", "<cmd>Telescope help_tags<CR>", desc = "[H]elp" },
     },
     opts = {
       defaults = {
@@ -45,6 +50,8 @@ return {
       require("telescope").setup(opts)
 
       require("telescope").load_extension "fzf"
+      require("telescope").load_extension "ui-select"
+      require("telescope").load_extension "zoxide"
     end,
   },
 }

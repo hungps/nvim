@@ -12,7 +12,7 @@ map("i", "<C-l>", "<Right>", { desc = "Move right" })
 map("i", "<C-j>", "<Down>", { desc = "Move down" })
 map("i", "<C-k>", "<Up>", { desc = "Move up" })
 
-map({ "i", "x", "n", "s" }, "<C-s>", "<cmd>w<cr><esc>", { desc = "Save File" })
+map({ "i", "x", "n", "s" }, "<D-s>", "<cmd>w<cr><ESC>", { desc = "Save File" })
 
 map("n", "<A-Up>", "<cmd>resize +2<cr>", { desc = "Increase window height" })
 map("n", "<A-Down>", "<cmd>resize -2<cr>", { desc = "Decrease window height" })

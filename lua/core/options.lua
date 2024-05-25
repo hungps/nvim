@@ -6,8 +6,8 @@ vim.o.termguicolors = true
 opt.laststatus = 3
 
 opt.showmode = false
--- opt.cmdheight = 0
 opt.showcmd = false
+
 opt.number = true
 opt.relativenumber = true
 opt.wrap = false

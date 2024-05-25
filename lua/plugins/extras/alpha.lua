@@ -8,8 +8,6 @@ local function alpha_setup()
     dashboard.button("SPC f h", "󰊄  Recently opened files"),
     dashboard.button("SPC s s", "󰈬  Find word"),
     dashboard.button("SPC w o", "󰈬  Open workspace"),
-    -- dashboard.button("SPC f m", "  Jump to bookmarks"),
-    -- dashboard.button("SPC s l", "  Open last session"),
   }
 
   alpha.setup(dashboard.opts)
@@ -35,9 +33,9 @@ return {
     end,
     config = function()
       alpha_setup()
-      vim.schedule(function()
-        vim.cmd [[Neotree show]]
-      end)
+      -- vim.schedule(function()
+      --   vim.cmd [[Neotree show]]
+      -- end)
     end,
   },
 }
