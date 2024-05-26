@@ -11,7 +11,10 @@ return {
         width = 30,
       },
       filesystem = {
-        follow_current_file = { enabled = true },
+        follow_current_file = {
+          enabled = true,
+          leave_dirs_open = true,
+        },
         hijack_netrw_behavior = "disabled",
         use_libuv_file_watcher = true,
         filtered_items = {
