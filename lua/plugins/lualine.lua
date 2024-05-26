@@ -7,20 +7,7 @@ return {
       options = {
         section_separators = { left = "", right = "" },
         component_separators = { left = "", right = "" },
-        globalstatus = true,
-        disabled_filetypes = {
-          "dapui_breakpoints",
-          "dapui_console",
-          "dapui_scopes",
-          "dapui_watches",
-          "dapui_stacks",
-          "dap-repl",
-          winbar = {
-            "alpha",
-            "lazy",
-            "neo-tree",
-          },
-        },
+        -- globalstatus = true,
       },
       extensions = {
         "neo-tree",

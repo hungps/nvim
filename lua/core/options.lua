@@ -5,7 +5,7 @@ vim.o.termguicolors = true
 
 vim.g.customsnippetspath = os.getenv "SNIPPETS_PATH"
 
-opt.laststatus = 3
+opt.laststatus = 0
 
 opt.showmode = false
 opt.showcmd = false
