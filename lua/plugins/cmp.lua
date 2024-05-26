@@ -16,9 +16,25 @@ return {
           {
             "L3MON4D3/LuaSnip",
             build = "make install_jsregexp",
-            config = function()
-              require("luasnip.loaders.from_vscode").lazy_load { paths = { vim.g.customsnippetspath } }
-              require("luasnip.loaders.from_snipmate").lazy_load { paths = { vim.g.customsnippetspath } }
+            opts = {
+              history = true,
+              updateevents = "TextChanged,TextChangedI",
+            },
+            config = function(_, opts)
+              require("luasnip").config.set_config(opts)
+              require("luasnip.loaders.from_vscode").lazy_load { paths = vim.g.customsnippetspath }
+              require("luasnip.loaders.from_snipmate").lazy_load { paths = vim.g.customsnippetspath }
+
+              vim.api.nvim_create_autocmd("InsertLeave", {
+                callback = function()
+                  if
+                    require("luasnip").session.current_nodes[vim.api.nvim_get_current_buf()]
+                    and not require("luasnip").session.jump_active
+                  then
+                    require("luasnip").unlink_current()
+                  end
+                end,
+              })
             end,
           },
         },
@@ -26,6 +42,8 @@ return {
     },
     opts = function()
       local cmp = require "cmp"
+      local defaults = require "cmp.config.default"()
+      local luasnip = require "luasnip"
 
       return {
         sources = cmp.config.sources {
@@ -37,44 +55,47 @@ return {
         },
         snippet = {
           expand = function(args)
-            require("luasnip").lsp_expand(args.body)
+            luasnip.lsp_expand(args.body)
           end,
         },
+        sorting = defaults.sorting,
         mapping = cmp.mapping.preset.insert {
+          -- Select the [n]ext item/[p]revious item
+          ["<C-n>"] = cmp.mapping.select_next_item(),
+          ["<C-p>"] = cmp.mapping.select_prev_item(),
+
+          -- Scroll the documentation window [b]ack / [f]orward
           ["<C-b>"] = cmp.mapping.scroll_docs(-4),
           ["<C-f>"] = cmp.mapping.scroll_docs(4),
-          ["<C-Space>"] = cmp.mapping.complete(),
-          ["<C-e>"] = cmp.mapping.abort(),
+
+          -- Accept completion
           ["<CR>"] = cmp.mapping.confirm { select = true },
 
-          -- luasnip
-          ["<Tab>"] = cmp.mapping(function(fallback)
-            if cmp.visible() then
-              cmp.select_next_item()
-            elseif require("luasnip").expand_or_jumpable() then
-              vim.fn.feedkeys(vim.api.nvim_replace_termcodes("<Plug>luasnip-expand-or-jump", true, true, true), "")
-            else
-              fallback()
+          -- Manually trigger a completion from nvim-cmp.
+          ["<C-Space>"] = cmp.mapping.complete(),
+
+          -- Close completion popup
+          ["<C-e>"] = cmp.mapping.close(),
+
+          -- Move to the right of each of the expansion locations.
+          ["<C-l>"] = cmp.mapping(function()
+            if luasnip.expand_or_locally_jumpable() then
+              luasnip.expand_or_jump()
             end
           end, { "i", "s" }),
-          ["<S-Tab>"] = cmp.mapping(function(fallback)
-            if cmp.visible() then
-              cmp.select_prev_item()
-            elseif require("luasnip").jumpable(-1) then
-              vim.fn.feedkeys(vim.api.nvim_replace_termcodes("<Plug>luasnip-jump-prev", true, true, true), "")
-            else
-              fallback()
+
+          -- Move to the left of each of the expansion locations.
+          ["<C-h>"] = cmp.mapping(function()
+            if luasnip.locally_jumpable(-1) then
+              luasnip.jump(-1)
             end
           end, { "i", "s" }),
         },
-        auto_brackets = {},
         completion = {
-          completeopt = "menu,menuone,noinsert",
+          completeopt = "menu,menuone",
         },
         experimental = {
-          ghost_text = {
-            hl_group = "CmpGhostText",
-          },
+          ghost_text = true,
         },
       }
     end,
@@ -82,7 +103,10 @@ return {
   {
     "windwp/nvim-autopairs",
     optional = true,
-    opts = function()
+    opts = function(_, opts)
+      opts.fast_wrap = {}
+      opts.disable_filetype = vim.list_extend(opts.disable_filetype or {}, { "TelescopePrompt", "vim" })
+
       local cmp_autopairs = require "nvim-autopairs.completion.cmp"
       local cmp = require "cmp"
       cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done())

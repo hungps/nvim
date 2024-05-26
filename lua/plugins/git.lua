@@ -42,9 +42,8 @@ return {
         -- map("n", "<leader>ghbr", gs.reset_buffer, "[R]eset buffer hunk")
 
         map("n", "<leader>gb", gs.blame_line, "[B]lame line")
-        map("n", "<leader>gd", gs.diffthis, "[D]iff against index")
-        map("n", "<leader>gD", function() gs.diffthis("@") end, "[D]iff against last commit")
-        map("n", "<leader>gD", function() gs.diffthis("@") end, "[D]iff against last commit")
+        map("n", "<leader>ghd", gs.diffthis, "[D]iff against index")
+        map("n", "<leader>ghD", function() gs.diffthis("@") end, "[D]iff against last commit")
 
         -- Toggles
         -- wk.register({ ["<leader>gt"] = "[G]it [T]oggle" })
@@ -61,7 +60,7 @@ return {
         function()
           require("utils.lazygit").open()
         end,
-        desc = "[G]it [E]xplorer",
+        desc = "[G]it Explorer",
       },
     },
   },
