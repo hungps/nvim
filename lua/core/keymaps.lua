@@ -30,7 +30,8 @@ map("v", "<A-k>", ":m '<-2<cr>gv=gv", { desc = "Move Up" })
 -- Buffer mapping - will be mapped by bufferline
 -- map("n", "<S-h>", "<cmd>bprevious<cr>", { desc = "Prev Buffer" })
 -- map("n", "<S-l>", "<cmd>bnext<cr>", { desc = "Next Buffer" })
--- map("n", "<leader>bd", "<cmd>:bd<cr>", { desc = "Delete Buffer" })
+map("n", "<leader>bd", "<cmd>:bd<cr>", { desc = "Close Buffer" })
+map("n", "<leader>bo", "<cmd>:w|%bd|e#|bd#<cr>", { desc = "Close Other Buffer" })
 
 map({ "i", "n" }, "<esc>", "<cmd>noh<cr><esc>", { desc = "Escape and Clear hlsearch" })
 

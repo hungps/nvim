@@ -13,9 +13,9 @@ return {
       { "<leader>ff", "<cmd>Telescope find_files<CR>", desc = "Find [F]ile" },
       { "<leader><leader>", "<leader>ff", desc = "which_key_ignore", remap = true },
       { "<leader>fd", "<cmd>Telescope zoxide list<CR>", desc = "[F]ind [D]irectory" },
+      { "<leader>fe", "<cmd>Telescope find_files follow=true no_ignore=true hidden=true<CR>", desc = "Find [E]verything" },
       { "<leader>ss", "<cmd>Telescope live_grep<CR>", desc = "Search [S]tring" },
       { "<leader>sf", "<cmd>Telescope current_buffer_fuzzy_find theme=dropdown previewer=false<CR>", desc = "Search in current [F]ile" },
-      { "<leader>se", "<cmd>Telescope find_files follow=true no_ignore=true hidden=true<CR>", desc = "Search [E]verything" },
       { "<leader>?", "<cmd>Telescope help_tags<CR>", desc = "[H]elp" },
     },
     opts = {
