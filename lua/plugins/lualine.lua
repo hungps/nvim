@@ -35,7 +35,9 @@ return {
           },
         },
         lualine_b = {
-          "branch",
+          {
+            "branch",
+          },
         },
         lualine_c = {
           {
@@ -47,9 +49,6 @@ return {
           {
             "filename",
             path = 1,
-          },
-          {
-            "overseer",
           },
         },
         lualine_x = {

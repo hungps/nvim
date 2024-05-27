@@ -8,9 +8,9 @@ return {
     },
     keys = {
       { "<leader>F", desc = "[F]lutter" },
-      { "<leader>Fd", "<Cmd>FlutterDevices<CR>", desc = "Flutter Select [D]evices" },
-      { "<leader>Fr", "<Cmd>FlutterRestart<CR>", desc = "Flutter Hot [R]estart" },
-      { "<leader>Fo", "<Cmd>FlutterOutlineToggle<CR>", desc = "Flutter Toggle [O]utline" },
+      { "<leader>Fd", "<Cmd>FlutterDevices<CR>", desc = "Select [D]evices" },
+      { "<leader>Fr", "<Cmd>FlutterRestart<CR>", desc = "Hot [R]estart" },
+      { "<leader>Fo", "<Cmd>FlutterOutlineToggle<CR>", desc = "Toggle [O]utline" },
     },
     opts = {
       decorations = {
@@ -134,7 +134,6 @@ return {
     optional = true,
     opts = {},
     keys = {
-      { "<leader>F", desc = "[F]lutter" },
       { "<leader>Fb", desc = "[F]lutter [b]uild_runner" },
       { "<leader>Fbr", "<Cmd>OverseerRun build_runner:run<CR>", desc = "Flutter build_runner build" },
       { "<leader>Fbw", "<Cmd>OverseerRun build_runner:watch<CR>", desc = "Flutter build_runner watch" },

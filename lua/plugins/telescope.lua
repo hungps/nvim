@@ -39,9 +39,7 @@ return {
         },
         path_display = {
           "truncate",
-          filename_first = {
-            reverse_directories = true,
-          },
+          "filename_first",
         },
       },
     },
