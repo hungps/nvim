@@ -12,6 +12,9 @@ map("i", "<C-l>", "<Right>", { desc = "Move right" })
 map("i", "<C-j>", "<Down>", { desc = "Move down" })
 map("i", "<C-k>", "<Up>", { desc = "Move up" })
 
+map("n", "<C-d>", "<C-d>zz", { desc = "Scroll down and keep the cursor at the center" })
+map("n", "<C-u>", "<C-u>zz", { desc = "Scroll up and keep the cursor at the center" })
+
 map({ "i", "x", "n", "s" }, "<C-s>", "<cmd>w<cr><ESC>", { desc = "Save File" })
 
 map("n", "<A-Up>", "<cmd>resize +2<cr>", { desc = "Increase window height" })
