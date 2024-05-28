@@ -1,10 +1,8 @@
 return {
   {
     "akinsho/flutter-tools.nvim",
-    lazy = false,
     dependencies = {
       "nvim-lua/plenary.nvim",
-      "stevearc/dressing.nvim",
     },
     keys = {
       { "<leader>F", desc = "[F]lutter" },
@@ -132,13 +130,12 @@ return {
   {
     "stevearc/overseer.nvim",
     optional = true,
-    opts = {},
     keys = {
       { "<leader>Fb", desc = "[F]lutter [b]uild_runner" },
       { "<leader>Fbr", "<Cmd>OverseerRun build_runner:run<CR>", desc = "Flutter build_runner build" },
       { "<leader>Fbw", "<Cmd>OverseerRun build_runner:watch<CR>", desc = "Flutter build_runner watch" },
     },
-    init = function()
+    opts = function()
       local overseer = require "overseer"
 
       overseer.register_template {

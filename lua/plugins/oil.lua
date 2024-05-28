@@ -13,6 +13,15 @@ return {
       view_options = {
         show_hidden = true,
       },
+      keymaps = {
+        ["<C-s>"] = false,
+        ["<C-h>"] = false,
+        ["<C-t>"] = false,
+        ["<Esc>"] = "actions.close",
+        ["<C-l>"] = "actions.refresh",
+        ["gs"] = false,
+        ["gx"] = false,
+      },
     },
   },
 }

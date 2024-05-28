@@ -5,8 +5,7 @@ vim.o.termguicolors = true
 
 vim.g.customsnippetspath = os.getenv "SNIPPETS_PATH"
 
-opt.laststatus = 2
-
+opt.laststatus = 3
 opt.showmode = false
 
 opt.number = true
@@ -37,7 +36,6 @@ opt.splitbelow = true
 opt.splitright = true
 opt.timeoutlen = 400
 
-opt.confirm = true
 opt.swapfile = false
 opt.undofile = true
 opt.undolevels = 10000

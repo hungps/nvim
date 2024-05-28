@@ -10,9 +10,9 @@ vim.api.nvim_create_autocmd("TextYankPost", {
   end,
 })
 
--- close some filetypes with <q>
+-- close some filetypes with <Esc>
 vim.api.nvim_create_autocmd("FileType", {
-  group = augroup "close_with_q",
+  group = augroup "close_with_esc",
   pattern = {
     "PlenaryTestPopup",
     "help",
@@ -29,7 +29,7 @@ vim.api.nvim_create_autocmd("FileType", {
   },
   callback = function(event)
     vim.bo[event.buf].buflisted = false
-    vim.keymap.set("n", "q", "<cmd>close<cr>", { buffer = event.buf, silent = true })
+    vim.keymap.set("n", "<Esc>", "<cmd>close<cr>", { buffer = event.buf, silent = true })
   end,
 })
 
