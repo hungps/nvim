@@ -27,7 +27,7 @@ return {
       },
       fvm = true,
       widget_guides = {
-        enabled = true,
+        enabled = false,
       },
       dev_log = {
         enabled = false,
