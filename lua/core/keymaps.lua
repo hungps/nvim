@@ -17,10 +17,10 @@ map("n", "<C-u>", "<C-u>zz", { desc = "Scroll up and keep the cursor at the cent
 
 map({ "i", "x", "n", "s" }, "<C-s>", "<cmd>w<cr><ESC>", { desc = "Save File" })
 
-map("n", "<A-Up>", "<cmd>resize +2<cr>", { desc = "Increase window height" })
-map("n", "<A-Down>", "<cmd>resize -2<cr>", { desc = "Decrease window height" })
-map("n", "<A-Left>", "<cmd>vertical resize -2<cr>", { desc = "Decrease window width" })
-map("n", "<A-Right>", "<cmd>vertical resize +2<cr>", { desc = "Increase window width" })
+map("n", "<S-Up>", "<cmd>resize +2<cr>", { desc = "Increase window height" })
+map("n", "<S-Down>", "<cmd>resize -2<cr>", { desc = "Decrease window height" })
+map("n", "<S-Left>", "<cmd>vertical resize -2<cr>", { desc = "Decrease window width" })
+map("n", "<S-Right>", "<cmd>vertical resize +2<cr>", { desc = "Increase window width" })
 
 -- Move Lines
 map("n", "<A-j>", "<cmd>m .+1<cr>==", { desc = "Move Down" })
@@ -30,7 +30,7 @@ map("i", "<A-k>", "<esc><cmd>m .-2<cr>==gi", { desc = "Move Up" })
 map("v", "<A-j>", ":m '>+1<cr>gv=gv", { desc = "Move Down" })
 map("v", "<A-k>", ":m '<-2<cr>gv=gv", { desc = "Move Up" })
 
--- Buffer mapping - will be mapped by bufferline
+-- Buffer mapping
 -- map("n", "<S-h>", "<cmd>bprevious<cr>", { desc = "Prev Buffer" })
 -- map("n", "<S-l>", "<cmd>bnext<cr>", { desc = "Next Buffer" })
 map("n", "<leader>bd", "<cmd>:bd<cr>", { desc = "Close Buffer" })

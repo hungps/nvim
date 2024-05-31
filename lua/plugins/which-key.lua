@@ -15,7 +15,6 @@ return {
         ["<leader>d"] = "[D]iagnostic",
         ["<leader>t"] = "[T]oggle",
         ["<leader>tn"] = { "<cmd>set rnu!<CR>", "Toggle relative [N]umber" },
-        ["<leader>w"] = "[W]orkspace",
         ["<leader>q"] = "[Q]uit",
       }, { mode = "n" })
 

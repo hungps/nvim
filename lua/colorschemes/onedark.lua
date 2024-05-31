@@ -3,7 +3,7 @@ return {
     "navarasu/onedark.nvim",
     lazy = false,
     opts = function()
-      local style = "dark"
+      local style = "darker"
       local colors = require("onedark.palette")[style]
       return {
         style = style,

@@ -34,35 +34,46 @@ return {
         "trouble",
         "oil",
       },
+      winbar = {
+        lualine_z = {
+          {
+            "filetype",
+            icon_only = true,
+            separator = { "" },
+            padding = { left = 1, right = 0 },
+          },
+          {
+            "filename",
+            path = 0,
+          },
+        },
+      },
       sections = {
         lualine_a = {
           {
-            function()
-              return ""
-            end,
-            padding = { left = 1, right = 0 },
-            separator = "",
-          },
-          {
             "mode",
+            icon = "",
           },
         },
         lualine_b = {
           {
             "branch",
+            formatter = function(name)
+              return name:sub(1, 1)
+            end,
           },
         },
         lualine_c = {
-          {
-            "filetype",
-            icon_only = true,
-            separator = "",
-            padding = { left = 1, right = 0 },
-          },
-          {
-            "filename",
-            path = 1,
-          },
+          -- {
+          --   "filetype",
+          --   icon_only = true,
+          --   separator = "",
+          --   padding = { left = 1, right = 0 },
+          -- },
+          -- {
+          --   "filename",
+          --   path = 1,
+          -- },
         },
         lualine_x = {
           {
@@ -77,13 +88,7 @@ return {
         lualine_z = {
           {
             "location",
-            separator = "",
-          },
-          {
-            function()
-              return ""
-            end,
-            padding = { left = 0, right = 1 },
+            icon = { "", align = "right" },
           },
         },
       },

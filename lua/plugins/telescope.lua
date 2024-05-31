@@ -13,7 +13,6 @@ return {
       { "<leader><leader>", "<leader>ff", desc = "which_key_ignore", remap = true },
       { "<leader>fe", "<cmd>Telescope find_files follow=true no_ignore=true hidden=true<CR>", desc = "Find [E]verything" },
       { "<leader>ss", "<cmd>Telescope live_grep<CR>", desc = "Search [S]tring" },
-      { "<leader>sf", "<cmd>Telescope current_buffer_fuzzy_find theme=dropdown previewer=false<CR>", desc = "Search in current [F]ile" },
       { "<leader>?", "<cmd>Telescope help_tags<CR>", desc = "[H]elp" },
     },
     opts = function()
@@ -30,8 +29,8 @@ return {
           layout_config = {
             horizontal = {
               prompt_position = "bottom",
-              preview_width = 0.6,
-              results_width = 0.8,
+              results_width = 0.5,
+              preview_width = 0.4,
             },
             vertical = {
               mirror = false,

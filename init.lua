@@ -20,8 +20,9 @@ require("lazy").setup {
     { import = "plugins" },
     { import = "plugins.extras" },
     { import = "plugins.lang" },
-    -- { import = "colorschemes.onedark" },
-    { import = "colorschemes.catppuccin" },
+
+    { import = "colorschemes.onedark" },
+    -- { import = "colorschemes.catppuccin" },
   },
   checker = {
     notify = false,

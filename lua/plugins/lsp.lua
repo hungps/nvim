@@ -9,7 +9,6 @@ return {
       ensure_installed = {
         "stylua",
         "jsonlint",
-        "markdownlint",
       },
     },
     config = function(_, opts)
@@ -93,8 +92,6 @@ return {
           map("n", "gr", vim.lsp.buf.references, "[G]oto: References")
           map("n", "K", vim.lsp.buf.hover, "Show documentation")
           map("n", "<C-k>", vim.lsp.buf.signature_help, "Toggle signature")
-          map("n", "<leader>wa", vim.lsp.buf.add_workspace_folder, "[A]dd Workspace")
-          map("n", "<leader>wr", vim.lsp.buf.remove_workspace_folder, "[R]emove Workspace")
           map("n", "<leader>cd", vim.lsp.buf.type_definition, "Type [D]efinition")
           map("n", "<leader>cr", vim.lsp.buf.rename, "[R]ename symbol")
           map({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, "Code [A]ction")

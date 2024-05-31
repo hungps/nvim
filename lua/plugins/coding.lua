@@ -1,4 +1,5 @@
 return {
+  -- formatting
   {
     "stevearc/conform.nvim",
     event = "BufWritePre",
@@ -16,17 +17,16 @@ return {
       },
     },
   },
+  -- linting
   {
     "mfussenegger/nvim-lint",
     event = { "BufReadPre", "BufNewFile" },
     opts = {
       events = { "BufWritePost", "BufReadPost", "InsertLeave" },
-      linters_by_ft = {
-        markdown = { "markdownlint" },
-      },
+      linters_by_ft = {},
     },
     config = function()
-      vim.api.nvim_create_autocmd({ "BufEnter", "BufWritePost", "InsertLeave" }, {
+      vim.api.nvim_create_autocmd({ "BufWritePost" }, {
         group = vim.api.nvim_create_augroup("nvim-lint", { clear = true }),
         callback = function()
           require("lint").try_lint()
@@ -34,38 +34,47 @@ return {
       })
     end,
   },
+  -- toggle comments
   {
     "numToStr/Comment.nvim",
     lazy = false,
     opts = {},
   },
+  -- search and repalce multiple files
+  {
+    "nvim-pack/nvim-spectre",
+    dependencies = {
+      { "nvim-lua/plenary.nvim" },
+    },
+    opts = {
+      open_cmd = "noswapfile vnew",
+    },
+    keys = {
+      -- stylua: ignore start
+      { "<leader>sr", "<cmd>Spectre open<CR>", desc = "Search and [R]eplace" },
+    },
+  },
+  -- multi cursors
   {
     "mg979/vim-visual-multi",
+    init = function()
+      vim.g.VM_default_mappings = 0
+    end,
   },
+  -- auto closing quotes, brackets, etc
   {
     "windwp/nvim-autopairs",
     event = "InsertEnter",
     opts = {},
   },
+  -- Add quote/parenthesis/brackets around selected text
   {
     "echasnovski/mini.surround",
     event = "InsertEnter",
     version = "*",
-    keys = {
-      { "<leader>cs", desc = "[S]urround", mode = { "n", "v" } },
-    },
-    opts = {
-      mappings = {
-        add = "<leader>csa",
-        delete = "<leader>csd",
-        find = "<leader>csf",
-        find_left = "<leader>csF",
-        highlight = "<leader>csh",
-        replace = "<leader>csr",
-        update_n_lines = "<leader>csn",
-      },
-    },
+    opts = {},
   },
+  -- Better around/inside
   {
     "echasnovski/mini.ai",
     event = "InsertEnter",
