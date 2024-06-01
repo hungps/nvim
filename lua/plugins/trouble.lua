@@ -2,14 +2,18 @@ return {
   {
     "folke/trouble.nvim",
     dependencies = { "nvim-tree/nvim-web-devicons" },
+    cmd = "Trouble",
     opts = {
       use_diagnostic_signs = true,
     },
+    -- stylua: ignore
     keys = {
-      { "<leader>td", "<cmd>TroubleToggle document_diagnostics<cr>", desc = "Diagnostics in [D]ocument" },
-      { "<leader>tD", "<cmd>TroubleToggle workspace_diagnostics<cr>", desc = "Diagnostics in [W]orkspace" },
-      { "<leader>tl", "<cmd>TroubleToggle loclist<cr>", desc = "[L]ocation List" },
-      { "<leader>tq", "<cmd>TroubleToggle quickfix<cr>", desc = "[Q]uickfix List" },
+      { "<leader>xx", "<cmd>Trouble diagnostics toggle<cr>", desc = "Diagnostics" },
+      { "<leader>xX", "<cmd>Trouble diagnostics toggle filter.buf=0<cr>", desc = "Buffer Diagnostics" },
+      { "<leader>cs", "<cmd>Trouble symbols toggle focus=false<cr>", desc = "Symbols" },
+      { "<leader>cl", "<cmd>Trouble lsp toggle focus=false win.position=right<cr>", desc = "LSP Definitions / references / ..." },
+      { "<leader>xL", "<cmd>Trouble loclist toggle<cr>", desc = "Location List" },
+      { "<leader>xQ", "<cmd>Trouble qflist toggle<cr>", desc = "Quickfix List" },
     },
   },
 }

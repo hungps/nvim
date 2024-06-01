@@ -1,7 +1,7 @@
 return {
   {
     "nvim-telescope/telescope.nvim",
-    lazy = false,
+    cmd = "Telescope",
     dependencies = {
       { "nvim-lua/plenary.nvim" },
       { "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
@@ -11,7 +11,7 @@ return {
     keys = {
       { "<leader>ff", "<cmd>Telescope find_files<CR>", desc = "Find [F]ile" },
       { "<leader><leader>", "<leader>ff", desc = "which_key_ignore", remap = true },
-      { "<leader>fe", "<cmd>Telescope find_files follow=true no_ignore=true hidden=true<CR>", desc = "Find [E]verything" },
+      { "<leader>fa", "<cmd>Telescope find_files follow=true no_ignore=true hidden=true<CR>", desc = "Find [A]ll files" },
       { "<leader>ss", "<cmd>Telescope live_grep<CR>", desc = "Search [S]tring" },
       { "<leader>?", "<cmd>Telescope help_tags<CR>", desc = "[H]elp" },
     },

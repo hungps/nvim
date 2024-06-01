@@ -46,6 +46,7 @@ return {
     dependencies = {
       { "nvim-lua/plenary.nvim" },
     },
+    cmd = "Spectre",
     opts = {
       open_cmd = "noswapfile vnew",
     },

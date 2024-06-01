@@ -34,20 +34,6 @@ return {
         "trouble",
         "oil",
       },
-      winbar = {
-        lualine_z = {
-          {
-            "filetype",
-            icon_only = true,
-            separator = { "" },
-            padding = { left = 1, right = 0 },
-          },
-          {
-            "filename",
-            path = 0,
-          },
-        },
-      },
       sections = {
         lualine_a = {
           {
@@ -64,16 +50,16 @@ return {
           },
         },
         lualine_c = {
-          -- {
-          --   "filetype",
-          --   icon_only = true,
-          --   separator = "",
-          --   padding = { left = 1, right = 0 },
-          -- },
-          -- {
-          --   "filename",
-          --   path = 1,
-          -- },
+          {
+            "filetype",
+            icon_only = true,
+            separator = { "" },
+            padding = { left = 1, right = 0 },
+          },
+          {
+            "filename",
+            path = 0,
+          },
         },
         lualine_x = {
           {

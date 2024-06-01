@@ -12,9 +12,10 @@ return {
         ["<leader>c"] = "[C]ode",
         ["<leader>b"] = "[B]uffer",
         ["<leader>g"] = "[G]it",
-        ["<leader>d"] = "[D]iagnostic",
+        ["<leader>d"] = "[D]ebug",
         ["<leader>t"] = "[T]oggle",
         ["<leader>tn"] = { "<cmd>set rnu!<CR>", "Toggle relative [N]umber" },
+        ["<leader>x"] = "[X]Diagnostics",
         ["<leader>q"] = "[Q]uit",
       }, { mode = "n" })
 
