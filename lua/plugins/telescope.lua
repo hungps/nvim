@@ -21,22 +21,7 @@ return {
       return {
         defaults = {
           prompt_prefix = "   ",
-          selection_caret = "  ",
-          entry_prefix = "  ",
-          selection_strategy = "reset",
-          sorting_strategy = "ascending",
-          layout_strategy = "horizontal",
-          layout_config = {
-            horizontal = {
-              prompt_position = "bottom",
-              results_width = 0.5,
-              preview_width = 0.4,
-            },
-            vertical = {
-              mirror = false,
-            },
-            preview_cutoff = 120,
-          },
+          layout_strategy = "vertical",
           path_display = {
             "truncate",
             "filename_first",
