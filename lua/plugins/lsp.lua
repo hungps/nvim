@@ -101,7 +101,7 @@ return {
             vim.lsp.inlay_hint.toggle = function()
               vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled { bufnr = nil })
             end
-            map("n", "<leader>ch", vim.lsp.inlay_hint.toggle, "Toggle Inlay [H]ints")
+            map("n", "<leader>ti", vim.lsp.inlay_hint.toggle, "Toggle [I]nlay Hints")
           end
 
           -- Highlight references of the word under your cursor when your cursor rests there for a little while.

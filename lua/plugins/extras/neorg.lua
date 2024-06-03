@@ -13,6 +13,13 @@ return {
       load = {
         ["core.defaults"] = {},
         ["core.completion"] = { config = { engine = "nvim-cmp" } },
+        ["core.esupports.metagen"] = {
+          config = {
+            author = "hungps",
+            type = "auto",
+            update_date = true,
+          },
+        },
         ["core.concealer"] = {},
         ["core.export"] = {},
         ["core.dirman"] = {
@@ -25,6 +32,12 @@ return {
         },
       },
     },
+    config = function(_, opts)
+      require("neorg").setup(opts)
+
+      vim.wo.foldlevel = 99
+      vim.wo.conceallevel = 2
+    end,
   },
   {
     "nvim-treesitter/nvim-treesitter",
