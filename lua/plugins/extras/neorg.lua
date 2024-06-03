@@ -2,7 +2,6 @@ return {
   {
     "nvim-neorg/neorg",
     version = "*",
-    build = ":Neorg sync-parsers",
     cmd = { "Neorg" },
     ft = "norg",
     dependencies = {
