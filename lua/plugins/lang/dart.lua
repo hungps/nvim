@@ -56,13 +56,20 @@ return {
   },
 
   -- add dart to treesitter
-  -- {
-  --   "nvim-treesitter/nvim-treesitter",
-  --   optional = true,
-  --   opts = function(_, opts)
-  --     vim.list_extend(opts.ensure_installed, { "dart" })
-  --   end,
-  -- },
+  {
+    "nvim-treesitter/nvim-treesitter",
+    optional = true,
+    opts = function(_, opts)
+      opts.ensure_installed = opts.ensure_installed or {}
+      vim.list_extend(opts.ensure_installed, { "dart" })
+
+      -- Disable treesitter indentation for dart
+      -- https://github.com/UserNobody14/tree-sitter-dart/issues/60#issuecomment-1867049690
+      opts.indent = opts.indent or {}
+      opts.indent.disabled = opts.indent.disabled or {}
+      vim.list_extend(opts.indent.disabled, { "dart" })
+    end,
+  },
 
   -- hide generated files in neo-tree
   {
