@@ -56,13 +56,13 @@ return {
   },
 
   -- add dart to treesitter
-  {
-    "nvim-treesitter/nvim-treesitter",
-    optional = true,
-    opts = function(_, opts)
-      vim.list_extend(opts.ensure_installed, { "dart" })
-    end,
-  },
+  -- {
+  --   "nvim-treesitter/nvim-treesitter",
+  --   optional = true,
+  --   opts = function(_, opts)
+  --     vim.list_extend(opts.ensure_installed, { "dart" })
+  --   end,
+  -- },
 
   -- hide generated files in neo-tree
   {
