@@ -13,73 +13,56 @@ return {
       },
       on_attach = function(buffer)
         local gs = require "gitsigns"
-        local wk = require "which-key"
 
         local function map(mode, l, r, desc)
           vim.keymap.set(mode, l, r, { buffer = buffer, desc = desc })
         end
 
         -- stylua: ignore start
-        -- Navigation
         map("n", "]h", function() gs.nav_hunk("next") end, "Next [H]unk")
         map("n", "[h", function() gs.nav_hunk("prev") end, "Previous [H]unk")
         map("n", "]H", function() gs.nav_hunk("last") end, "Last [H]unk")
         map("n", "[H", function() gs.nav_hunk("first") end, "First [H]unk")
 
-        -- Actions
-        -- wk.register({ ["<leader>gh"] = "[G]it: [H]unk" }, { mode = "v" })
-        -- map("v", "<leader>ghs", function() gs.stage_hunk({ vim.fn.line("."), vim.fn.line("v") }) end, "[S]tage selected hunk")
-        -- map("v", "<leader>ghr", function() gs.reset_hunk({ vim.fn.line("."), vim.fn.line("v") }) end, "[R]eset selected hunk")
-
-        wk.register({ ["<leader>gh"] = "[H]unk" })
-        -- map("n", "<leader>ghs", gs.stage_hunk, "[S]tage hunk")
-        -- map("n", "<leader>ghr", gs.reset_hunk, "[R]eset hunk")
-        -- map("n", "<leader>ghu", gs.undo_stage_hunk, "[U]ndo hunk")
-        map("n", "<leader>ghp", gs.preview_hunk, "[P]review hunk")
-
-        -- wk.register({ ["<leader>ghb"] = "[G]it [H]unk [B]uffer" })
-        -- map("n", "<leader>ghbs", gs.stage_buffer, "[S]tage buffer hunk")
-        -- map("n", "<leader>ghbr", gs.reset_buffer, "[R]eset buffer hunk")
-
+        map("n", "<leader>gp", gs.preview_hunk, "[P]review hunk")
         map("n", "<leader>gb", gs.blame_line, "[B]lame line")
-        map("n", "<leader>ghd", gs.diffthis, "[D]iff against index")
-        map("n", "<leader>ghD", function() gs.diffthis("@") end, "[D]iff against last commit")
-
-        -- Toggles
-        -- wk.register({ ["<leader>gt"] = "[G]it [T]oggle" })
-        -- map("n", "<leader>gtb", gs.toggle_current_line_blame, "[T]oggle [B]lame line")
-        -- map("n", "<leader>gtd", gs.toggle_deleted, "[T]oggle [D]eleted")
       end,
     },
   },
   {
-    "akinsho/toggleterm.nvim",
+    "sindrets/diffview.nvim",
     keys = {
-      {
-        "<leader>gg",
-        function()
-          local Terminal = require("toggleterm.terminal").Terminal
-          local lazygit = Terminal:new {
-            cmd = "lazygit",
-            hidden = true,
-            direction = "float",
-            float_opts = {
-              border = "none",
-              width = 100000,
-              height = 100000,
-              zindex = 200,
-            },
-            on_open = function(_)
-              vim.cmd "startinsert!"
-            end,
-            on_close = function(_) end,
-            count = 99,
-          }
-
-          lazygit:toggle()
-        end,
-        desc = "[G]it Explorer",
-      },
+      { "<leader>gs", "<Cmd>DiffviewOpen<CR>", desc = "Current [S]tatus" },
+      { "<leader>gh", desc = "[G]it [H]istory" },
+      { "<leader>gha", "<Cmd>DiffviewFileHistory<CR>", desc = "[A]ll History" },
+      { "<leader>ghf", "<Cmd>DiffviewFileHistory --follow %<CR>", desc = "[F]ile history" },
+      { "<leader>ghl", "<Cmd>.DiffviewFileHistory --follow<CR>", desc = "[L]ine history" },
+      { "<leader>ghr", "<Esc><Cmd>'<,'>DiffviewFileHistory --follow<CR>", mode = { "v" }, desc = "[R]ange history" },
     },
+    opts = {},
+  },
+  {
+    "kdheepak/lazygit.nvim",
+    cmd = {
+      "LazyGit",
+      "LazyGitConfig",
+      "LazyGitCurrentFile",
+      "LazyGitFilter",
+      "LazyGitFilterCurrentFile",
+    },
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+    },
+    keys = {
+      { "<leader>gg", "<cmd>LazyGit<cr>", desc = "Lazy[G]it" },
+    },
+  },
+  -- -- add lazygit extension to telescope
+  {
+    "nvim-telescope/telescope.nvim",
+    optional = true,
+    opts = function()
+      require("telescope").load_extension "lazygit"
+    end,
   },
 }
