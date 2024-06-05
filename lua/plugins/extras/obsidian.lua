@@ -4,8 +4,8 @@ return {
     version = "*",
     cmd = { "ObsidianNew", "ObsidianTemplate", "ObsidianSearch", "ObsidianWorkspace" },
     event = {
-      "BufReadPre '" .. vim.fn.expand "~" .. "/Library/Mobile Documents/iCloud~md~obsidian/Documents/**.md'",
-      "BufNewFile '" .. vim.fn.expand "~" .. "/Library/Mobile Documents/iCloud~md~obsidian/Documents/**.md'",
+      "BufReadPre " .. vim.fn.expand "~" .. "/Library/Mobile Documents/iCloud~md~obsidian/Documents/**.md",
+      "BufNewFile " .. vim.fn.expand "~" .. "/Library/Mobile Documents/iCloud~md~obsidian/Documents/**.md",
     },
     dependencies = {
       "nvim-lua/plenary.nvim",

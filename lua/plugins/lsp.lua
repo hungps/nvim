@@ -73,7 +73,7 @@ return {
     config = function(_, opts)
       -- Inject lsp keymap, highlight.. when attaching Lsp
       vim.api.nvim_create_autocmd("LspAttach", {
-        desc = "Mapping lsp action when attached",
+        desc = "Mapping lsp actions when attached",
         group = vim.api.nvim_create_augroup("UserLspConfig", {}),
         callback = function(event)
           local client = vim.lsp.get_client_by_id(event.data.client_id)
@@ -82,7 +82,7 @@ return {
             return
           end
 
-          -- Mapping lsp action when attached
+          -- Mapping lsp actions when attached
           local map = function(modes, keys, func, desc)
             vim.keymap.set(modes, keys, func, { buffer = event.buf, desc = desc })
           end
