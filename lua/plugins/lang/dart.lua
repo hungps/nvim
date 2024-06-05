@@ -20,6 +20,7 @@ return {
       debugger = {
         enabled = true,
         run_via_dap = true,
+        exception_breakpoints = {},
         register_configurations = function()
           require("dap").configurations.dart = {}
           require("dap.ext.vscode").load_launchjs()
@@ -86,6 +87,24 @@ return {
         "**/*.gen.dart",
         "**/*.freezed.dart",
         "**/*.config.dart",
+      })
+    end,
+  },
+
+  -- hide generated files in oil
+  {
+    "stevearc/oil.nvim",
+    optional = true,
+    opts = function(_, opts)
+      opts.view_options = opts.view_options or {}
+      opts.view_options.hidden_file_suffix = opts.view_options.hidden_file_suffix or {}
+
+      vim.list_extend(opts.view_options.hidden_file_suffix, {
+        ".g.dart",
+        ".gr.dart",
+        ".gen.dart",
+        ".freezed.dart",
+        ".config.dart",
       })
     end,
   },
