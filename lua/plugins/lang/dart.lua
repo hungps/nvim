@@ -43,6 +43,13 @@ return {
         color = {
           enabled = true,
         },
+        settings = {
+          analysisExcludedFolders = {
+            ".fvm/",
+            "~/fvm/",
+            "~/.pub-cache/",
+          },
+        },
       },
     },
   },
@@ -105,6 +112,9 @@ return {
         ".gen.dart",
         ".freezed.dart",
         ".config.dart",
+        ".flutter-plugins",
+        ".flutter-plugins-dependencies",
+        ".dart_tool",
       })
     end,
   },
