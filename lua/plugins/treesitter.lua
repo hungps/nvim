@@ -14,7 +14,9 @@ return {
       indent = { enable = true },
       textobjects = {
         select = {
-          enable = true,
+          -- Temporaty disable because of performance reason
+          -- https://github.com/nvim-treesitter/nvim-treesitter-textobjects/issues/627
+          enable = false,
           keymaps = {
             ["af"] = { query = "@function.outer", desc = "Select around function" },
             ["if"] = { query = "@function.inner", desc = "Select inner function" },
