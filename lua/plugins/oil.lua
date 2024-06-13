@@ -14,6 +14,7 @@ return {
       view_options = {
         show_hidden = false,
         hidden_file_suffix = {
+          "..",
           ".DS_Store",
           ".git",
           ".idea",
