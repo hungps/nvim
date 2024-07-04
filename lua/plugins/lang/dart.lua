@@ -36,8 +36,8 @@ return {
         open_cmd = "10split",
       },
       dev_tools = {
-        autostart = true,
-        auto_open_browser = true,
+        autostart = false,
+        auto_open_browser = false,
       },
       lsp = {
         color = {
