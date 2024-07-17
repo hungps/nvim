@@ -33,4 +33,39 @@ return {
       vim.list_extend(opts.ensure_installed, { "markdown", "markdown_inline" })
     end,
   },
+  {
+    "lukas-reineke/headlines.nvim",
+    ft = { "markdown" },
+    opts = function()
+      local opts = {
+        markdown = {
+          headline_highlights = {},
+        },
+      }
+      for i = 1, 6 do
+        local hl = "Headline" .. i
+        vim.api.nvim_set_hl(0, hl, { link = "Headline", default = true })
+        table.insert(opts.markdown.headline_highlights, hl)
+      end
+      return opts
+    end,
+    config = function(_, opts)
+      vim.schedule(function()
+        local hl = require "headlines"
+        hl.setup(opts)
+        local md = hl.config.markdown
+        hl.refresh()
+
+        -- Toggle markdown headlines on insert enter/leave
+        vim.api.nvim_create_autocmd({ "InsertEnter", "InsertLeave" }, {
+          callback = function(data)
+            if vim.bo.filetype == "markdown" then
+              hl.config.markdown = data.event == "InsertLeave" and md or nil
+              hl.refresh()
+            end
+          end,
+        })
+      end)
+    end,
+  },
 }

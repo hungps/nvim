@@ -15,6 +15,7 @@ opt.ruler = false
 opt.cursorline = true
 opt.signcolumn = "yes"
 opt.list = true
+opt.listchars = { tab = "» ", trail = "·", nbsp = "␣" }
 opt.mouse = "a"
 
 opt.wildmode = "longest:full,full"
