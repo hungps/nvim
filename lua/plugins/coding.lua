@@ -3,9 +3,14 @@ return {
   {
     "stevearc/conform.nvim",
     event = "BufWritePre",
-    -- stylua: ignore
     keys = {
-      { "<leader>cf", function() require("conform").format { lsp_fallback = true } end, desc = "[F]ormat" },
+      {
+        "<leader>cf",
+        function()
+          require("conform").format({ lsp_fallback = true })
+        end,
+        desc = "[F]ormat",
+      },
     },
     opts = {
       formatters_by_ft = {
@@ -22,10 +27,11 @@ return {
     "mfussenegger/nvim-lint",
     event = { "BufReadPre", "BufNewFile" },
     opts = {
-      events = { "BufWritePost", "BufReadPost", "InsertLeave" },
       linters_by_ft = {},
     },
-    config = function()
+    config = function(_, opts)
+      require("lint").linters_by_ft = opts.linters_by_ft
+
       vim.api.nvim_create_autocmd({ "BufWritePost" }, {
         group = vim.api.nvim_create_augroup("nvim-lint", { clear = true }),
         callback = function()
@@ -34,72 +40,49 @@ return {
       })
     end,
   },
-  -- toggle comments
-  {
-    "numToStr/Comment.nvim",
-    lazy = false,
-    opts = {},
-  },
-  -- search and repalce multiple files
-  {
-    "nvim-pack/nvim-spectre",
-    dependencies = {
-      { "nvim-lua/plenary.nvim" },
-    },
-    cmd = "Spectre",
-    opts = {
-      open_cmd = "noswapfile vnew",
-    },
-    keys = {
-      -- stylua: ignore start
-      { "<leader>sr", "<cmd>Spectre open<CR>", desc = "Search and [R]eplace" },
-    },
-  },
-  -- multi cursors
-  {
-    "mg979/vim-visual-multi",
-    init = function()
-      vim.g.VM_default_mappings = 0
-    end,
-  },
-  -- auto closing quotes, brackets, etc
-  {
-    "windwp/nvim-autopairs",
-    event = "InsertEnter",
-    opts = {
-      mappings = {
-        add = "gsa",
-        delete = "gsd",
-        find = "gsf",
-        find_left = "gsF",
-        highlight = "gsh",
-        replace = "gsr",
-        update_n_lines = "gsn",
-      },
-    },
-  },
-  -- Add quote/parenthesis/brackets around selected text
-  {
-    "echasnovski/mini.surround",
-    event = "InsertEnter",
-    version = "*",
-    opts = {
-      mappings = {
-        add = "gsa",
-        delete = "gsd",
-        find = "gsf",
-        find_left = "gsF",
-        highlight = "gsh",
-        replace = "gsr",
-        update_n_lines = "gsn",
-      },
-    },
-  },
-  -- Better around/inside
   {
     "echasnovski/mini.ai",
-    event = "InsertEnter",
-    version = "*",
+    event = { "BufReadPre", "BufNewFile" },
+    dependencies = {
+      "echasnovski/mini.extra",
+    },
+    opts = function()
+      local gen_ai_spec = require("mini.extra").gen_ai_spec
+
+      return {
+        custom_textobjects = {
+          B = gen_ai_spec.buffer(),
+          D = gen_ai_spec.diagnostic(),
+          I = gen_ai_spec.indent(),
+          L = gen_ai_spec.line(),
+          N = gen_ai_spec.number(),
+        },
+      }
+    end,
+  },
+  {
+    "echasnovski/mini.pairs",
+    event = { "BufReadPre", "BufNewFile" },
+    opts = {},
+  },
+  {
+    "echasnovski/mini.surround",
+    event = { "BufReadPre", "BufNewFile" },
+    opts = {},
+  },
+  {
+    "echasnovski/mini.comment",
+    event = { "BufReadPre", "BufNewFile" },
+    opts = {},
+  },
+  {
+    "echasnovski/mini.move",
+    event = { "BufReadPre", "BufNewFile" },
+    opts = {},
+  },
+  {
+    "echasnovski/mini.splitjoin",
+    event = { "BufReadPre", "BufNewFile" },
     opts = {},
   },
 }

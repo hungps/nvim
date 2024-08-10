@@ -22,8 +22,8 @@ return {
             },
             config = function(_, opts)
               require("luasnip").config.set_config(opts)
-              require("luasnip.loaders.from_vscode").lazy_load { paths = vim.g.customsnippetspath }
-              require("luasnip.loaders.from_snipmate").lazy_load { paths = vim.g.customsnippetspath }
+              require("luasnip.loaders.from_vscode").lazy_load({ paths = vim.g.customsnippetspath })
+              require("luasnip.loaders.from_snipmate").lazy_load({ paths = vim.g.customsnippetspath })
 
               vim.api.nvim_create_autocmd("InsertLeave", {
                 callback = function()
@@ -41,9 +41,9 @@ return {
       },
     },
     opts = function()
-      local cmp = require "cmp"
-      local defaults = require "cmp.config.default"()
-      local luasnip = require "luasnip"
+      local cmp = require("cmp")
+      local defaults = require("cmp.config.default")()
+      local luasnip = require("luasnip")
 
       return {
         sources = cmp.config.sources({
@@ -60,7 +60,10 @@ return {
           end,
         },
         sorting = defaults.sorting,
-        mapping = cmp.mapping.preset.insert {
+        experimental = {
+          ghost_text = true,
+        },
+        mapping = cmp.mapping.preset.insert({
           -- Select the [n]ext item/[p]revious item
           ["<C-n>"] = cmp.mapping.select_next_item(),
           ["<C-p>"] = cmp.mapping.select_prev_item(),
@@ -70,7 +73,7 @@ return {
           ["<C-f>"] = cmp.mapping.scroll_docs(4),
 
           -- Accept completion
-          ["<CR>"] = cmp.mapping.confirm { select = true },
+          ["<CR>"] = cmp.mapping.confirm({ select = true }),
 
           -- Manually trigger a completion from nvim-cmp.
           ["<C-Space>"] = cmp.mapping.complete(),
@@ -91,26 +94,8 @@ return {
               luasnip.jump(-1)
             end
           end, { "i", "s" }),
-        },
-        completion = {
-          completeopt = "menu,menuone",
-        },
-        experimental = {
-          ghost_text = true,
-        },
+        }),
       }
-    end,
-  },
-  {
-    "windwp/nvim-autopairs",
-    optional = true,
-    opts = function(_, opts)
-      opts.fast_wrap = {}
-      opts.disable_filetype = vim.list_extend(opts.disable_filetype or {}, { "TelescopePrompt", "vim" })
-
-      local cmp_autopairs = require "nvim-autopairs.completion.cmp"
-      local cmp = require "cmp"
-      cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done())
     end,
   },
 }

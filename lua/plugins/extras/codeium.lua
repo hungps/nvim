@@ -1,6 +1,7 @@
 return {
   {
     "Exafunction/codeium.nvim",
+    event = { "BufReadPre", "BufNewFile" },
     dependencies = {
       "nvim-lua/plenary.nvim",
     },
@@ -8,6 +9,7 @@ return {
   },
   {
     "hrsh7th/nvim-cmp",
+    event = "InsertEnter",
     optional = true,
     opts = function(_, opts)
       opts.sources = opts.sources or {}

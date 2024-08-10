@@ -10,10 +10,9 @@ return {
   {
     "neovim/nvim-lspconfig",
     optional = true,
-    opts = {
-      servers = {
-        ruby_lsp = {},
-      },
-    },
+    opts = function(_, opts)
+      opts.servers = opts.servers or {}
+      opts.servers.ruby_lsp = {}
+    end,
   },
 }

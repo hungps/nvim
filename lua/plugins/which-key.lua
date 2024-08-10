@@ -2,26 +2,27 @@ return {
   {
     "folke/which-key.nvim",
     event = "VeryLazy",
-    config = function()
+    opts = {
+      preset = "helix",
+      icons = {
+        mappings = false,
+      },
+    },
+    config = function(_, opts)
       local wk = require("which-key")
-      wk.setup()
+      wk.setup(opts)
 
-      wk.register({
-        ["<leader>f"] = "[F]ind",
-        ["<leader>s"] = "[S]earch",
-        ["<leader>c"] = "[C]ode",
-        ["<leader>b"] = "[B]uffer",
-        ["<leader>g"] = "[G]it",
-        ["<leader>d"] = "[D]ebug",
-        ["<leader>t"] = "[T]oggle",
-        ["<leader>tn"] = { "<cmd>set rnu!<CR>", "Toggle relative [N]umber" },
-        ["<leader>x"] = "[X]Diagnostics",
-        ["<leader>q"] = "[Q]uit",
-      }, { mode = "n" })
-
-      wk.register({
-        ["<leader>c"] = "[C]ode",
-      }, { mode = "v" })
+      wk.add({
+        { "<leader>f", desc = "[F]ind" },
+        { "<leader>c", desc = "[C]ode", mode = { "n", "v" } },
+        { "<leader>b", desc = "[B]uffer" },
+        { "<leader>g", desc = "[G]it" },
+        { "<leader>d", desc = "[D]ebug" },
+        { "<leader>t", desc = "[T]oggle" },
+        { "<leader>tn", "<cmd>set rnu!<CR>", desc = "Toggle relative [N]umber" },
+        { "<leader>x", desc = "[X]Diagnostics" },
+        { "<leader>q", desc = "[Q]uit" },
+      })
     end,
   },
 }

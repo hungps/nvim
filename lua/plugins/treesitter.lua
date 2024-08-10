@@ -1,22 +1,23 @@
 return {
   {
     "nvim-treesitter/nvim-treesitter",
+    event = "VeryLazy",
     build = ":TSUpdate",
     dependencies = {
       "nvim-treesitter/nvim-treesitter-textobjects",
     },
     opts = {
-      ensure_installed = { "lua", "luadoc", "vim", "vimdoc" },
+      ensure_installed = { "vim", "vimdoc" },
       auto_install = false,
-      highlight = {
+      highlight = { enable = true },
+      indent = {
         enable = true,
+        disable = {},
       },
-      indent = { enable = true },
       textobjects = {
         select = {
-          -- Temporaty disable because of performance reason
-          -- https://github.com/nvim-treesitter/nvim-treesitter-textobjects/issues/627
-          enable = false,
+          enable = true,
+          disable = {},
           keymaps = {
             ["af"] = { query = "@function.outer", desc = "Select around function" },
             ["if"] = { query = "@function.inner", desc = "Select inner function" },
@@ -33,8 +34,6 @@ return {
         },
       },
     },
-    config = function(_, opts)
-      require("nvim-treesitter.configs").setup(opts)
-    end,
+    config = function(_, opts) require("nvim-treesitter.configs").setup(opts) end,
   },
 }

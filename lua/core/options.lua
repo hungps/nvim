@@ -3,7 +3,7 @@ local opt = vim.opt
 vim.g.mapleader = " "
 vim.o.termguicolors = true
 
-vim.g.customsnippetspath = os.getenv "SNIPPETS_PATH"
+vim.g.customsnippetspath = os.getenv("SNIPPETS_PATH")
 
 opt.laststatus = 3
 opt.showmode = false

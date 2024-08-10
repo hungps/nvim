@@ -1,6 +1,7 @@
 return {
   {
     "mfussenegger/nvim-dap",
+    event = "VeryLazy",
     dependencies = {
       {
         "rcarriga/nvim-dap-ui",
@@ -40,16 +41,6 @@ return {
         "theHamsta/nvim-dap-virtual-text",
         opts = {},
       },
-      {
-        "jay-babu/mason-nvim-dap.nvim",
-        dependencies = "williamboman/mason.nvim",
-        cmd = { "DapInstall", "DapUninstall" },
-        opts = {
-          automatic_installation = false,
-          handlers = {},
-          ensure_installed = {},
-        },
-      },
       -- -- VsCode launch.json parser
       {
         "folke/neoconf.nvim",
@@ -76,7 +67,7 @@ return {
     config = function()
       vim.api.nvim_set_hl(0, "DapStoppedLine", { default = true, link = "Visual" })
 
-      local dap = require "dap"
+      local dap = require("dap")
       local ui_ok, dapui = pcall(require, "dapui")
 
       if not ui_ok then

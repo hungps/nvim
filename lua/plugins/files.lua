@@ -1,12 +1,16 @@
 return {
   {
     "echasnovski/mini.files",
+    event = "VeryLazy",
+    dependencies = {
+      "echasnovski/mini.extra",
+    },
     keys = {
       {
         "<leader>fe",
         function()
           local buffer_name = vim.api.nvim_buf_get_name(0)
-          if buffer_name == "" or string.match(buffer_name, "Starter") then
+          if not vim.startswith(buffer_name, "/") then
             require("mini.files").open(vim.uv.cwd())
           else
             require("mini.files").open(buffer_name)
@@ -14,13 +18,77 @@ return {
         end,
         desc = "File [E]xplorer",
       },
+      {
+        "<leader>fb",
+        function()
+          require("mini.extra").pickers.buf_lines()
+        end,
+        desc = "Find in [B]uffer",
+      },
+      {
+        "<leader>fc",
+        function()
+          require("mini.extra").pickers.commands()
+        end,
+        desc = "Find [C]ommand",
+      },
+      {
+        "<leader>fh",
+        function()
+          require("mini.extra").pickers.hl_groups()
+        end,
+        desc = "Find [H]ighlight group",
+      },
+      {
+        "<leader>fs",
+        function()
+          require("mini.extra").pickers.lsp({ scope = "document_symbol" })
+        end,
+        desc = "Find Document [S]ymbol",
+      },
+      {
+        "<leader>fS",
+        function()
+          require("mini.extra").pickers.lsp({ scope = "workspace_symbol" })
+        end,
+        desc = "Find workspace [S]ymbol",
+      },
+      {
+        "<leader>fm",
+        function()
+          require("mini.extra").pickers.marks({ scope = "buf" })
+        end,
+        desc = "Find buffer [M]ark",
+      },
+      {
+        "<leader>fm",
+        function()
+          require("mini.extra").pickers.marks({ scope = "global" })
+        end,
+        desc = "Find workspace [M]ark",
+      },
+      {
+        "<leader>fo",
+        function()
+          require("mini.extra").pickers.oldfiles()
+        end,
+        desc = "Find [O]ld (recent) files",
+      },
+      {
+        "<leader>ft",
+        function()
+          require("mini.extra").pickers.treesitter()
+        end,
+        desc = "Find [T]reesitter note",
+      },
     },
     opts = {
       content = {
-        hidden_file_suffix = {
+        always_hidden_suffix = {
           ".git",
           ".DS_Store",
         },
+        hidden_file_suffix = {},
       },
       options = {
         permanent_delete = false,
@@ -34,6 +102,12 @@ return {
       vim.g.minifiles_enable_filter = true
 
       opts.content.filter = function(fs_entry)
+        for _, suffix in pairs(opts.content.always_hidden_suffix) do
+          if fs_entry.name == suffix or vim.endswith(fs_entry.name, suffix) then
+            return false
+          end
+        end
+
         if not vim.g.minifiles_enable_filter then
           return true
         end
@@ -49,32 +123,29 @@ return {
 
       require("mini.files").setup(opts)
 
-      -- Toggle show/hide dotfiles
       vim.api.nvim_create_autocmd("User", {
         pattern = "MiniFilesBufferCreate",
         callback = function(args)
+          -- Toggle show/hide dotfiles
           vim.keymap.set("n", "g.", function()
             vim.g.minifiles_enable_filter = not vim.g.minifiles_enable_filter
             require("mini.files").refresh(opts)
-          end, { buffer = args.data.buf_id })
-        end,
-      })
+          end, { buffer = args.data.buf_id, desc = "Toggle dotfiles" })
 
-      -- Set the hovering folder as current directory
-      vim.api.nvim_create_autocmd("User", {
-        pattern = "MiniFilesBufferCreate",
-        callback = function(args)
+          -- Set the hovering folder as current directory
           vim.keymap.set("n", "g~", function()
-            local cur_entry_path = MiniFiles.get_fs_entry().path
+            local cur_entry_path = require("mini.files").get_fs_entry().path
             local cur_directory = vim.fs.dirname(cur_entry_path)
             vim.fn.chdir(cur_directory)
-          end, { buffer = args.data.buf_id })
+          end, { buffer = args.data.buf_id, desc = "Set as root directory" })
         end,
       })
     end,
   },
   {
     "echasnovski/mini.pick",
+    event = "VeryLazy",
+    dependencies = { "echasnovski/mini.extra", opts = {} },
     keys = {
       {
         "<leader>ff",
@@ -98,10 +169,6 @@ return {
         desc = "Find by [G]rep",
       },
     },
-    opts = {
-      options = {
-        use_cache = true,
-      },
-    },
+    opts = {},
   },
 }
