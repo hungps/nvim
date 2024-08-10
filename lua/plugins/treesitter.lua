@@ -5,6 +5,7 @@ return {
     build = ":TSUpdate",
     dependencies = {
       "nvim-treesitter/nvim-treesitter-textobjects",
+      "nvim-treesitter/nvim-treesitter-context",
     },
     opts = {
       ensure_installed = { "vim", "vimdoc" },
@@ -34,6 +35,14 @@ return {
         },
       },
     },
-    config = function(_, opts) require("nvim-treesitter.configs").setup(opts) end,
+    config = function(_, opts)
+      require("nvim-treesitter.configs").setup(opts)
+
+      require("treesitter-context").setup({
+        enable = true,
+        max_lines = 3,
+        line_numbers = true,
+      })
+    end,
   },
 }
