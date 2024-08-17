@@ -11,7 +11,9 @@ return {
     keys = {
       {
         "<leader>gp",
-        function() require("mini.diff").toggle_overlay(0) end,
+        function()
+          require("mini.diff").toggle_overlay(0)
+        end,
         desc = "[P]review hunks",
       },
     },
@@ -33,10 +35,11 @@ return {
     keys = {
       { "<leader>gs", "<Cmd>DiffviewOpen<CR>", desc = "Current [S]tatus" },
       { "<leader>gh", desc = "[G]it [H]istory" },
-      { "<leader>gha", "<Cmd>DiffviewFileHistory<CR>", desc = "[A]ll History" },
+      { "<leader>gha", "<Cmd>DiffviewFileHiiostory<CR>", desc = "[A]ll History" },
       { "<leader>ghf", "<Cmd>DiffviewFileHistory --follow %<CR>", desc = "[F]ile history" },
       { "<leader>ghl", "<Cmd>.DiffviewFileHistory --follow<CR>", desc = "[L]ine history" },
       { "<leader>ghr", "<Esc><Cmd>'<,'>DiffviewFileHistory --follow<CR>", mode = { "v" }, desc = "[R]ange history" },
+      { "<leader>ghq", "<Esc><Cmd>DiffviewClose<CR>", desc = "[C]lose Diffview History" },
     },
     opts = {},
   },
