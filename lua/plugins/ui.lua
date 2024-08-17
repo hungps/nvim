@@ -95,6 +95,11 @@ return {
   },
   {
     "stevearc/dressing.nvim",
-    opts = {},
+    opts = {
+      input = {
+        enabled = false,
+        start_in_insert = false,
+      },
+    },
   },
 }

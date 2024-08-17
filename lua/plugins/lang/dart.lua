@@ -63,21 +63,11 @@ return {
     opts = function(_, opts)
       vim.list_extend(opts.ensure_installed, { "dart" })
 
-      -- -- FIXME: https://github.com/UserNobody14/tree-sitter-dart/issues/60#issuecomment-1867049690
-      -- vim.list_extend(opts.indent.disable, { "dart" })
-      --
-      -- -- FIXME: https://github.com/nvim-treesitter/nvim-treesitter-textobjects/issues/627
-      -- vim.list_extend(opts.textobjects.select.disable, { "dart" })
+      -- FIXME: https://github.com/UserNobody14/tree-sitter-dart/issues/60#issuecomment-1867049690
+      vim.list_extend(opts.indent.disable, { "dart" })
 
-      -- HACK: https://github.com/nvim-treesitter/nvim-treesitter/issues/4945#issuecomment-1692791104
-      local parser = require("nvim-treesitter.parsers").get_parser_configs()
-      parser.dart = {
-        install_info = {
-          url = "https://github.com/UserNobody14/tree-sitter-dart",
-          files = { "src/parser.c", "src/scanner.c" },
-          revision = "8aa8ab977647da2d4dcfb8c4726341bee26fbce4", -- The last commit before the snail speed
-        },
-      }
+      -- FIXME: https://github.com/nvim-treesitter/nvim-treesitter-textobjects/issues/627
+      vim.list_extend(opts.textobjects.select.disable, { "dart" })
     end,
   },
 
