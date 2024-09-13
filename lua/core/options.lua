@@ -19,7 +19,7 @@ opt.listchars = { tab = "» ", trail = "·", nbsp = "␣" }
 opt.mouse = "a"
 
 opt.wildmode = "longest:full,full"
-opt.completeopt = "menu,menuone,noselect"
+opt.completeopt = "menu,menuone"
 opt.conceallevel = 2
 
 opt.clipboard = "unnamedplus"

@@ -100,6 +100,22 @@ return {
               end,
             })
           end
+
+          -- Show diagnostic popup on hover
+          vim.api.nvim_create_autocmd("CursorHold", {
+            buffer = event.buf,
+            group = vim.api.nvim_create_augroup("lsp-float-diagnostic", { clear = false }),
+            callback = function()
+              vim.diagnostic.open_float(nil, {
+                focusable = false,
+                close_events = { "BufLeave", "CursorMoved", "InsertEnter", "FocusLost" },
+                border = "rounded",
+                source = "always",
+                prefix = " ",
+                scope = "cursor",
+              })
+            end,
+          })
         end,
       })
     end,
