@@ -13,7 +13,7 @@ opt.relativenumber = true
 opt.wrap = false
 opt.ruler = false
 opt.cursorline = true
-opt.signcolumn = "yes"
+opt.signcolumn = "auto:1-2"
 opt.list = true
 opt.listchars = { tab = "» ", trail = "·", nbsp = "␣" }
 opt.mouse = "a"

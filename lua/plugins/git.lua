@@ -19,6 +19,7 @@ return {
     },
     opts = {
       view = {
+        priority = 0,
         style = "sign",
         signs = {
           add = "▎",
