@@ -109,10 +109,10 @@ return {
               vim.diagnostic.open_float(nil, {
                 focusable = false,
                 close_events = { "BufLeave", "CursorMoved", "InsertEnter", "FocusLost" },
-                border = "rounded",
-                source = "always",
-                prefix = " ",
-                scope = "cursor",
+                border = "solid",
+                source = true,
+                scope = "line",
+                severity_sort = true,
               })
             end,
           })
