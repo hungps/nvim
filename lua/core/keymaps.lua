@@ -5,12 +5,12 @@ map("n", "<C-l>", "<C-w><C-l>", { desc = "Move focus to the right window" })
 map("n", "<C-j>", "<C-w><C-j>", { desc = "Move focus to the lower window" })
 map("n", "<C-k>", "<C-w><C-k>", { desc = "Move focus to the upper window" })
 
-map("i", "<C-b>", "<ESC>^i", { desc = "Move to the beginning of line" })
-map("i", "<C-e>", "<End>", { desc = "Move to the end of line" })
-map("i", "<C-h>", "<Left>", { desc = "Move left" })
-map("i", "<C-l>", "<Right>", { desc = "Move right" })
-map("i", "<C-j>", "<Down>", { desc = "Move down" })
-map("i", "<C-k>", "<Up>", { desc = "Move up" })
+map({ "i", "c" }, "<C-b>", "<ESC>^i", { desc = "Move to the beginning of line" })
+map({ "i", "c" }, "<C-e>", "<End>", { desc = "Move to the end of line" })
+map({ "i", "c" }, "<C-h>", "<Left>", { desc = "Move left" })
+map({ "i", "c" }, "<C-l>", "<Right>", { desc = "Move right" })
+map({ "i", "c" }, "<C-j>", "<Down>", { desc = "Move down" })
+map({ "i", "c" }, "<C-k>", "<Up>", { desc = "Move up" })
 
 map("n", "<C-d>", "<C-d>zz", { desc = "Scroll down and keep the cursor at the center" })
 map("n", "<C-u>", "<C-u>zz", { desc = "Scroll up and keep the cursor at the center" })
@@ -21,6 +21,9 @@ map("n", "<S-Up>", "<cmd>resize +2<cr>", { desc = "Increase window height" })
 map("n", "<S-Down>", "<cmd>resize -2<cr>", { desc = "Decrease window height" })
 map("n", "<S-Left>", "<cmd>vertical resize -2<cr>", { desc = "Decrease window width" })
 map("n", "<S-Right>", "<cmd>vertical resize +2<cr>", { desc = "Increase window width" })
+
+map("n", "ga;", "mzA;<esc>`z", { desc = "Add ; to the end of the line" })
+map("n", "ga,", "mzA,<esc>`z", { desc = "Add , to the end of the line" })
 
 -- Move Lines
 map("n", "<A-j>", "<cmd>m .+1<cr>==", { desc = "Move Down" })

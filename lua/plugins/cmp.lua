@@ -82,16 +82,20 @@ return {
           ["<C-e>"] = cmp.mapping.close(),
 
           -- Move to the right of each of the expansion locations.
-          ["<C-l>"] = cmp.mapping(function()
+          ["<C-l>"] = cmp.mapping(function(fallback)
             if luasnip.expand_or_locally_jumpable() then
               luasnip.expand_or_jump()
+            else
+              fallback()
             end
           end, { "i", "s" }),
 
           -- Move to the left of each of the expansion locations.
-          ["<C-h>"] = cmp.mapping(function()
+          ["<C-h>"] = cmp.mapping(function(fallback)
             if luasnip.locally_jumpable(-1) then
               luasnip.jump(-1)
+            else
+              fallback()
             end
           end, { "i", "s" }),
         }),
