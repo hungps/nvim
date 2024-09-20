@@ -5,9 +5,7 @@ return {
     dependencies = {
       -- cmp sources
       "hrsh7th/cmp-nvim-lsp",
-      "hrsh7th/cmp-buffer",
       "hrsh7th/cmp-path",
-      "hrsh7th/cmp-nvim-lua",
 
       -- luasnip
       {
@@ -47,12 +45,15 @@ return {
 
       return {
         sources = cmp.config.sources({
-          { name = "nvim_lsp" },
-          { name = "luasnip" },
+          {
+            name = "nvim_lsp",
+            entry_filter = function(entry, _)
+              return require("cmp.types").lsp.CompletionItemKind.Text ~= entry:get_kind()
+            end,
+          },
         }, {
-          { name = "nvim_lua" },
+          { name = "luasnip" },
           { name = "path" },
-          { name = "buffer", max_item_count = 5 },
         }),
         snippet = {
           expand = function(args)

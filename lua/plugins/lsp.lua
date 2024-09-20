@@ -23,7 +23,7 @@ return {
       local servers = opts.servers or {}
 
       local setup = function(server_name)
-        local server = servers[server_name]
+        local server = servers[server_name] or {}
         server.capabilities = vim.tbl_deep_extend("force", capabilities, server.capabilities or {})
         require("lspconfig")[server_name].setup(server)
       end
@@ -94,9 +94,9 @@ return {
 
             vim.api.nvim_create_autocmd("LspDetach", {
               group = vim.api.nvim_create_augroup("lsp-detach", { clear = true }),
-              callback = function(event2)
+              callback = function(detach_event)
                 vim.lsp.buf.clear_references()
-                vim.api.nvim_clear_autocmds({ group = highlight_augroup, buffer = event2.buf })
+                vim.api.nvim_clear_autocmds({ group = highlight_augroup, buffer = detach_event.buf })
               end,
             })
           end
@@ -109,7 +109,6 @@ return {
               vim.diagnostic.open_float(nil, {
                 focusable = false,
                 close_events = { "BufLeave", "CursorMoved", "InsertEnter", "FocusLost" },
-                border = "solid",
                 source = true,
                 scope = "line",
                 severity_sort = true,
