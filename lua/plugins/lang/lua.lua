@@ -1,26 +1,27 @@
 return {
   {
-    "neovim/nvim-lspconfig",
-    optional = true,
+    "folke/lazydev.nvim",
+    dependencies = {
+      { "Bilal2453/luvit-meta", lazy = true },
+    },
+    ft = "lua",
+    opts = {
+      library = {
+        { path = "luvit-meta/library", words = { "vim%.uv" } },
+      },
+      enabled = function(root_dir)
+        return not vim.uv.fs_stat(root_dir .. "/.luarc.json")
+      end,
+    },
+  },
+  {
+    "hrsh7th/nvim-cmp",
     opts = function(_, opts)
-      opts.servers = opts.servers or {}
-      opts.servers.lua_ls = {
-        settings = {
-          Lua = {
-            runtime = {
-              version = "LuaJIT",
-            },
-            workspace = {
-              checkThirdParty = false,
-              library = {
-                vim.env.VIMRUNTIME,
-                "${3rd}/luv/library",
-                -- "${3rd}/busted/library",
-              },
-            },
-          },
-        },
-      }
+      opts.sources = opts.sources or {}
+      table.insert(opts.sources, {
+        name = "lazydev",
+        group_index = 1,
+      })
     end,
   },
   {
