@@ -21,8 +21,12 @@ require("lazy").setup({
     { import = "plugins.extras" },
     { import = "plugins.lang" },
 
+    -- colorschemes
     { import = "colorschemes.onedark" },
     -- { import = "colorschemes.catppuccin" },
+
+    -- styles
+    { import = "styles.bordered" },
   },
   checker = {
     notify = false,
