@@ -99,7 +99,7 @@ return {
       select = {
         builtin = {
           win_options = {
-            winhighlight = "Normal:NormalFloat,CursorLine:PmenuSel",
+            winhighlight = "Normal:NormalFloat,CursorLine:Visual",
           },
         },
       },

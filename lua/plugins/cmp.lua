@@ -100,6 +100,14 @@ return {
             end
           end, { "i", "s" }),
         }),
+        window = {
+          completion = {
+            winhighlight = "Normal:NormalFloat,CursorLine:Visual",
+          },
+          documentation = {
+            winhighlight = "Normal:NormalFloat,CursorLine:Visual",
+          },
+        },
       }
     end,
   },

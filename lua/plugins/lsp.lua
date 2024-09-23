@@ -125,7 +125,7 @@ return {
 
           -- Only show the highest severity diagnostic sign
           -- See `:help diagnostic-handlers-example`
-          local ns = vim.api.nvim_create_namespace("my_namespace")
+          local ns = vim.api.nvim_create_namespace("diagnostic-priority")
           local orig_signs_handler = vim.diagnostic.handlers.signs
           vim.diagnostic.handlers.signs = {
             show = function(_, bufnr, _, show_opts)

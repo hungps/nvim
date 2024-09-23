@@ -74,6 +74,18 @@ return {
           end, { buffer = args.data.buf_id, desc = "Set as root directory" })
         end,
       })
+
+      vim.api.nvim_create_autocmd("User", {
+        pattern = "MiniFilesWindowUpdate",
+        callback = function(args)
+          local config = vim.api.nvim_win_get_config(args.data.win_id)
+
+          table.insert(config.title, { " ", "MiniFilesTitle" })
+          table.insert(config.title, 1, { " ", "MiniFilesTitle" })
+
+          vim.api.nvim_win_set_config(args.data.win_id, config)
+        end,
+      })
     end,
   },
   {
