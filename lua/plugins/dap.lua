@@ -10,7 +10,7 @@ return {
         keys = {
           { "<leader>du", function() require("dapui").toggle() end, desc = "Dap UI" },
           { "<leader>de", function() require("dapui").eval() end, desc = "Eval", mode = {"n", "v"} },
-          { "<leader>dr", function() require("dapui").toggle(2) end, desc = "Toggle REPL" },
+          { "<leader>dr", function() require("dapui").toggle({ }) end, desc = "Toggle REPL" },
         },
         opts = {
           windows = { indent = 2 },
@@ -65,7 +65,9 @@ return {
       { "<leader>dw", function() require("dap.ui.widgets").hover() end, desc = "Widgets" },
     },
     config = function()
-      vim.api.nvim_set_hl(0, "DapStoppedLine", { default = true, link = "Visual" })
+      local sign = vim.fn.sign_define
+      sign("DapBreakpoint", { text = "●", texthl = "ErrorMsg" })
+      sign("DapBreakpointCondition", { text = "◆", texthl = "ErrorMsg" })
 
       local dap = require("dap")
       local ui_ok, dapui = pcall(require, "dapui")
@@ -81,7 +83,7 @@ return {
         dapui.close()
       end
       dap.listeners.after.event_initialized["dapui_config"] = function()
-        dapui.open(2)
+        dapui.open({ layout = 2 })
       end
     end,
   },
