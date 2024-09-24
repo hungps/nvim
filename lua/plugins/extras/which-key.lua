@@ -19,7 +19,7 @@ return {
         { "<leader>g", desc = "[G]it" },
         { "<leader>d", desc = "[D]ebug" },
         { "<leader>t", desc = "[T]oggle" },
-        { "<leader>tn", "<cmd>set rnu!<CR>", desc = "Toggle relative [N]umber" },
+        { "<leader>tn", "<cmd>set rnu!<CR>", desc = "Relative [N]umber" },
         { "<leader>x", desc = "[X]Diagnostics" },
         { "<leader>q", desc = "[Q]uit" },
       })

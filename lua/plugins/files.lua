@@ -7,10 +7,10 @@ return {
         "<leader>fe",
         function()
           local buffer = vim.api.nvim_buf_get_name(0)
-          if vim.fn.expand("%:p") == "" then
-            require("mini.files").open(vim.uv.cwd())
-          else
+          if vim.startswith(buffer, "/") then
             require("mini.files").open(buffer)
+          else
+            require("mini.files").open(vim.uv.cwd())
           end
         end,
         desc = "File [E]xplorer",
