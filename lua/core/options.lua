@@ -47,5 +47,6 @@ opt.updatetime = 250
 opt.inccommand = "split"
 
 opt.scrolloff = 10
+opt.winblend = 10
 opt.pumblend = 10
 opt.pumheight = 10
