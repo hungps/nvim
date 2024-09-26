@@ -74,7 +74,7 @@ return {
       vim.list_extend(opts.ensure_installed, { "dart" })
 
       -- FIXME: https://github.com/UserNobody14/tree-sitter-dart/issues/60#issuecomment-1867049690
-      -- vim.list_extend(opts.indent.disable, { "dart" })
+      vim.list_extend(opts.indent.disable, { "dart" })
 
       -- FIXME: https://github.com/nvim-treesitter/nvim-treesitter-textobjects/issues/627
       vim.list_extend(opts.textobjects.select.disable, { "dart" })
@@ -132,33 +132,44 @@ return {
     "akinsho/toggleterm.nvim",
     optional = true,
     ft = { "dart", "yaml" },
-    keys = function()
-      local exec = function(cmd, id, name)
-        require("toggleterm").exec(cmd, id, 7, vim.uv.cwd(), "horizontal", name, true)
-      end
-      return {
-        {
-          "<leader>Fbb",
-          function()
-            exec("fvm flutter pub run build_runner build --delete-conflicting-outputs", 9, "build_runner")
-          end,
-          desc = "[B]uild",
-        },
-        {
-          "<leader>Fbw",
-          function()
-            exec("fvm flutter pub run build_runner watch --delete-conflicting-outputs", 9, "build_runner")
-          end,
-          desc = "[W]atch",
-        },
-        {
-          "<leader>Fbg",
-          function()
-            exec("fluttergen", 10, "fluttergen")
-          end,
-          desc = "Flutter[G]en",
-        },
-      }
-    end,
+    keys = {
+      {
+        "<leader>Fbb",
+        function()
+          require("toggleterm").exec(
+            "fvm flutter pub run build_runner build --delete-conflicting-outputs",
+            9,
+            7,
+            vim.uv.cwd(),
+            "horizontal",
+            "build_runner",
+            true
+          )
+        end,
+        desc = "[B]uild",
+      },
+      {
+        "<leader>Fbw",
+        function()
+          require("toggleterm").exec(
+            "fvm flutter pub run build_runner watch --delete-conflicting-outputs",
+            9,
+            7,
+            vim.uv.cwd(),
+            "horizontal",
+            "build_runner",
+            true
+          )
+        end,
+        desc = "[W]atch",
+      },
+      {
+        "<leader>Fbg",
+        function()
+          require("toggleterm").exec("fluttergen", 10, 7, vim.uv.cwd(), "horizontal", "fluttergen", true)
+        end,
+        desc = "Flutter[G]en",
+      },
+    },
   },
 }

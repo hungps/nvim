@@ -10,7 +10,7 @@ return {
         keys = {
           { "<leader>du", function() require("dapui").toggle() end, desc = "Dap UI" },
           { "<leader>de", function() require("dapui").eval() end, desc = "Eval", mode = {"n", "v"} },
-          { "<leader>dr", function() require("dapui").toggle({ }) end, desc = "Toggle REPL" },
+          { "<leader>dr", function() require("dapui").toggle({ layout = 2 }) end, desc = "Toggle REPL" },
         },
         opts = {
           windows = { indent = 2 },

@@ -7,22 +7,17 @@ return {
       icons = {
         mappings = false,
       },
+      spec = {
+        { "<leader>f", group = "[F]ind" },
+        { "<leader>c", group = "[C]ode", mode = { "n", "v" } },
+        { "<leader>b", group = "[B]uffer" },
+        { "<leader>g", group = "[G]it" },
+        { "<leader>d", group = "[D]ebug" },
+        { "<leader>t", group = "[T]oggle" },
+        { "<leader>tn", "<cmd>set rnu!<CR>", group = "Relative [N]umber" },
+        { "<leader>x", group = "[X]Diagnostics" },
+        { "<leader>q", group = "[Q]uit" },
+      },
     },
-    config = function(_, opts)
-      local wk = require("which-key")
-      wk.setup(opts)
-
-      wk.add({
-        { "<leader>f", desc = "[F]ind" },
-        { "<leader>c", desc = "[C]ode", mode = { "n", "v" } },
-        { "<leader>b", desc = "[B]uffer" },
-        { "<leader>g", desc = "[G]it" },
-        { "<leader>d", desc = "[D]ebug" },
-        { "<leader>t", desc = "[T]oggle" },
-        { "<leader>tn", "<cmd>set rnu!<CR>", desc = "Relative [N]umber" },
-        { "<leader>x", desc = "[X]Diagnostics" },
-        { "<leader>q", desc = "[Q]uit" },
-      })
-    end,
   },
 }

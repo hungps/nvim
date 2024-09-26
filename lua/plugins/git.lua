@@ -1,5 +1,14 @@
 return {
   {
+    "folke/which-key.nvim",
+    optional = true,
+    opts = function()
+      require("which-key").add({
+        { "<leader>gh", desc = "[H]istory" },
+      })
+    end,
+  },
+  {
     "echasnovski/mini-git",
     event = "VeryLazy",
     main = "mini.git",
@@ -34,15 +43,28 @@ return {
     event = "VeryLazy",
     cmd = { "DiffviewOpen", "DiffviewFileHistory" },
     keys = {
-      { "<leader>gs", "<Cmd>DiffviewOpen<CR>", desc = "Current [S]tatus" },
-      { "<leader>gh", desc = "[G]it [H]istory" },
-      { "<leader>gha", "<Cmd>DiffviewFileHiiostory<CR>", desc = "[A]ll History" },
+      { "<leader>gs", "<Cmd>DiffviewOpen<CR>", desc = "[S]tatus" },
+      { "<leader>gha", "<Cmd>DiffviewFileHistory<CR>", desc = "[A]ll History" },
       { "<leader>ghf", "<Cmd>DiffviewFileHistory --follow %<CR>", desc = "[F]ile history" },
       { "<leader>ghl", "<Cmd>.DiffviewFileHistory --follow<CR>", desc = "[L]ine history" },
-      { "<leader>ghr", "<Esc><Cmd>'<,'>DiffviewFileHistory --follow<CR>", mode = { "v" }, desc = "[R]ange history" },
-      { "<leader>ghq", "<Esc><Cmd>DiffviewClose<CR>", desc = "[C]lose Diffview History" },
+      { "<leader>ghr", "<Cmd>'<,'>DiffviewFileHistory --follow<CR>", mode = { "v" }, desc = "[R]ange history" },
     },
-    opts = {},
+    opts = {
+      keymaps = {
+        view = {
+          { "n", "<esc>", "<Cmd>DiffviewClose<CR>", { desc = "Close DiffView" } },
+          { "n", "q", "<Cmd>DiffviewClose<CR>", { desc = "Close DiffView" } },
+        },
+        file_panel = {
+          { "n", "<esc>", "<Cmd>DiffviewClose<CR>", { desc = "Close DiffView" } },
+          { "n", "q", "<Cmd>DiffviewClose<CR>", { desc = "Close DiffView" } },
+        },
+        file_history_panel = {
+          { "n", "<esc>", "<Cmd>DiffviewClose<CR>", { desc = "Close DiffView" } },
+          { "n", "q", "<Cmd>DiffviewClose<CR>", { desc = "Close DiffView" } },
+        },
+      },
+    },
   },
   {
     "kdheepak/lazygit.nvim",
