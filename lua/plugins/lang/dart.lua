@@ -1,5 +1,16 @@
 return {
   {
+    "folke/which-key.nvim",
+    optional = true,
+    ft = { "dart", "yaml" },
+    opts = function()
+      require("which-key").add({
+        { "<leader>F", desc = "[F]lutter" },
+        { "<leader>Fb", desc = "[b]uild_runner" },
+      })
+    end,
+  },
+  {
     "akinsho/flutter-tools.nvim",
     lazy = false,
     cmd = { "FlutterDevices" },
@@ -7,7 +18,6 @@ return {
       "nvim-lua/plenary.nvim",
     },
     keys = {
-      { "<leader>F", desc = "[F]lutter" },
       { "<leader>Fd", "<Cmd>FlutterDevices<CR>", desc = "Select [D]evices" },
       { "<leader>Fr", "<Cmd>FlutterRestart<CR>", desc = "Hot [R]estart" },
       { "<leader>Fo", "<Cmd>FlutterOutlineToggle<CR>", desc = "Toggle [O]utline" },
@@ -114,6 +124,41 @@ return {
     optional = true,
     opts = function()
       require("luasnip").filetype_extend("dart", { "flutter" })
+    end,
+  },
+
+  -- tasks
+  {
+    "akinsho/toggleterm.nvim",
+    optional = true,
+    ft = { "dart", "yaml" },
+    keys = function()
+      local exec = function(cmd, id, name)
+        require("toggleterm").exec(cmd, id, 7, vim.uv.cwd(), "horizontal", name, true)
+      end
+      return {
+        {
+          "<leader>Fbb",
+          function()
+            exec("fvm flutter pub run build_runner build --delete-conflicting-outputs", 9, "build_runner")
+          end,
+          desc = "[B]uild",
+        },
+        {
+          "<leader>Fbw",
+          function()
+            exec("fvm flutter pub run build_runner watch --delete-conflicting-outputs", 9, "build_runner")
+          end,
+          desc = "[W]atch",
+        },
+        {
+          "<leader>Fbg",
+          function()
+            exec("fluttergen", 10, "fluttergen")
+          end,
+          desc = "Flutter[G]en",
+        },
+      }
     end,
   },
 }
