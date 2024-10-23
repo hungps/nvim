@@ -17,7 +17,9 @@ return {
     end,
   },
   {
-    "hrsh7th/nvim-cmp",
+    -- TODO: Replacing "xzbdmw/nvim-cmp" with "hrsh7th/nvim-cmp"
+    -- https://github.com/hrsh7th/nvim-cmp/pull/1955
+    "xzbdmw/nvim-cmp",
     optional = true,
     opts = function(_, opts)
       opts.window = vim.tbl_deep_extend("force", opts.window or {}, {
