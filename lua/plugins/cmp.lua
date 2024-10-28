@@ -79,7 +79,6 @@ return {
                 return true
               end
             end,
-
             cmp.config.compare.kind,
             cmp.config.compare.sort_text,
             cmp.config.compare.length,

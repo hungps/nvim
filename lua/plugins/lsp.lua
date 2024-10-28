@@ -70,15 +70,15 @@ return {
           map({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, "Code [A]ction")
 
           -- Enable inlay hints if the language server supports
-          if client.server_capabilities.inlayHintProvider and vim.lsp.inlay_hint then
+          if client.supports_method(vim.lsp.protocol.Methods.textDocument_inlayHint) then
             local toggle_inlay_hint = function()
-              vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({ bufnr = nil }))
+              vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({ bufnr = event.buf }))
             end
-            map("n", "<leader>ti", toggle_inlay_hint, "[I]nlay Hints")
+            map("n", "<leader>ti", toggle_inlay_hint, "[I]nlay [H]ints")
           end
 
           -- Highlight references of the word under your cursor when your cursor rests there for a little while.
-          if client.server_capabilities.documentHighlightProvider then
+          if client.supports_method(vim.lsp.protocol.Methods.textDocument_documentHighlight) then
             local highlight_augroup = vim.api.nvim_create_augroup("lsp-highlight", { clear = false })
             vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
               buffer = event.buf,

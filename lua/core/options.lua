@@ -41,9 +41,6 @@ opt.swapfile = false
 opt.undofile = true
 opt.undolevels = 10000
 
-opt.timeoutlen = 400
-opt.updatetime = 250
-
 opt.inccommand = "split"
 
 opt.scrolloff = 10
