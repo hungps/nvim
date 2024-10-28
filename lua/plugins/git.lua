@@ -4,38 +4,57 @@ return {
     optional = true,
     opts = function()
       require("which-key").add({
-        { "<leader>gh", desc = "[H]istory" },
+        { "<leader>gd", desc = "[D]iff" },
+        { "<leader>gh", desc = "[H]unk" },
+        { "<leader>gt", desc = "[T]oggle" },
       })
     end,
   },
   {
-    "echasnovski/mini-git",
-    event = "VeryLazy",
-    main = "mini.git",
-    opts = {},
-  },
-  {
-    "echasnovski/mini.diff",
+    "lewis6991/gitsigns.nvim",
     event = { "BufReadPre", "BufNewFile" },
-    keys = {
-      {
-        "<leader>gp",
-        function()
-          require("mini.diff").toggle_overlay(0)
-        end,
-        desc = "[P]review hunks",
-      },
-    },
     opts = {
-      view = {
-        priority = 0,
-        style = "sign",
-        signs = {
-          add = "▎",
-          change = "▎",
-          delete = "",
-        },
+      signs = {
+        add = { text = "▎" },
+        change = { text = "▎" },
+        delete = { text = "" },
+        topdelete = { text = "" },
+        changedelete = { text = "▎" },
+        untracked = { text = "▎" },
       },
+      signs_staged = {
+        add = { text = "▎" },
+        change = { text = "▎" },
+        delete = { text = "" },
+        topdelete = { text = "" },
+        changedelete = { text = "▎" },
+        untracked = { text = "▎" },
+      },
+      on_attach = function(buffer)
+        local gs = require("gitsigns")
+
+        local function map(mode, l, r, desc)
+          vim.keymap.set(mode, l, r, { buffer = buffer, desc = desc })
+        end
+
+        -- stylua: ignore start
+        map("n", "]h", function() gs.nav_hunk("next") end, "Next [H]unk")
+        map("n", "[h", function() gs.nav_hunk("prev") end, "Previous [H]unk")
+        map("n", "]H", function() gs.nav_hunk("last") end, "Last [H]unk")
+        map("n", "[H", function() gs.nav_hunk("first") end, "First [H]unk")
+
+        map("n", "<leader>gp", gs.preview_hunk, "[P]review hunk")
+        map("n", "<leader>gb", gs.blame_line, "[B]lame line")
+
+        map('n', '<leader>ghs', gs.stage_hunk, "[S]tage hunk")
+        map('n', '<leader>ghS', gs.stage_buffer, "[S]tage buffer")
+        map('n', '<leader>ghr', gs.reset_hunk, "[R]eset hunk")
+        map('n', '<leader>ghR', gs.reset_buffer, "[R]eset buffer")
+        map('n', '<leader>ghu', gs.undo_stage_hunk, "[U]ndo stage hunk")
+        map('n', '<leader>gtd', gs.toggle_deleted, "Toggle [D]eleted")
+        map('n', '<leader>gtb', gs.toggle_current_line_blame, "Toggle [B]lame")
+        map({'o', 'x'}, 'ih', ':<C-U>Gitsigns select_hunk<CR>')
+      end,
     },
   },
   {
@@ -44,10 +63,9 @@ return {
     cmd = { "DiffviewOpen", "DiffviewFileHistory" },
     keys = {
       { "<leader>gs", "<Cmd>DiffviewOpen<CR>", desc = "[S]tatus" },
-      { "<leader>gha", "<Cmd>DiffviewFileHistory<CR>", desc = "[A]ll History" },
-      { "<leader>ghf", "<Cmd>DiffviewFileHistory --follow %<CR>", desc = "[F]ile history" },
-      { "<leader>ghl", "<Cmd>.DiffviewFileHistory --follow<CR>", desc = "[L]ine history" },
-      { "<leader>ghr", "<Cmd>'<,'>DiffviewFileHistory --follow<CR>", mode = { "v" }, desc = "[R]ange history" },
+      { "<leader>gda", "<Cmd>DiffviewFileHistory<CR>", desc = "[A]ll History" },
+      { "<leader>gdf", "<Cmd>DiffviewFileHistory --follow %<CR>", desc = "[F]ile history" },
+      { "<leader>gdl", "<Cmd>.DiffviewFileHistory --follow<CR>", desc = "[L]ine history" },
     },
     opts = {
       keymaps = {
