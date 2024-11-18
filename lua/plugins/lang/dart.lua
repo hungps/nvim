@@ -13,7 +13,7 @@ return {
   {
     "akinsho/flutter-tools.nvim",
     lazy = false,
-    cmd = { "FlutterDevices" },
+    cmd = { "FlutterDevices", "FlutterEmulators" },
     dependencies = {
       "nvim-lua/plenary.nvim",
     },
@@ -55,12 +55,12 @@ return {
           analysisExcludedFolders = {
             "~/fvm/",
             "~/.pub-cache/",
-            vim.uv.cwd() .. ".fvm/",
-            vim.uv.cwd() .. ".dart_tool",
-            vim.uv.cwd() .. "build",
-            vim.uv.cwd() .. "android",
-            vim.uv.cwd() .. "ios",
-            vim.uv.cwd() .. "assets",
+            vim.uv.cwd() .. "/.fvm/",
+            vim.uv.cwd() .. "/.dart_tool",
+            vim.uv.cwd() .. "/build",
+            vim.uv.cwd() .. "/android",
+            vim.uv.cwd() .. "/ios",
+            vim.uv.cwd() .. "/assets",
           },
         },
       },
@@ -133,43 +133,23 @@ return {
     optional = true,
     ft = { "dart", "yaml" },
     keys = {
+      -- stylua: ignore start
       {
         "<leader>Fbb",
-        function()
-          require("toggleterm").exec(
-            "fvm flutter pub run build_runner build --delete-conflicting-outputs",
-            9,
-            7,
-            vim.uv.cwd(),
-            "horizontal",
-            "build_runner",
-            true
-          )
-        end,
+        function() require("toggleterm").exec("fvm flutter pub run build_runner build --delete-conflicting-outputs", 9, 7, vim.uv.cwd(), "horizontal", "build_runner", true) end,
         desc = "[B]uild",
       },
       {
         "<leader>Fbw",
-        function()
-          require("toggleterm").exec(
-            "fvm flutter pub run build_runner watch --delete-conflicting-outputs",
-            9,
-            7,
-            vim.uv.cwd(),
-            "horizontal",
-            "build_runner",
-            true
-          )
-        end,
+        function() require("toggleterm").exec("fvm flutter pub run build_runner watch --delete-conflicting-outputs", 9, 7, vim.uv.cwd(), "horizontal", "build_runner", true) end,
         desc = "[W]atch",
       },
       {
         "<leader>Fbg",
-        function()
-          require("toggleterm").exec("fluttergen", 10, 7, vim.uv.cwd(), "horizontal", "fluttergen", true)
-        end,
+        function() require("toggleterm").exec("fluttergen", 10, 7, vim.uv.cwd(), "horizontal", "fluttergen", true) end,
         desc = "Flutter[G]en",
       },
+      -- stylua: ignore end
     },
   },
 }

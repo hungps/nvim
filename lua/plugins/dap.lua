@@ -9,7 +9,7 @@ return {
         -- stylua: ignore
         keys = {
           { "<leader>du", function() require("dapui").toggle() end, desc = "Dap UI" },
-          { "<leader>de", function() require("dapui").eval() end, desc = "Eval", mode = {"n", "v"} },
+          { "<leader>de", function() require("dapui").eval() end, desc = "Eval", mode = { "n", "v" } },
           { "<leader>dr", function() require("dapui").toggle({ layout = 2 }) end, desc = "Toggle REPL" },
         },
         opts = {
@@ -24,7 +24,7 @@ return {
                 { id = "watches", size = 0.25 },
               },
               position = "left",
-              size = 20,
+              size = 40,
             },
             -- 2
             {
@@ -65,9 +65,8 @@ return {
       { "<leader>dw", function() require("dap.ui.widgets").hover() end, desc = "Widgets" },
     },
     config = function()
-      local sign = vim.fn.sign_define
-      sign("DapBreakpoint", { text = "●", texthl = "ErrorMsg" })
-      sign("DapBreakpointCondition", { text = "◆", texthl = "ErrorMsg" })
+      vim.fn.sign_define("DapBreakpoint", { text = "●", texthl = "ErrorMsg" })
+      vim.fn.sign_define("DapBreakpointCondition", { text = "◆", texthl = "ErrorMsg" })
 
       local dap = require("dap")
       local ui_ok, dapui = pcall(require, "dapui")
@@ -85,24 +84,6 @@ return {
       dap.listeners.after.event_initialized["dapui_config"] = function()
         dapui.open({ layout = 2 })
       end
-    end,
-  },
-  {
-    "nvim-lualine/lualine.nvim",
-    optional = true,
-    opts = function(_, opts)
-      opts.sections = opts.sections or {}
-      opts.sections.lualine_x = opts.sections.lualine_x or {}
-
-      table.insert(opts.sections.lualine_x, 1, {
-        function()
-          return "  " .. require("dap").status()
-        end,
-        cond = function()
-          return require("dap").status() ~= ""
-        end,
-        color = "orange",
-      })
     end,
   },
 }

@@ -11,39 +11,34 @@ return {
       "hrsh7th/cmp-path",
 
       -- luasnip
+      "saadparwaiz1/cmp_luasnip",
       {
-        "saadparwaiz1/cmp_luasnip",
-        dependencies = {
-          {
-            "L3MON4D3/LuaSnip",
-            build = "make install_jsregexp",
-            opts = {
-              history = true,
-              updateevents = "TextChanged,TextChangedI",
-            },
-            config = function(_, opts)
-              require("luasnip").config.set_config(opts)
-              require("luasnip.loaders.from_vscode").lazy_load({ paths = vim.g.customsnippetspath })
-              require("luasnip.loaders.from_snipmate").lazy_load({ paths = vim.g.customsnippetspath })
-
-              vim.api.nvim_create_autocmd("InsertLeave", {
-                callback = function()
-                  if
-                    require("luasnip").session.current_nodes[vim.api.nvim_get_current_buf()]
-                    and not require("luasnip").session.jump_active
-                  then
-                    require("luasnip").unlink_current()
-                  end
-                end,
-              })
-            end,
-          },
+        "L3MON4D3/LuaSnip",
+        build = "make install_jsregexp",
+        opts = {
+          history = true,
+          updateevents = "TextChanged,TextChangedI",
         },
+        config = function(_, opts)
+          require("luasnip").config.set_config(opts)
+          require("luasnip.loaders.from_vscode").lazy_load({ paths = vim.g.customsnippetspath })
+          require("luasnip.loaders.from_snipmate").lazy_load({ paths = vim.g.customsnippetspath })
+
+          vim.api.nvim_create_autocmd("InsertLeave", {
+            callback = function()
+              if
+                require("luasnip").session.current_nodes[vim.api.nvim_get_current_buf()]
+                and not require("luasnip").session.jump_active
+              then
+                require("luasnip").unlink_current()
+              end
+            end,
+          })
+        end,
       },
     },
     opts = function()
       local cmp = require("cmp")
-      local luasnip = require("luasnip")
 
       return {
         sources = cmp.config.sources({
@@ -59,29 +54,31 @@ return {
         }),
         snippet = {
           expand = function(args)
-            luasnip.lsp_expand(args.body)
+            require("luasnip").lsp_expand(args.body)
           end,
         },
         sorting = {
           priority_weight = 2,
           comparators = {
-            cmp.config.compare.offset,
-            cmp.config.compare.exact,
+            cmp.config.compare.locality,
+            cmp.config.compare.recently_used,
             cmp.config.compare.score,
-            function(entry1, entry2)
-              local _, entry1_under = entry1.completion_item.label:find("^_+")
-              local _, entry2_under = entry2.completion_item.label:find("^_+")
-              entry1_under = entry1_under or 0
-              entry2_under = entry2_under or 0
-              if entry1_under > entry2_under then
-                return false
-              elseif entry1_under < entry2_under then
-                return true
-              end
-            end,
-            cmp.config.compare.kind,
-            cmp.config.compare.sort_text,
-            cmp.config.compare.length,
+            cmp.config.compare.offset,
+            -- cmp.config.compare.exact,
+            -- function(entry1, entry2)
+            --   local _, entry1_under = entry1.completion_item.label:find("^_+")
+            --   local _, entry2_under = entry2.completion_item.label:find("^_+")
+            --   entry1_under = entry1_under or 0
+            --   entry2_under = entry2_under or 0
+            --   if entry1_under > entry2_under then
+            --     return false
+            --   elseif entry1_under < entry2_under then
+            --     return true
+            --   end
+            -- end,
+            -- cmp.config.compare.kind,
+            -- cmp.config.compare.sort_text,
+            -- cmp.config.compare.length,
             cmp.config.compare.order,
           },
         },
@@ -108,8 +105,8 @@ return {
 
           -- Move to the right of each of the expansion locations.
           ["<C-l>"] = cmp.mapping(function(fallback)
-            if luasnip.expand_or_locally_jumpable() then
-              luasnip.expand_or_jump()
+            if require("luasnip").expand_or_locally_jumpable() then
+              require("luasnip").expand_or_jump()
             else
               fallback()
             end
@@ -117,8 +114,8 @@ return {
 
           -- Move to the left of each of the expansion locations.
           ["<C-h>"] = cmp.mapping(function(fallback)
-            if luasnip.locally_jumpable(-1) then
-              luasnip.jump(-1)
+            if require("luasnip").locally_jumpable(-1) then
+              require("luasnip").jump(-1)
             else
               fallback()
             end
