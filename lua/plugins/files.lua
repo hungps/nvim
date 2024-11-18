@@ -89,97 +89,165 @@ return {
     end,
   },
   {
-    "echasnovski/mini.pick",
+    "ibhagwan/fzf-lua",
     event = "VeryLazy",
     dependencies = {
-      "echasnovski/mini.extra",
+      { "junegunn/fzf", build = "./install --bin" },
     },
     keys = {
       {
+        "<leader>bb",
+        function()
+          require("fzf-lua").buffers()
+        end,
+        desc = "List [B]uffer",
+      },
+      {
         "<leader>ff",
         function()
-          require("mini.pick").builtin.files()
+          require("fzf-lua").files({ cwd_prompt = false, prompt = "❯ " })
         end,
         desc = "Find [F]ile",
       },
       {
+        "<leader>fo",
+        function()
+          require("fzf-lua").oldfiles()
+        end,
+        desc = "Find [O]ld files",
+      },
+      {
         "<leader>fr",
         function()
-          require("mini.pick").builtin.resume()
+          require("fzf-lua").resume()
         end,
         desc = "[R]esume find",
       },
       {
-        "<leader>fg",
-        function()
-          require("mini.pick").builtin.grep_live()
-        end,
-        desc = "Find by [G]rep",
-      },
-      {
         "<leader>fb",
         function()
-          require("mini.extra").pickers.buf_lines()
+          require("fzf-lua").lgrep_curbuf()
         end,
         desc = "Find in [B]uffer",
       },
       {
+        "<leader>fg",
+        function()
+          require("fzf-lua").live_grep()
+        end,
+        desc = "Find by [G]rep",
+      },
+      {
+        "<leader>fg",
+        function()
+          require("fzf-lua").grep_visual()
+        end,
+        desc = "Find by [G]rep selected text",
+        mode = "v",
+      },
+      {
+        "<leader>gfc",
+        function()
+          require("fzf-lua").git_commits()
+        end,
+        desc = "Find [C]ommit",
+        mode = "v",
+      },
+      {
         "<leader>fc",
         function()
-          require("mini.extra").pickers.commands()
+          require("fzf-lua").commands()
         end,
         desc = "Find [C]ommand",
       },
       {
         "<leader>fh",
         function()
-          require("mini.extra").pickers.hl_groups()
+          require("fzf-lua").highlights()
         end,
         desc = "Find [H]ighlight group",
       },
       {
         "<leader>fs",
         function()
-          require("mini.extra").pickers.lsp({ scope = "document_symbol" })
+          require("fzf-lua").lsp_document_symbols()
         end,
         desc = "Find Document [S]ymbol",
       },
       {
         "<leader>fS",
         function()
-          require("mini.extra").pickers.lsp({ scope = "workspace_symbol" })
+          require("fzf-lua").lsp_workspace_symbols()
         end,
         desc = "Find workspace [S]ymbol",
       },
       {
-        "<leader>fm",
-        function()
-          require("mini.extra").pickers.marks({ scope = "buf" })
-        end,
-        desc = "Find buffer [M]ark",
+        "<leader>g",
+        desc = "[G]oto",
       },
       {
-        "<leader>fm",
+        "<leader>gd",
         function()
-          require("mini.extra").pickers.marks({ scope = "global" })
+          require("fzf-lua").lsp_definitions({
+            sync = true,
+            jump_to_single_result = true,
+            jump_to_single_result_action = require("fzf-lua.actions").file_vsplit,
+          })
         end,
-        desc = "Find workspace [M]ark",
+        desc = "LSP definition",
       },
       {
-        "<leader>fo",
+        "<leader>gr",
         function()
-          require("mini.extra").pickers.oldfiles()
+          require("fzf-lua").lsp_references({ includeDeclaration = false })
         end,
-        desc = "Find [O]ld (recent) files",
-      },
-      {
-        "<leader>ft",
-        function()
-          require("mini.extra").pickers.treesitter()
-        end,
-        desc = "Find [T]reesitter note",
+        desc = "LSP references",
       },
     },
-    opts = {},
+    opts = {
+      file_icon_padding = " ",
+      file_ignore_patterns = { ".git", ".DS_Store" },
+      files = {
+        git_icons = false,
+        file_icons = false,
+        color_icons = false,
+        cwd_prompt = false,
+      },
+      grep = {
+        git_icons = false,
+        file_icons = false,
+        color_icons = false,
+        -- cmd = "rg --color=always --smart-case -g '!{.git,node_modules}/' -g '!*.{svg,lock}' -g '!*-lock.json'",
+      },
+      winopts = {
+        border = { "╭", "─", "╮", "│", "╯", "─", "╰", "│" },
+        backdrop = 30,
+        preview = {
+          border = "border",
+          vertical = "down:70%",
+          layout = "vertical",
+        },
+      },
+    },
+    config = function(_, opts)
+      local fzf = require("fzf-lua")
+
+      fzf.setup(opts)
+      fzf.register_ui_select(function(_, items)
+        local min_h, max_h = 0.15, 0.70
+        local h = (#items + 4) / vim.o.lines
+        if h < min_h then
+          h = min_h
+        elseif h > max_h then
+          h = max_h
+        end
+        return { winopts = { height = h, width = 0.60, row = 0.40 } }
+      end)
+
+      vim.api.nvim_create_autocmd("VimResized", {
+        pattern = "*",
+        callback = fzf.redraw,
+      })
+    end,
   },
 }
