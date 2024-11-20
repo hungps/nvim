@@ -4,6 +4,7 @@ return {
     event = "VeryLazy",
     cmd = "Trouble",
     opts = {
+      auto_close = true,
       use_diagnostic_signs = true,
     },
     -- stylua: ignore

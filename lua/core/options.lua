@@ -36,6 +36,7 @@ opt.smartcase = true
 opt.splitbelow = true
 opt.splitright = true
 opt.timeoutlen = 400
+opt.updatetime = 250 -- Required by CursorHold, CursorHoldI autocmds
 
 opt.swapfile = false
 opt.undofile = true

@@ -105,7 +105,7 @@ return {
       {
         "<leader>ff",
         function()
-          require("fzf-lua").files({ cwd_prompt = false, prompt = "❯ " })
+          require("fzf-lua").files()
         end,
         desc = "Find [F]ile",
       },
@@ -185,47 +185,45 @@ return {
         "<leader>g",
         desc = "[G]oto",
       },
-      {
-        "<leader>gd",
-        function()
-          require("fzf-lua").lsp_definitions({
-            sync = true,
-            jump_to_single_result = true,
-            jump_to_single_result_action = require("fzf-lua.actions").file_vsplit,
-          })
-        end,
-        desc = "LSP definition",
-      },
-      {
-        "<leader>gr",
-        function()
-          require("fzf-lua").lsp_references({ includeDeclaration = false })
-        end,
-        desc = "LSP references",
-      },
     },
     opts = {
       file_icon_padding = " ",
       file_ignore_patterns = { ".git", ".DS_Store" },
       files = {
         git_icons = false,
-        file_icons = false,
-        color_icons = false,
         cwd_prompt = false,
+        prompt = "Files❯ ",
       },
       grep = {
         git_icons = false,
-        file_icons = false,
-        color_icons = false,
+        async = true,
         -- cmd = "rg --color=always --smart-case -g '!{.git,node_modules}/' -g '!*.{svg,lock}' -g '!*-lock.json'",
       },
+      lsp = {
+        includeDeclaration = false,
+        async = false,
+      },
       winopts = {
-        border = { "╭", "─", "╮", "│", "╯", "─", "╰", "│" },
-        backdrop = 30,
         preview = {
-          border = "border",
           vertical = "down:70%",
           layout = "vertical",
+        },
+      },
+      keymap = {
+        builtin = {
+          false,
+          ["<Esc>"] = "hide",
+          ["<C-d>"] = "preview-page-down",
+          ["<C-u>"] = "preview-page-up",
+          ["ctrl-q"] = "select-all+accept",
+        },
+        fzf = {
+          false,
+          ["esc"] = "abort",
+          ["ctrl-d"] = "preview-page-down",
+          ["ctrl-u"] = "preview-page-up",
+          ["ctrl-a"] = "toggle-all",
+          ["ctrl-q"] = "select-all+accept",
         },
       },
     },
@@ -247,6 +245,27 @@ return {
       vim.api.nvim_create_autocmd("VimResized", {
         pattern = "*",
         callback = fzf.redraw,
+      })
+
+      vim.api.nvim_create_autocmd("LspAttach", {
+        desc = "Mapping lsp actions when attached",
+        group = vim.api.nvim_create_augroup("FzfLuaLsp", { clear = true }),
+        callback = function(event)
+          vim.keymap.set("n", "gd", function()
+            require("fzf-lua").lsp_definitions({
+              sync = true,
+              jump_to_single_result = true,
+            })
+          end, { buffer = event.buf, desc = "[G]oto: [D]efinition", noremap = true })
+
+          vim.keymap.set("n", "gr", function()
+            require("fzf-lua").lsp_references({ cwd_only = true })
+          end, { buffer = event.buf, desc = "[G]oto: Project [R]eferences", noremap = true })
+
+          vim.keymap.set("n", "gR", function()
+            require("fzf-lua").lsp_references()
+          end, { buffer = event.buf, desc = "[G]oto: All [R]eferences", noremap = true })
+        end,
       })
     end,
   },

@@ -95,7 +95,14 @@ return {
           ["<C-f>"] = cmp.mapping.scroll_docs(4),
 
           -- Accept completion
-          ["<C-y>"] = cmp.mapping.confirm({ select = true }),
+          ["<C-y>"] = cmp.mapping(function(fallback)
+            if cmp.get_active_entry() ~= nil then
+              cmp.confirm({ select = true })
+            else
+              cmp.abort()
+              fallback()
+            end
+          end, { "i", "s" }),
 
           -- Manually trigger a completion from nvim-cmp.
           ["<C-Space>"] = cmp.mapping.complete(),
@@ -126,9 +133,9 @@ return {
             if cmp.visible() then
               cmp.abort()
               vim.cmd("stopinsert")
+            else
+              fallback()
             end
-
-            fallback()
           end, { "i" }),
         }),
         window = {
