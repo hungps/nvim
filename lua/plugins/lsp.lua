@@ -68,7 +68,7 @@ return {
           map({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, "Code [A]ction")
           map("n", "<leader>cr", function()
             vim.lsp.buf.rename()
-            vim.cmd("silent! writeall")
+            vim.cmd("wa")
           end, "[R]ename symbol")
 
           -- Enable inlay hints if the language server supports

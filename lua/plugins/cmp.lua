@@ -39,6 +39,7 @@ return {
     },
     opts = function()
       local cmp = require("cmp")
+      local types = require("cmp.types")
 
       return {
         sources = cmp.config.sources({
@@ -49,7 +50,7 @@ return {
             end,
           },
         }, {
-          { name = "luasnip" },
+          { name = "luasnip", keyword_length = 3 },
           { name = "path" },
         }),
         snippet = {
@@ -60,26 +61,61 @@ return {
         sorting = {
           priority_weight = 2,
           comparators = {
+            function(entry1, entry2)
+              local _, entry1_under = entry1.completion_item.label:find("^_+")
+              local _, entry2_under = entry2.completion_item.label:find("^_+")
+              entry1_under = entry1_under or 0
+              entry2_under = entry2_under or 0
+              if entry1_under > entry2_under then
+                return false
+              elseif entry1_under < entry2_under then
+                return true
+              end
+            end,
+            function(entry1, entry2)
+              local kind_scores = {
+                Property = 1,
+                Variable = 2,
+                Snippet = 3,
+                Field = 4,
+                Method = 5,
+                Constructor = 6,
+                Function = 7,
+                Class = 8,
+                Interface = 9,
+                Module = 10,
+                Unit = 11,
+                Value = 12,
+                Enum = 13,
+                Keyword = 14,
+                Color = 16,
+                File = 17,
+                Reference = 18,
+                Folder = 19,
+                EnumMember = 20,
+                Constant = 21,
+                Struct = 22,
+                Event = 23,
+                Operator = 24,
+                TypeParameter = 25,
+                Text = 26,
+              }
+              local kind1 = types.lsp.CompletionItemKind[entry1:get_kind()]
+              local kind2 = types.lsp.CompletionItemKind[entry2:get_kind()]
+
+              local diff = kind_scores[kind1] - kind_scores[kind2]
+              if diff < 0 then
+                return true
+              elseif diff > 0 then
+                return false
+              end
+              return nil
+            end,
             cmp.config.compare.locality,
-            cmp.config.compare.recently_used,
-            cmp.config.compare.score,
-            cmp.config.compare.offset,
-            -- cmp.config.compare.exact,
-            -- function(entry1, entry2)
-            --   local _, entry1_under = entry1.completion_item.label:find("^_+")
-            --   local _, entry2_under = entry2.completion_item.label:find("^_+")
-            --   entry1_under = entry1_under or 0
-            --   entry2_under = entry2_under or 0
-            --   if entry1_under > entry2_under then
-            --     return false
-            --   elseif entry1_under < entry2_under then
-            --     return true
-            --   end
-            -- end,
-            -- cmp.config.compare.kind,
-            -- cmp.config.compare.sort_text,
-            -- cmp.config.compare.length,
+            cmp.config.compare.exact,
             cmp.config.compare.order,
+            -- cmp.config.compare.score,
+            -- cmp.config.compare.offset,
           },
         },
         experimental = {
@@ -95,14 +131,7 @@ return {
           ["<C-f>"] = cmp.mapping.scroll_docs(4),
 
           -- Accept completion
-          ["<C-y>"] = cmp.mapping(function(fallback)
-            if cmp.get_active_entry() ~= nil then
-              cmp.confirm({ select = true })
-            else
-              cmp.abort()
-              fallback()
-            end
-          end, { "i", "s" }),
+          ["<C-y>"] = cmp.mapping.confirm({ select = true }),
 
           -- Manually trigger a completion from nvim-cmp.
           ["<C-Space>"] = cmp.mapping.complete(),

@@ -193,11 +193,12 @@ return {
         git_icons = false,
         cwd_prompt = false,
         prompt = "Files❯ ",
+        formatter = "path.filename_first",
       },
       grep = {
         git_icons = false,
         async = true,
-        -- cmd = "rg --color=always --smart-case -g '!{.git,node_modules}/' -g '!*.{svg,lock}' -g '!*-lock.json'",
+        formatter = "path.filename_first",
       },
       lsp = {
         includeDeclaration = false,
@@ -205,21 +206,19 @@ return {
       },
       winopts = {
         preview = {
-          vertical = "down:70%",
+          vertical = "down:60%",
           layout = "vertical",
         },
       },
       keymap = {
         builtin = {
-          false,
-          ["<Esc>"] = "hide",
+          true,
           ["<C-d>"] = "preview-page-down",
           ["<C-u>"] = "preview-page-up",
-          ["ctrl-q"] = "select-all+accept",
+          ["<C-q>"] = "select-all+accept",
         },
         fzf = {
-          false,
-          ["esc"] = "abort",
+          true,
           ["ctrl-d"] = "preview-page-down",
           ["ctrl-u"] = "preview-page-up",
           ["ctrl-a"] = "toggle-all",
@@ -231,7 +230,10 @@ return {
       local fzf = require("fzf-lua")
 
       fzf.setup(opts)
+
+      -- Use fzf as vim.ui.select
       fzf.register_ui_select(function(_, items)
+        -- Calculate the size of the window based on the number of items
         local min_h, max_h = 0.15, 0.70
         local h = (#items + 4) / vim.o.lines
         if h < min_h then
@@ -239,7 +241,18 @@ return {
         elseif h > max_h then
           h = max_h
         end
-        return { winopts = { height = h, width = 0.60, row = 0.40 } }
+
+        return {
+          winopts = {
+            height = h,
+            width = 0.70,
+            row = 0.40,
+            preview = {
+              horizontal = "right:40%",
+              layout = "horizontal",
+            },
+          },
+        }
       end)
 
       vim.api.nvim_create_autocmd("VimResized", {
@@ -248,7 +261,6 @@ return {
       })
 
       vim.api.nvim_create_autocmd("LspAttach", {
-        desc = "Mapping lsp actions when attached",
         group = vim.api.nvim_create_augroup("FzfLuaLsp", { clear = true }),
         callback = function(event)
           vim.keymap.set("n", "gd", function()
@@ -265,6 +277,13 @@ return {
           vim.keymap.set("n", "gR", function()
             require("fzf-lua").lsp_references()
           end, { buffer = event.buf, desc = "[G]oto: All [R]eferences", noremap = true })
+        end,
+      })
+
+      vim.api.nvim_create_autocmd("FileType", {
+        pattern = "fzf",
+        callback = function(event)
+          vim.keymap.set("t", "<Esc>", "<C-c>", { buffer = event.buf, noremap = true })
         end,
       })
     end,
