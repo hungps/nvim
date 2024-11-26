@@ -118,9 +118,9 @@ return {
             -- cmp.config.compare.offset,
           },
         },
-        experimental = {
-          ghost_text = true,
-        },
+        -- experimental = {
+        --   ghost_text = true,
+        -- },
         mapping = cmp.mapping.preset.insert({
           -- Select the [n]ext item/[p]revious item
           ["<C-n>"] = cmp.mapping.select_next_item(),

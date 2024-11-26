@@ -19,6 +19,15 @@ return {
     end,
   },
   {
+    "folke/which-key.nvim",
+    optional = true,
+    opts = function()
+      require("which-key").add({
+        { "<leader>a", desc = "[A]I assistant" },
+      })
+    end,
+  },
+  {
     "CopilotC-Nvim/CopilotChat.nvim",
     branch = "canary",
     build = "make tiktoken",
@@ -39,10 +48,6 @@ return {
       local selection = require("CopilotChat.select").visual
 
       return {
-        {
-          "<leader>a",
-          desc = "[A]I assistant",
-        },
         {
           "<leader>ac",
           function()

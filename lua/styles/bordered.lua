@@ -5,12 +5,13 @@ return {
     "neovim/nvim-lspconfig",
     optional = true,
     opts = function()
-      vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
+      vim.lsp.handlers[vim.lsp.protocol.Methods.textDocument_hover] = vim.lsp.with(vim.lsp.handlers.hover, {
         border = border_type,
       })
-      vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signatureHelp, {
-        border = border_type,
-      })
+      vim.lsp.handlers[vim.lsp.protocol.Methods.textDocument_signatureHelp] =
+        vim.lsp.with(vim.lsp.handlers.signature_help, {
+          border = border_type,
+        })
       vim.diagnostic.config({
         float = { border = border_type },
       })

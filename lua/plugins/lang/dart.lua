@@ -2,7 +2,6 @@ return {
   {
     "folke/which-key.nvim",
     optional = true,
-    ft = { "dart", "yaml" },
     opts = function()
       require("which-key").add({
         { "<leader>F", desc = "[F]lutter" },
@@ -13,7 +12,6 @@ return {
   {
     "akinsho/flutter-tools.nvim",
     lazy = false,
-    cmd = { "FlutterDevices", "FlutterEmulators" },
     dependencies = {
       "nvim-lua/plenary.nvim",
     },
@@ -131,7 +129,6 @@ return {
   {
     "akinsho/toggleterm.nvim",
     optional = true,
-    ft = { "dart", "yaml" },
     keys = {
       -- stylua: ignore start
       {

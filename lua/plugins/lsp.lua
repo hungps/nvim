@@ -65,6 +65,7 @@ return {
           map("n", "gi", vim.lsp.buf.implementation, "[G]oto: [I]mplementation")
           map("n", "gr", vim.lsp.buf.references, "[G]oto: References")
           map("n", "go", vim.lsp.buf.type_definition, "Type [D]efinition")
+          map("n", "gs", vim.lsp.buf.signature_help, "Show [S]ignature")
           map({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, "Code [A]ction")
           map("n", "<leader>cr", function()
             vim.lsp.buf.rename()
@@ -124,6 +125,28 @@ return {
             local hl = "DiagnosticSign" .. type
             vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
           end
+
+          -- Only show the highest severity diagnostic sign
+          -- See `:help diagnostic-handlers-example`
+          local ns = vim.api.nvim_create_namespace("diagnostic-signs-priority")
+          local orig_signs_handler = vim.diagnostic.handlers.signs
+          vim.diagnostic.handlers.signs = {
+            show = function(_, bufnr, _, show_opts)
+              local diagnostics = vim.diagnostic.get(bufnr)
+              local max_severity_per_line = {}
+              for _, d in pairs(diagnostics) do
+                local m = max_severity_per_line[d.lnum]
+                if not m or d.severity < m.severity then
+                  max_severity_per_line[d.lnum] = d
+                end
+              end
+              local filtered_diagnostics = vim.tbl_values(max_severity_per_line)
+              orig_signs_handler.show(ns, bufnr, filtered_diagnostics, show_opts)
+            end,
+            hide = function(_, bufnr)
+              orig_signs_handler.hide(ns, bufnr)
+            end,
+          }
         end,
       })
     end,
