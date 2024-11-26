@@ -40,28 +40,19 @@ return {
 
       return {
         {
-          "<leader>cc",
-          desc = "[C]opilot chat",
+          "<leader>a",
+          desc = "[A]I assistant",
         },
         {
-          "<leader>ccc",
+          "<leader>ac",
           function()
             chat.toggle()
           end,
-          desc = "[T]oggle chat window",
+          desc = "[C]hat",
           mode = "n",
         },
         {
-          "<leader>ccc",
-          function()
-            chat.reset()
-            chat.toggle({ selection = selection })
-          end,
-          desc = "[T]oggle chat window",
-          mode = "v",
-        },
-        {
-          "<leader>ccq",
+          "<leader>aq",
           function()
             vim.ui.input({ prompt = "Quick Chat: " }, function(input)
               if input ~= "" then
@@ -70,11 +61,11 @@ return {
               end
             end)
           end,
-          desc = "[Q]uick chat",
+          desc = "[Q]uick ask",
           mode = "v",
         },
         {
-          "<leader>cca",
+          "<leader>aa",
           function()
             require("CopilotChat.integrations.fzflua").pick(actions.prompt_actions({ selection = selection }))
           end,
@@ -87,8 +78,6 @@ return {
       model = "claude-3.5-sonnet",
       auto_insert_mode = true,
       highlight_headers = false,
-      separator = "---",
-      error_header = "> [!ERROR] Error",
       window = {
         width = 0.3,
       },

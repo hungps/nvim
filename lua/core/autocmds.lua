@@ -1,5 +1,5 @@
 local function augroup(name)
-  return vim.api.nvim_create_augroup("hungps_" .. name, { clear = true })
+  return vim.api.nvim_create_augroup("custom-" .. name, { clear = true })
 end
 
 local autocmd = vim.api.nvim_create_autocmd
@@ -24,7 +24,7 @@ autocmd({ "FocusGained", "TermClose", "TermLeave" }, {
 
 -- Resize splits if window got resized
 autocmd({ "VimResized" }, {
-  group = augroup("resize_splits"),
+  group = augroup("resize-splits"),
   callback = function()
     local current_tab = vim.fn.tabpagenr()
     vim.cmd("tabdo wincmd =")
