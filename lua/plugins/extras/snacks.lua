@@ -18,6 +18,13 @@ return {
         end,
         desc = "Close [O]ther Buffer",
       },
+      {
+        "<leader>ts",
+        function()
+          require("snacks").scratch()
+        end,
+        desc = "Open scratch buffer",
+      },
     },
     opts = {
       dashboard = { enabled = true },
