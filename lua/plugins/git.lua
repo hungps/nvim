@@ -11,6 +11,17 @@ return {
     end,
   },
   {
+    "tpope/vim-fugitive",
+    lazy = false,
+    keys = {
+      {
+        "<leader>gg",
+        "<Cmd>Git<CR>",
+        desc = "[G]it",
+      },
+    },
+  },
+  {
     "lewis6991/gitsigns.nvim",
     event = { "BufReadPre", "BufNewFile" },
     opts = {

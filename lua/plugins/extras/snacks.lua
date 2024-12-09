@@ -5,13 +5,6 @@ return {
     lazy = false,
     keys = {
       {
-        "<leader>gg",
-        function()
-          require("snacks").lazygit.open()
-        end,
-        desc = "Lazy[G]it",
-      },
-      {
         "<leader>bd",
         function()
           require("snacks").bufdelete.delete()
@@ -29,7 +22,7 @@ return {
     opts = {
       dashboard = { enabled = true },
       bigfile = { enabled = true },
-      lazygit = { enabled = true },
+      lazygit = { enabled = false },
       quickfile = { enabled = true },
       rename = { enabled = true },
       words = { enabled = true },
