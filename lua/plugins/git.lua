@@ -16,7 +16,7 @@ return {
     keys = {
       {
         "<leader>gg",
-        "<Cmd>Git<CR>",
+        "<Cmd>tab Git<CR>",
         desc = "[G]it",
       },
     },

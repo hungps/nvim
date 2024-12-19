@@ -32,7 +32,6 @@ return {
     dependencies = {
       { "nvim-lua/plenary.nvim" },
       { "nvim-treesitter/nvim-treesitter" },
-      { "MeanderingProgrammer/render-markdown.nvim", ft = { "markdown", "codecompanion" } },
     },
     keys = {
       {
@@ -61,5 +60,13 @@ return {
       },
     },
     config = {},
+  },
+  {
+    "MeanderingProgrammer/render-markdown.nvim",
+    optional = true,
+    opts = function(_, opts)
+      opts.file_types = opts.file_types or {}
+      table.insert(opts.file_types, "codecompanion")
+    end,
   },
 }

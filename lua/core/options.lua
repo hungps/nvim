@@ -45,6 +45,6 @@ opt.undolevels = 10000
 opt.inccommand = "split"
 
 opt.scrolloff = 10
-opt.winblend = 10
-opt.pumblend = 10
-opt.pumheight = 10
+-- opt.winblend = 10
+-- opt.pumblend = 10
+-- opt.pumheight = 10

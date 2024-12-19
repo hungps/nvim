@@ -195,14 +195,25 @@ return {
         prompt = "Files❯ ",
         formatter = "path.filename_first",
       },
+      oldfiles = {
+        include_current_session = true,
+      },
       grep = {
         git_icons = false,
         async = true,
         formatter = "path.filename_first",
+        rg_glob = true,
+        glob_flag = "--iglob",
+        glob_separator = "%s%-%-",
       },
       lsp = {
         includeDeclaration = false,
         async = false,
+      },
+      previewers = {
+        builtin = {
+          syntax_limit_b = 1024 * 100,
+        },
       },
       winopts = {
         preview = {
