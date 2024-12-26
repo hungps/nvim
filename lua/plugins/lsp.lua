@@ -2,7 +2,6 @@ return {
   {
     "neovim/nvim-lspconfig",
     dependencies = {
-      { "hrsh7th/cmp-nvim-lsp" },
       {
         "williamboman/mason-lspconfig.nvim",
         dependencies = { "williamboman/mason.nvim" },
@@ -10,14 +9,15 @@ return {
     },
     opts = {
       servers = {},
+      capabilities = {},
     },
     config = function(_, opts)
-      local capabilities = vim.tbl_deep_extend(
-        "force",
-        vim.lsp.protocol.make_client_capabilities(),
-        require("cmp_nvim_lsp").default_capabilities()
-      )
+      local capabilities = vim.tbl_deep_extend("force", vim.lsp.protocol.make_client_capabilities(), opts.capabilities)
 
+      -- for _, value in ipairs(opts.capabilities) do
+      --   capabilities = vim.tbl_deep_extend("force", capabilities, value)
+      -- end
+      --
       capabilities.workspace.didChangeWatchedFiles.dynamicRegistration = false
 
       local servers = opts.servers or {}

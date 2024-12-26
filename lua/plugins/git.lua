@@ -19,6 +19,11 @@ return {
         "<Cmd>tab Git<CR>",
         desc = "[G]it",
       },
+      {
+        "<leader>gl",
+        "<Cmd>Git log<CR>",
+        desc = "Git [L]og",
+      },
     },
   },
   {

@@ -22,7 +22,8 @@ require("lazy").setup({
     { import = "plugins.extras" },
 
     -- colorschemes
-    { import = "colorschemes.onedark" },
+    { import = "colorschemes.nordic" },
+    -- { import = "colorschemes.onedark" },
     -- { import = "colorschemes.catppuccin" },
 
     -- styles

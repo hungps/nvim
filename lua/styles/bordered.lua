@@ -1,4 +1,4 @@
-local border_type = "rounded"
+local border_type = "single"
 
 return {
   {
@@ -18,9 +18,7 @@ return {
     end,
   },
   {
-    -- TODO: Replacing "xzbdmw/nvim-cmp" with "hrsh7th/nvim-cmp"
-    -- https://github.com/hrsh7th/nvim-cmp/pull/1955
-    "xzbdmw/nvim-cmp",
+    "hrsh7th/nvim-cmp",
     optional = true,
     opts = function(_, opts)
       opts.window = vim.tbl_deep_extend("force", opts.window or {}, {
@@ -30,28 +28,10 @@ return {
     end,
   },
   {
-    "echasnovski/mini.pick",
+    "ibhagwan/fzf-lua",
     optional = true,
     opts = function(_, opts)
-      opts.window = vim.tbl_deep_extend("force", opts.window or {}, {
-        config = { border = border_type },
-      })
-    end,
-  },
-  {
-    "echasnovski/mini.files",
-    optional = true,
-    opts = function()
-      vim.api.nvim_create_autocmd("User", {
-        pattern = "MiniFilesWindowUpdate",
-        callback = function(args)
-          local config = vim.api.nvim_win_get_config(args.data.win_id)
-
-          config.border = border_type
-
-          vim.api.nvim_win_set_config(args.data.win_id, config)
-        end,
-      })
+      opts.winopts.border = border_type
     end,
   },
 }

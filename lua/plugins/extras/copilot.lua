@@ -1,24 +1,5 @@
 return {
   {
-    "github/copilot.vim",
-    config = function()
-      vim.keymap.set("i", "<C-Space>", "<Plug>(copilot-suggest)")
-      vim.keymap.set("i", "<C-n>", "<Plug>(copilot-next)")
-      vim.keymap.set("i", "<C-p>", "<Plug>(copilot-previous)")
-      vim.keymap.set("i", "<C-y>", "copilot#Accept('')", { expr = true, replace_keycodes = false, silent = true })
-
-      vim.keymap.set("i", "<C-c>", function()
-        if require("cmp").visible() then
-          require("cmp").abort()
-        end
-
-        return vim.fn["copilot#Accept"]("")
-      end, { expr = true, replace_keycodes = false, silent = true })
-
-      vim.g.copilot_no_tab_map = true
-    end,
-  },
-  {
     "folke/which-key.nvim",
     optional = true,
     opts = function()
@@ -26,6 +7,21 @@ return {
         { "<leader>a", desc = "[A]I assistant" },
       })
     end,
+  },
+  {
+    "zbirenbaum/copilot.lua",
+    opts = {
+      suggestion = {
+        enabled = true,
+        auto_trigger = true,
+        keymap = {
+          accept = "<C-c>",
+          next = "<C-n>",
+          prev = "<C-p>",
+          dismiss = "<C-e>",
+        },
+      },
+    },
   },
   {
     "olimorris/codecompanion.nvim",

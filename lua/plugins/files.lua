@@ -216,9 +216,9 @@ return {
         },
       },
       winopts = {
+        backdrop = 90,
         preview = {
-          vertical = "down:60%",
-          layout = "vertical",
+          layout = "horizontal",
         },
       },
       keymap = {

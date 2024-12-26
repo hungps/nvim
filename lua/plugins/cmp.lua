@@ -1,9 +1,6 @@
 return {
   {
-    -- TODO: Replacing "xzbdmw/nvim-cmp" with "hrsh7th/nvim-cmp"
-    -- https://github.com/hrsh7th/nvim-cmp/pull/1955
-    "xzbdmw/nvim-cmp",
-    branch = "dynamic",
+    "hrsh7th/nvim-cmp",
     event = "InsertEnter",
     dependencies = {
       -- cmp sources
