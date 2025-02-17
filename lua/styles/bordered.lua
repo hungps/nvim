@@ -32,6 +32,7 @@ return {
     optional = true,
     opts = function(_, opts)
       opts.winopts.border = border_type
+      opts.winopts.preview.border = border_type
     end,
   },
 }

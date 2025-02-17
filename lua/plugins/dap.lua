@@ -24,7 +24,7 @@ return {
                 { id = "watches", size = 0.25 },
               },
               position = "left",
-              size = 40,
+              size = 30,
             },
             -- 2
             {
@@ -39,7 +39,11 @@ return {
       },
       {
         "theHamsta/nvim-dap-virtual-text",
-        opts = {},
+        opts = {
+          virt_text_pos = "inline",
+          virt_text_win_col = 80,
+          show_stop_reason = true,
+        },
       },
       -- -- VsCode launch.json parser
       {
@@ -69,11 +73,7 @@ return {
       vim.fn.sign_define("DapBreakpointCondition", { text = "◆", texthl = "ErrorMsg" })
 
       local dap = require("dap")
-      local ui_ok, dapui = pcall(require, "dapui")
-
-      if not ui_ok then
-        return
-      end
+      local dapui = require("dapui")
 
       dap.listeners.before.event_exited["dapui_config"] = function()
         dapui.close()

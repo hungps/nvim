@@ -1,5 +1,4 @@
 return {
-  -- formatting
   {
     "stevearc/conform.nvim",
     event = "BufWritePre",
@@ -13,16 +12,17 @@ return {
       },
     },
     opts = {
-      formatters_by_ft = {
-        lua = { "stylua" },
+      formatters_by_ft = {},
+      default_format_opts = {
+        lsp_format = "fallback",
       },
       format_on_save = {
+        lsp_format = "fallback",
         timeout_ms = 500,
-        lsp_fallback = true,
       },
+      notify_no_formatters = false,
     },
   },
-  -- linting
   {
     "mfussenegger/nvim-lint",
     event = { "BufReadPre", "BufNewFile" },
@@ -72,11 +72,6 @@ return {
   },
   {
     "echasnovski/mini.comment",
-    event = { "BufReadPre", "BufNewFile" },
-    opts = {},
-  },
-  {
-    "echasnovski/mini.move",
     event = { "BufReadPre", "BufNewFile" },
     opts = {},
   },

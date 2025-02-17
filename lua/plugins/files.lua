@@ -15,14 +15,27 @@ return {
         end,
         desc = "File [E]xplorer",
       },
+      {
+        "<leader>fE",
+        function()
+          require("mini.files").open(vim.uv.cwd())
+        end,
+        desc = "File [E]xplorer (root)",
+      },
+      {
+        "<leader>fD",
+        function()
+          require("mini.files").open(vim.fn.expand("%:p:h"))
+        end,
+        desc = "File [E]xplorer (~)",
+      },
     },
     opts = {
       content = {
-        always_hidden_suffix = {
+        hidden_file_suffix = {
           ".git",
           ".DS_Store",
         },
-        hidden_file_suffix = {},
       },
       options = {
         permanent_delete = true,
@@ -36,12 +49,6 @@ return {
       vim.g.minifiles_enable_filter = true
 
       opts.content.filter = function(fs_entry)
-        for _, suffix in pairs(opts.content.always_hidden_suffix) do
-          if fs_entry.name == suffix or vim.endswith(fs_entry.name, suffix) then
-            return false
-          end
-        end
-
         if not vim.g.minifiles_enable_filter then
           return true
         end
@@ -74,18 +81,6 @@ return {
           end, { buffer = args.data.buf_id, desc = "Set as root directory" })
         end,
       })
-
-      vim.api.nvim_create_autocmd("User", {
-        pattern = "MiniFilesWindowUpdate",
-        callback = function(args)
-          local config = vim.api.nvim_win_get_config(args.data.win_id)
-
-          table.insert(config.title, { " ", "MiniFilesTitle" })
-          table.insert(config.title, 1, { " ", "MiniFilesTitle" })
-
-          vim.api.nvim_win_set_config(args.data.win_id, config)
-        end,
-      })
     end,
   },
   {
@@ -96,18 +91,18 @@ return {
     },
     keys = {
       {
-        "<leader>bb",
-        function()
-          require("fzf-lua").buffers()
-        end,
-        desc = "List [B]uffer",
-      },
-      {
         "<leader>ff",
         function()
           require("fzf-lua").files()
         end,
         desc = "Find [F]ile",
+      },
+      {
+        "<leader>fF",
+        function()
+          require("fzf-lua").files({ resume = true })
+        end,
+        desc = "Resume find [F]ile",
       },
       {
         "<leader>fo",
@@ -121,14 +116,7 @@ return {
         function()
           require("fzf-lua").resume()
         end,
-        desc = "[R]esume find",
-      },
-      {
-        "<leader>fb",
-        function()
-          require("fzf-lua").lgrep_curbuf()
-        end,
-        desc = "Find in [B]uffer",
+        desc = "[R]esume last find",
       },
       {
         "<leader>fg",
@@ -136,6 +124,13 @@ return {
           require("fzf-lua").live_grep()
         end,
         desc = "Find by [G]rep",
+      },
+      {
+        "<leader>fG",
+        function()
+          require("fzf-lua").live_grep({ resume = true })
+        end,
+        desc = "Resume [G]rep",
       },
       {
         "<leader>fg",
@@ -238,12 +233,10 @@ return {
       },
     },
     config = function(_, opts)
-      local fzf = require("fzf-lua")
-
-      fzf.setup(opts)
+      require("fzf-lua").setup(opts)
 
       -- Use fzf as vim.ui.select
-      fzf.register_ui_select(function(_, items)
+      require("fzf-lua").register_ui_select(function(_, items)
         -- Calculate the size of the window based on the number of items
         local min_h, max_h = 0.15, 0.70
         local h = (#items + 4) / vim.o.lines
@@ -268,17 +261,14 @@ return {
 
       vim.api.nvim_create_autocmd("VimResized", {
         pattern = "*",
-        callback = fzf.redraw,
+        callback = require("fzf-lua").redraw,
       })
 
       vim.api.nvim_create_autocmd("LspAttach", {
         group = vim.api.nvim_create_augroup("FzfLuaLsp", { clear = true }),
         callback = function(event)
           vim.keymap.set("n", "gd", function()
-            require("fzf-lua").lsp_definitions({
-              sync = true,
-              jump_to_single_result = true,
-            })
+            require("fzf-lua").lsp_definitions({ sync = true, jump_to_single_result = true })
           end, { buffer = event.buf, desc = "[G]oto: [D]efinition", noremap = true })
 
           vim.keymap.set("n", "gr", function()

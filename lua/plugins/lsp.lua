@@ -12,12 +12,11 @@ return {
       capabilities = {},
     },
     config = function(_, opts)
-      local capabilities = vim.tbl_deep_extend("force", vim.lsp.protocol.make_client_capabilities(), opts.capabilities)
+      local capabilities = vim.lsp.protocol.make_client_capabilities()
+      for _, value in ipairs(opts.capabilities) do
+        capabilities = vim.tbl_deep_extend("force", capabilities, value)
+      end
 
-      -- for _, value in ipairs(opts.capabilities) do
-      --   capabilities = vim.tbl_deep_extend("force", capabilities, value)
-      -- end
-      --
       capabilities.workspace.didChangeWatchedFiles.dynamicRegistration = false
 
       local servers = opts.servers or {}

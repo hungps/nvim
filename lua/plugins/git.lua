@@ -78,7 +78,6 @@ return {
     event = "VeryLazy",
     cmd = { "DiffviewOpen", "DiffviewFileHistory" },
     keys = {
-      { "<leader>gs", "<Cmd>DiffviewOpen<CR>", desc = "[S]tatus" },
       { "<leader>gda", "<Cmd>DiffviewFileHistory<CR>", desc = "[A]ll History" },
       { "<leader>gdf", "<Cmd>DiffviewFileHistory --follow %<CR>", desc = "[F]ile history" },
       { "<leader>gdl", "<Cmd>.DiffviewFileHistory --follow<CR>", desc = "[L]ine history" },
