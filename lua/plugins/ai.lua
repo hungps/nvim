@@ -1,14 +1,5 @@
 return {
   {
-    "folke/which-key.nvim",
-    optional = true,
-    opts = function()
-      require("which-key").add({
-        { "<leader>a", desc = "[A]I assistant" },
-      })
-    end,
-  },
-  {
     "zbirenbaum/copilot.lua",
     opts = {
       suggestion = {
@@ -34,19 +25,6 @@ return {
         "<leader>ac",
         "<Cmd>CodeCompanionChat<CR>",
         desc = "[C]hat",
-        mode = "n",
-      },
-      {
-        "<leader>aq",
-        function()
-          vim.ui.input({ prompt = "Quick Chat: " }, function(input)
-            if input ~= "" then
-              vim.cmd("'<,'>CodeCompanion " .. input)
-            end
-          end)
-        end,
-        desc = "[Q]uick ask",
-        mode = "v",
       },
       {
         "<leader>aa",
@@ -54,15 +32,19 @@ return {
         desc = "[A]ctions",
         mode = { "n", "v" },
       },
+      {
+        "<leader>aq",
+        function()
+          vim.ui.input({ prompt = "Quick Chat: " }, function(input)
+            if input then
+              vim.cmd("'<,'>CodeCompanion " .. input)
+            end
+          end)
+        end,
+        desc = "[Q]uick ask",
+        mode = "v",
+      },
     },
     config = {},
-  },
-  {
-    "MeanderingProgrammer/render-markdown.nvim",
-    optional = true,
-    opts = function(_, opts)
-      opts.file_types = opts.file_types or {}
-      table.insert(opts.file_types, "codecompanion")
-    end,
   },
 }

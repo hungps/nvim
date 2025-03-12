@@ -60,6 +60,7 @@ return {
         map("n", "[H", function() gs.nav_hunk("first") end, "First [H]unk")
 
         map("n", "<leader>gp", gs.preview_hunk, "[P]review hunk")
+        map("n", "<leader>gP", gs.preview_hunk_inline, "Inline [P]review hunk")
         map("n", "<leader>gb", gs.blame_line, "[B]lame line")
 
         map('n', '<leader>ghs', gs.stage_hunk, "[S]tage hunk")
@@ -67,9 +68,15 @@ return {
         map('n', '<leader>ghr', gs.reset_hunk, "[R]eset hunk")
         map('n', '<leader>ghR', gs.reset_buffer, "[R]eset buffer")
         map('n', '<leader>ghu', gs.undo_stage_hunk, "[U]ndo stage hunk")
+
+        map('n', '<leader>ghq', function() gs.setqflist({ target = "attached" }) end, "Send buffer hunks to [q]flist")
+        map('n', '<leader>ghQ', function() gs.setqflist({ target = "all" }) end, "Send all hunks to [q]flist")
+
         map('n', '<leader>gtd', gs.toggle_deleted, "Toggle [D]eleted")
         map('n', '<leader>gtb', gs.toggle_current_line_blame, "Toggle [B]lame")
+
         map({'o', 'x'}, 'ih', ':<C-U>Gitsigns select_hunk<CR>')
+        map({'o', 'x'}, 'ah', ':<C-U>Gitsigns select_hunk<CR>')
       end,
     },
   },

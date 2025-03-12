@@ -45,10 +45,6 @@ return {
           show_stop_reason = true,
         },
       },
-      -- -- VsCode launch.json parser
-      {
-        "folke/neoconf.nvim",
-      },
     },
     -- stylua: ignore
     keys = {
@@ -79,7 +75,7 @@ return {
         dapui.close()
       end
       dap.listeners.before.event_terminated["dapui_config"] = function()
-        dapui.close()
+        -- dapui.close()
       end
       dap.listeners.after.event_initialized["dapui_config"] = function()
         dapui.open({ layout = 2 })

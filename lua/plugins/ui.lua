@@ -33,18 +33,6 @@ return {
     },
   },
   {
-    "echasnovski/mini.indentscope",
-    event = { "BufReadPre", "BufNewFile" },
-    opts = {
-      draw = {
-        animation = function()
-          return 1
-        end,
-      },
-      symbol = "│",
-    },
-  },
-  {
     "echasnovski/mini.hipatterns",
     event = { "BufReadPre", "BufNewFile" },
     dependencies = {
@@ -83,26 +71,10 @@ return {
   },
   {
     "j-hui/fidget.nvim",
-    event = { "BufReadPre", "BufNewFile" },
     opts = {},
   },
   {
-    "nvim-tree/nvim-web-devicons",
+    "echasnovski/mini.icons",
     opts = {},
-  },
-  {
-    "stevearc/dressing.nvim",
-    opts = {
-      input = {
-        start_in_insert = false,
-      },
-      select = {
-        builtin = {
-          win_options = {
-            winhighlight = "Normal:NormalFloat,CursorLine:Visual",
-          },
-        },
-      },
-    },
   },
 }

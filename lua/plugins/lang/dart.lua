@@ -2,19 +2,17 @@ return {
   {
     "folke/which-key.nvim",
     optional = true,
-    opts = function()
-      require("which-key").add({
-        { "<leader>F", desc = "[F]lutter" },
-        { "<leader>Fb", desc = "[b]uild_runner" },
+    opts = function(_, opts)
+      vim.list_extend(opts.spec, {
+        { "<leader>F", group = "[F]lutter" },
+        { "<leader>Fb", group = "[b]uild_runner" },
       })
     end,
   },
   {
     "akinsho/flutter-tools.nvim",
     lazy = false,
-    dependencies = {
-      "nvim-lua/plenary.nvim",
-    },
+    dependencies = { "nvim-lua/plenary.nvim" },
     keys = {
       { "<leader>Fd", "<Cmd>FlutterDevices<CR>", desc = "Select [D]evices" },
       { "<leader>Fr", "<Cmd>FlutterRestart<CR>", desc = "Hot [R]estart" },
@@ -49,11 +47,19 @@ return {
           background = true,
           virtual_text = false,
         },
+        capabilities = {
+          [vim.lsp.protocol.Methods.workspace_willRenameFiles] = true,
+          [vim.lsp.protocol.Methods.workspace_didRenameFiles] = true,
+        },
         settings = {
+          showTodos = false,
+          completeFunctionCalls = false,
           analysisExcludedFolders = {
-            "~/fvm/",
-            "~/.pub-cache/",
-            vim.uv.cwd() .. "/.fvm/",
+            vim.fn.expand("$HOME/.pub-cache"),
+            vim.fn.expand("$HOME/fvm"),
+            vim.fn.expand("$HOME/flutter"),
+            vim.uv.cwd() .. "/.git",
+            vim.uv.cwd() .. "/.fvm",
             vim.uv.cwd() .. "/.dart_tool",
             vim.uv.cwd() .. "/build",
             vim.uv.cwd() .. "/android",
@@ -64,12 +70,11 @@ return {
       },
     },
   },
-  -- add dart to treesitter
   {
     "nvim-treesitter/nvim-treesitter",
     optional = true,
     opts = function(_, opts)
-      vim.list_extend(opts.ensure_installed, { "dart" })
+      vim.list_extend(opts.ensure_installed, { "dart", "yaml" })
 
       -- FIXME: https://github.com/UserNobody14/tree-sitter-dart/issues/60#issuecomment-1867049690
       vim.list_extend(opts.indent.disable, { "dart" })
@@ -78,14 +83,10 @@ return {
       vim.list_extend(opts.textobjects.select.disable, { "dart" })
     end,
   },
-
-  -- hide generated files in mini.files
   {
     "echasnovski/mini.files",
     optional = true,
     opts = function(_, opts)
-      opts.content.hidden_file_suffix = opts.content.hidden_file_suffix or {}
-
       vim.list_extend(opts.content.hidden_file_suffix, {
         ".g.dart",
         ".gr.dart",
@@ -98,14 +99,10 @@ return {
       })
     end,
   },
-
-  -- neo-test support
   {
     "nvim-neotest/neotest",
     optional = true,
-    dependencies = {
-      "sidlatau/neotest-dart",
-    },
+    dependencies = { "sidlatau/neotest-dart" },
     opts = {
       adapters = {
         ["neotest-dart"] = {
@@ -115,38 +112,11 @@ return {
       },
     },
   },
-
-  -- snippets
   {
     "L3MON4D3/LuaSnip",
     optional = true,
     opts = function()
       require("luasnip").filetype_extend("dart", { "flutter" })
     end,
-  },
-
-  -- tasks
-  {
-    "akinsho/toggleterm.nvim",
-    optional = true,
-    keys = {
-      -- stylua: ignore start
-      {
-        "<leader>Fbb",
-        function() require("toggleterm").exec("fvm flutter pub run build_runner build --delete-conflicting-outputs", 9, 7, vim.uv.cwd(), "horizontal", "build_runner", true) end,
-        desc = "[B]uild",
-      },
-      {
-        "<leader>Fbw",
-        function() require("toggleterm").exec("fvm flutter pub run build_runner watch --delete-conflicting-outputs", 9, 7, vim.uv.cwd(), "horizontal", "build_runner", true) end,
-        desc = "[W]atch",
-      },
-      {
-        "<leader>Fbg",
-        function() require("toggleterm").exec("fluttergen", 10, 7, vim.uv.cwd(), "horizontal", "fluttergen", true) end,
-        desc = "Flutter[G]en",
-      },
-      -- stylua: ignore end
-    },
   },
 }

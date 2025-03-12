@@ -19,23 +19,16 @@ require("lazy").setup({
   spec = {
     { import = "plugins" },
     { import = "plugins.lang" },
-    { import = "plugins.extras" },
 
     -- colorschemes
     { import = "colorschemes.nordic" },
     -- { import = "colorschemes.onedark" },
     -- { import = "colorschemes.catppuccin" },
-
-    -- styles
-    { import = "styles.bordered" },
   },
   checker = {
     notify = false,
   },
   change_detection = {
     notify = false,
-  },
-  install = {
-    theme = { "onedark", "catppuccin" },
   },
 })
