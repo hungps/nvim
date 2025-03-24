@@ -1,7 +1,13 @@
 local map = vim.keymap.set
 
-map("n", "D", '"_d', { desc = "Delete without yanking" })
-map("n", "C", '"_c', { desc = "Change without yanking" })
+map("n", "q:", "<nop>", { noremap = true })
+map("n", "Q", "<nop>", { noremap = true })
+map("n", "q", "<nop>", { noremap = true })
+
+map({ "n", "v", "x" }, "d", '"_d', { desc = "Delete without yanking", noremap = true })
+map({ "n", "v", "x" }, "D", '"_D', { desc = "Delete without yanking", noremap = true })
+map({ "n", "v", "x" }, "c", '"_c', { desc = "Change without yanking", noremap = true })
+map({ "n", "v", "x" }, "C", '"_C', { desc = "Change without yanking", noremap = true })
 
 map("o", "ie", "<Cmd><C-u>normal! mzggVG<CR>`z", { desc = "Textobject to select entire buffer" })
 map("x", "ie", "<Cmd><C-u>normal! ggVG<CR>`z", { desc = "Textobject to select entire buffer" })
@@ -21,7 +27,7 @@ map({ "i", "c" }, "<C-k>", "<Up>", { desc = "Move up" })
 map("n", "<C-d>", "<C-d>zz", { desc = "Scroll down and keep the cursor at the center" })
 map("n", "<C-u>", "<C-u>zz", { desc = "Scroll up and keep the cursor at the center" })
 
-map({ "i", "x", "n", "s" }, "<C-s>", "<Cmd>w<CR><Esc>", { desc = "Save File" })
+map({ "x", "n" }, "<C-s>", "<Cmd>w<CR><Esc>", { desc = "Save File" })
 
 map("n", "<S-Up>", "<Cmd>resize +2<CR>", { desc = "Increase window height" })
 map("n", "<S-Down>", "<Cmd>resize -2<CR>", { desc = "Decrease window height" })
