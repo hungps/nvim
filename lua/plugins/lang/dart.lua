@@ -12,6 +12,7 @@ return {
   {
     "akinsho/flutter-tools.nvim",
     lazy = false,
+    cmd = { "FlutterDevices", "FlutterEmulators" },
     dependencies = { "nvim-lua/plenary.nvim" },
     keys = {
       { "<leader>Fd", "<Cmd>FlutterDevices<CR>", desc = "Select [D]evices" },
@@ -117,6 +118,16 @@ return {
     optional = true,
     opts = function()
       require("luasnip").filetype_extend("dart", { "flutter" })
+    end,
+  },
+  {
+    "igorlfs/nvim-dap-view",
+    optional = true,
+    opts = function(_, opts)
+      vim.list_extend(opts.windows.terminal.hide, {
+        "dart",
+        "flutter",
+      })
     end,
   },
 }
