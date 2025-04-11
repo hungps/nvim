@@ -165,15 +165,11 @@ return {
       scope = {
         cursor = false,
       },
-      -- scroll = {
-      --   animate = {
-      --     duration = { step = 10, total = 100 },
-      --     easing = "linear",
-      --   },
-      -- },
       statuscolumn = {
-        left = { "git", "sign" },
-        right = { "fold", "mark" },
+        folds = {
+          open = false,
+          git_hl = true,
+        },
       },
       toggle = {},
       words = {},
@@ -198,31 +194,6 @@ return {
     end,
     config = function(_, opts)
       require("snacks").setup(opts)
-
-      -- vim.api.nvim_create_autocmd("LspAttach", {
-      --   group = vim.api.nvim_create_augroup("SnacksCustomLsp", { clear = true }),
-      --   callback = function(event)
-      --     vim.keymap.set("n", "gd", function()
-      --       require("snacks").picker.lsp_definitions()
-      --     end, { buffer = event.buf, desc = "[G]oto: [D]efinition", noremap = true })
-      --
-      --     vim.keymap.set("n", "gD", function()
-      --       require("snacks").picker.lsp_declarations()
-      --     end, { buffer = event.buf, desc = "[G]oto: [D]eclaration", noremap = true })
-      --
-      --     vim.keymap.set("n", "grr", function()
-      --       require("snacks").picker.lsp_references()
-      --     end, { buffer = event.buf, desc = "[G]oto: [R]eferences", noremap = true, nowait = true })
-      --
-      --     vim.keymap.set("n", "gi", function()
-      --       require("snacks").picker.lsp_implementations()
-      --     end, { buffer = event.buf, desc = "[G]oto: [I]mplementation", noremap = true })
-      --
-      --     vim.keymap.set("n", "gI", function()
-      --       require("snacks").picker.lsp_type_definitions()
-      --     end, { buffer = event.buf, desc = "[G]oto: Type [I]mplementation", noremap = true })
-      --   end,
-      -- })
 
       vim.api.nvim_create_autocmd("User", {
         pattern = "MiniFilesActionRename",

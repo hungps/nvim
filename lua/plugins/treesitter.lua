@@ -43,6 +43,9 @@ return {
         max_lines = 3,
         line_numbers = true,
       })
+
+      vim.o.foldmethod = "expr"
+      vim.o.foldexpr = "v:lua.vim.treesitter.foldexpr()"
     end,
   },
 }

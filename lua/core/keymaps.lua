@@ -1,11 +1,7 @@
 local map = vim.keymap.set
 
 map("n", "q:", "<nop>", { noremap = true })
-map("n", "Q", "<nop>", { noremap = true })
-map("n", "q", "<nop>", { noremap = true })
 
-map({ "n", "v", "x" }, "d", '"_d', { desc = "Delete without yanking", noremap = true })
-map({ "n", "v", "x" }, "D", '"_D', { desc = "Delete without yanking", noremap = true })
 map({ "n", "v", "x" }, "c", '"_c', { desc = "Change without yanking", noremap = true })
 map({ "n", "v", "x" }, "C", '"_C', { desc = "Change without yanking", noremap = true })
 
@@ -27,7 +23,8 @@ map({ "i", "c" }, "<C-k>", "<Up>", { desc = "Move up" })
 map("n", "<C-d>", "<C-d>zz", { desc = "Scroll down and keep the cursor at the center" })
 map("n", "<C-u>", "<C-u>zz", { desc = "Scroll up and keep the cursor at the center" })
 
-map({ "x", "n" }, "<C-s>", "<Cmd>w<CR><Esc>", { desc = "Save File" })
+map({ "i", "x", "n", "s" }, "<C-s>", "<Cmd>w<CR><Esc>", { desc = "Save File", noremap = true })
+map({ "i", "x", "n", "s" }, "<CS-s>", "<Cmd>noautocmd w<CR><Esc>", { desc = "Save File (noautocmd)", noremap = true })
 
 map("n", "<S-Up>", "<Cmd>resize +2<CR>", { desc = "Increase window height" })
 map("n", "<S-Down>", "<Cmd>resize -2<CR>", { desc = "Decrease window height" })

@@ -54,12 +54,16 @@ return {
           end
 
           local map = function(modes, keys, func, desc)
-            vim.keymap.set(modes, keys, func, { buffer = event.buf, desc = desc })
+            vim.keymap.set(modes, keys, func, { buffer = event.buf, desc = desc, noremap = true })
           end
-          map("n", "grd", vim.lsp.buf.definition, "[G]oto: [D]efinition")
-          map("n", "grD", vim.lsp.buf.declaration, "[G]oto: [D]eclaration")
-          map("n", "grt", vim.lsp.buf.type_definition, "Type [D]efinition")
-          map("n", "grs", vim.lsp.buf.signature_help, "Show [S]ignature")
+          map("n", "gd", vim.lsp.buf.definition, "[G]oto: [D]efinition")
+          map("n", "gD", vim.lsp.buf.declaration, "[G]oto: [D]eclaration")
+          map("n", "gi", vim.lsp.buf.implementation, "[G]oto: [I]mplementation")
+          map("n", "gr", vim.lsp.buf.references, "[G]oto: References")
+          map("n", "go", vim.lsp.buf.type_definition, "Type [D]efinition")
+          map("n", "gs", vim.lsp.buf.signature_help, "Show [S]ignature")
+          map("n", "<leader>cr", vim.lsp.buf.rename, "[R]ename symbol")
+          map({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, "Code [A]ction")
 
           -- Enable inlay hints if the language server supports
           if client:supports_method(vim.lsp.protocol.Methods.textDocument_inlayHint, event.buf) then
@@ -85,11 +89,23 @@ return {
             })
 
             vim.api.nvim_create_autocmd("LspDetach", {
-              group = vim.api.nvim_create_augroup("lsp-detach", { clear = true }),
+              group = vim.api.nvim_create_augroup("lsp-highlight-detach", { clear = true }),
               callback = function(detach_event)
                 vim.lsp.buf.clear_references()
                 vim.api.nvim_clear_autocmds({ group = highlight_augroup, buffer = detach_event.buf })
               end,
+            })
+          end
+
+          -- Set folding method to lsp.foldexpr if the language server supports folding
+          if client:supports_method(vim.lsp.protocol.Methods.textDocument_foldingRange, event.buf) then
+            local win = vim.api.nvim_get_current_win()
+            vim.wo[win][0].foldmethod = "expr"
+            vim.wo[win][0].foldexpr = "v:lua.vim.lsp.foldexpr()"
+
+            vim.api.nvim_create_autocmd("LspDetach", {
+              group = vim.api.nvim_create_augroup("lsp-folding-detach", { clear = true }),
+              command = "setl foldexpr<",
             })
           end
         end,

@@ -78,7 +78,7 @@ return {
       vim.list_extend(opts.ensure_installed, { "dart", "yaml" })
 
       -- FIXME: https://github.com/UserNobody14/tree-sitter-dart/issues/60#issuecomment-1867049690
-      vim.list_extend(opts.indent.disable, { "dart" })
+      -- vim.list_extend(opts.indent.disable, { "dart" })
 
       -- FIXME: https://github.com/nvim-treesitter/nvim-treesitter-textobjects/issues/627
       vim.list_extend(opts.textobjects.select.disable, { "dart" })

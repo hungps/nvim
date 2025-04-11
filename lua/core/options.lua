@@ -1,50 +1,52 @@
-local opt = vim.opt
-
 vim.g.mapleader = " "
-vim.o.termguicolors = true
 
 vim.g.customsnippetspath = os.getenv("SNIPPETS_PATH")
 
-opt.laststatus = 3
-opt.showmode = false
+vim.opt.laststatus = 3
+vim.opt.showmode = false
 
-opt.number = true
-opt.relativenumber = true
-opt.wrap = false
-opt.ruler = false
-opt.cursorline = true
-opt.signcolumn = "auto:1-3"
-opt.list = true
-opt.listchars = { tab = "» ", trail = "·", nbsp = "␣" }
-opt.mouse = "a"
+vim.opt.number = true
+vim.opt.relativenumber = true
+vim.opt.wrap = false
+vim.opt.ruler = false
+vim.opt.cursorline = true
+-- vim.opt.signcolumn = "auto:1-3"
+vim.opt.list = true
+vim.opt.listchars = { extends = "…", precedes = "…", tab = "» ", trail = "·", nbsp = "␣" }
+vim.opt.mouse = "a"
 
-opt.wildmode = "longest:full,full"
-opt.completeopt = "menu,menuone"
-opt.conceallevel = 2
+vim.opt.wildmode = "longest:full,full"
+vim.opt.completeopt = "menu,menuone"
+vim.opt.conceallevel = 2
 
-opt.clipboard = "unnamedplus"
+vim.opt.clipboard = "unnamedplus"
 
-opt.expandtab = true
-opt.shiftwidth = 2
-opt.smartindent = true
-opt.tabstop = 2
-opt.softtabstop = 2
+vim.opt.expandtab = true
+vim.opt.shiftwidth = 2
+vim.opt.smartindent = true
+vim.opt.tabstop = 2
+vim.opt.softtabstop = 2
 
-opt.fillchars = { eob = " " }
-opt.ignorecase = true
-opt.smartcase = true
-opt.splitbelow = true
-opt.splitright = true
-opt.timeoutlen = 400
-opt.updatetime = 250 -- Required by CursorHold, CursorHoldI autocmds
+vim.opt.fillchars = { eob = " ", fold = " " }
+vim.opt.ignorecase = true
+vim.opt.smartcase = true
+vim.opt.splitbelow = true
+vim.opt.splitright = true
+vim.opt.timeoutlen = 400
+vim.opt.updatetime = 250 -- Required by CursorHold, CursorHoldI autocmds
 
-opt.swapfile = false
-opt.undofile = true
-opt.undolevels = 10000
+vim.opt.swapfile = false
+vim.opt.undofile = true
+vim.opt.undolevels = 10000
 
-opt.inccommand = "split"
+vim.opt.inccommand = "split"
+vim.opt.winborder = "single"
 
-opt.scrolloff = 10
+vim.opt.scrolloff = 10
 -- opt.winblend = 10
 -- opt.pumblend = 10
 -- opt.pumheight = 10
+
+vim.o.foldenable = true
+vim.o.foldlevel = 99
+vim.o.foldtext = ""
