@@ -2,9 +2,6 @@ local map = vim.keymap.set
 
 map("n", "q:", "<nop>", { noremap = true })
 
-map({ "n", "v", "x" }, "c", '"_c', { desc = "Change without yanking", noremap = true })
-map({ "n", "v", "x" }, "C", '"_C', { desc = "Change without yanking", noremap = true })
-
 map("o", "ie", "<Cmd><C-u>normal! mzggVG<CR>`z", { desc = "Textobject to select entire buffer" })
 map("x", "ie", "<Cmd><C-u>normal! ggVG<CR>`z", { desc = "Textobject to select entire buffer" })
 
