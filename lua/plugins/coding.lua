@@ -5,9 +5,7 @@ return {
     keys = {
       {
         "<leader>cf",
-        function()
-          require("conform").format({ lsp_fallback = true })
-        end,
+        function() require("conform").format({ lsp_fallback = true }) end,
         desc = "[F]ormat",
       },
     },
@@ -34,30 +32,8 @@ return {
 
       vim.api.nvim_create_autocmd({ "BufWritePost" }, {
         group = vim.api.nvim_create_augroup("nvim-lint", { clear = true }),
-        callback = function()
-          require("lint").try_lint(nil, { ignore_errors = true })
-        end,
+        callback = function() require("lint").try_lint(nil, { ignore_errors = true }) end,
       })
-    end,
-  },
-  {
-    "echasnovski/mini.ai",
-    event = { "BufReadPre", "BufNewFile" },
-    dependencies = {
-      "echasnovski/mini.extra",
-    },
-    opts = function()
-      local gen_ai_spec = require("mini.extra").gen_ai_spec
-
-      return {
-        custom_textobjects = {
-          B = gen_ai_spec.buffer(),
-          D = gen_ai_spec.diagnostic(),
-          I = gen_ai_spec.indent(),
-          L = gen_ai_spec.line(),
-          N = gen_ai_spec.number(),
-        },
-      }
     end,
   },
   {

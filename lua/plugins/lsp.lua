@@ -49,27 +49,23 @@ return {
         callback = function(event)
           local client = vim.lsp.get_client_by_id(event.data.client_id)
 
-          if not client then
-            return
-          end
+          if not client then return end
 
           local map = function(modes, keys, func, desc)
             vim.keymap.set(modes, keys, func, { buffer = event.buf, desc = desc, noremap = true })
           end
-          map("n", "gd", vim.lsp.buf.definition, "[G]oto: [D]efinition")
-          map("n", "gD", vim.lsp.buf.declaration, "[G]oto: [D]eclaration")
-          map("n", "gi", vim.lsp.buf.implementation, "[G]oto: [I]mplementation")
-          map("n", "gr", vim.lsp.buf.references, "[G]oto: References")
-          map("n", "go", vim.lsp.buf.type_definition, "Type [D]efinition")
-          map("n", "gs", vim.lsp.buf.signature_help, "Show [S]ignature")
-          map("n", "<leader>cr", vim.lsp.buf.rename, "[R]ename symbol")
-          map({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, "Code [A]ction")
+          map("n", "grd", vim.lsp.buf.definition, "Goto Definition")
+          map("n", "grD", vim.lsp.buf.declaration, "Goto Declaration")
+          map("n", "gri", vim.lsp.buf.implementation, "Goto Implementation")
+          map("n", "grr", vim.lsp.buf.references, "Goto References")
+          map("n", "grt", vim.lsp.buf.type_definition, "Goto Type Definition")
+          map("n", "grs", vim.lsp.buf.signature_help, "Show Signature")
+          map("n", "grn", vim.lsp.buf.rename, "Rename symbol")
+          map({ "n", "v" }, "gra", vim.lsp.buf.code_action, "Code Action")
 
           -- Enable inlay hints if the language server supports
           if client:supports_method(vim.lsp.protocol.Methods.textDocument_inlayHint, event.buf) then
-            local toggle_inlay_hint = function()
-              vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
-            end
+            local toggle_inlay_hint = function() vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled()) end
             map("n", "<leader>ti", toggle_inlay_hint, "[I]nlay [H]ints")
           end
 

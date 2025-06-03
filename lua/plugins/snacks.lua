@@ -6,115 +6,83 @@ return {
     keys = {
       {
         "<leader>bd",
-        function()
-          require("snacks").bufdelete.delete()
-        end,
+        function() require("snacks").bufdelete.delete() end,
         desc = "Close [C]urrent Buffer",
       },
       {
         "<leader>bo",
-        function()
-          require("snacks").bufdelete.other()
-        end,
+        function() require("snacks").bufdelete.other() end,
         desc = "Close [O]ther Buffer",
       },
       {
         "<leader>ts",
-        function()
-          require("snacks").scratch()
-        end,
+        function() require("snacks").scratch() end,
         desc = "Open scratch buffer",
       },
       {
         "<leader>tt",
-        function()
-          require("snacks").terminal.toggle()
-        end,
+        function() require("snacks").terminal.toggle() end,
         desc = "Toggle terminal",
       },
       {
         "<leader>go",
-        function()
-          require("snacks").gitbrowse.open()
-        end,
+        function() require("snacks").gitbrowse.open() end,
         desc = "[O]pen in browser",
       },
       {
         "<leader>tn",
-        function()
-          require("snacks").notifier.show_history()
-        end,
+        function() require("snacks").notifier.show_history() end,
         desc = "[N]otification history",
       },
       {
         "<leader>ff",
-        function()
-          require("snacks").picker.files()
-        end,
+        function() require("snacks").picker.files() end,
         desc = "Find [F]ile",
       },
       {
         "<leader>fo",
-        function()
-          require("snacks").picker.recent()
-        end,
+        function() require("snacks").picker.recent() end,
         desc = "Find [O]ld files",
       },
       {
         "<leader>fr",
-        function()
-          require("snacks").picker.resume()
-        end,
+        function() require("snacks").picker.resume() end,
         desc = "[R]esume last find",
       },
       {
         "<leader>fg",
-        function()
-          require("snacks").picker.grep()
-        end,
+        function() require("snacks").picker.grep() end,
         desc = "Find by [G]rep",
       },
       {
         "<leader>fg",
-        function()
-          require("snacks").picker.grep_word()
-        end,
+        function() require("snacks").picker.grep_word() end,
         desc = "Find by [G]rep selected text",
         mode = { "x", "v" },
       },
       {
         "<leader>fc",
-        function()
-          require("snacks").picker.commands()
-        end,
+        function() require("snacks").picker.commands() end,
         desc = "Find [C]ommand",
       },
       {
         "<leader>fh",
-        function()
-          require("snacks").picker.highlights()
-        end,
+        function() require("snacks").picker.highlights() end,
         desc = "Find [H]ighlight group",
       },
       {
         "<leader>fs",
-        function()
-          require("snacks").picker.lsp_symbols()
-        end,
+        function() require("snacks").picker.lsp_symbols() end,
         desc = "Find Document [S]ymbol",
       },
       {
         "<leader>fS",
-        function()
-          require("snacks").picker.lsp_workspace_symbols()
-        end,
+        function() require("snacks").picker.lsp_workspace_symbols() end,
         desc = "Find workspace [S]ymbol",
       },
       {
         "<leader>tz",
-        function()
-          require("snacks").zen.zen()
-        end,
+        function() require("snacks").zen.zen() end,
         desc = "Toggle [Z]en mode",
       },
     },
@@ -150,6 +118,7 @@ return {
         formatters = {
           file = {
             filename_first = true,
+            truncate = 60,
           },
         },
         win = {
@@ -184,12 +153,8 @@ return {
       },
     },
     init = function()
-      _G.dd = function(...)
-        require("snacks").debug.inspect(...)
-      end
-      _G.bt = function()
-        require("snacks").debug.backtrace()
-      end
+      _G.dd = function(...) require("snacks").debug.inspect(...) end
+      _G.bt = function() require("snacks").debug.backtrace() end
       vim.print = _G.dd
     end,
     config = function(_, opts)
@@ -197,9 +162,7 @@ return {
 
       vim.api.nvim_create_autocmd("User", {
         pattern = "MiniFilesActionRename",
-        callback = function(event)
-          require("snacks").rename.on_rename_file(event.data.from, event.data.to)
-        end,
+        callback = function(event) require("snacks").rename.on_rename_file(event.data.from, event.data.to) end,
       })
     end,
   },

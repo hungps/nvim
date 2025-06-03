@@ -2,6 +2,8 @@ require("core.options")
 require("core.keymaps")
 require("core.autocmds")
 
+pcall(require, "core.config-local")
+
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not (vim.uv or vim.loop).fs_stat(lazypath) then
   vim.fn.system({
@@ -19,11 +21,12 @@ require("lazy").setup({
   spec = {
     { import = "plugins" },
     { import = "plugins.lang" },
+    { import = "plugins.extra" },
 
     -- colorschemes
-    { import = "colorschemes.nordic" },
+    -- { import = "colorschemes.nordic" },
     -- { import = "colorschemes.onedark" },
-    -- { import = "colorschemes.catppuccin" },
+    { import = "colorschemes.catppuccin" },
   },
   checker = {
     notify = false,

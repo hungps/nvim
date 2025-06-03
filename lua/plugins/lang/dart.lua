@@ -74,15 +74,7 @@ return {
   {
     "nvim-treesitter/nvim-treesitter",
     optional = true,
-    opts = function(_, opts)
-      vim.list_extend(opts.ensure_installed, { "dart", "yaml" })
-
-      -- FIXME: https://github.com/UserNobody14/tree-sitter-dart/issues/60#issuecomment-1867049690
-      -- vim.list_extend(opts.indent.disable, { "dart" })
-
-      -- FIXME: https://github.com/nvim-treesitter/nvim-treesitter-textobjects/issues/627
-      vim.list_extend(opts.textobjects.select.disable, { "dart" })
-    end,
+    opts = function(_, opts) vim.list_extend(opts.ensure_installed, { "dart", "yaml" }) end,
   },
   {
     "echasnovski/mini.files",
@@ -116,9 +108,7 @@ return {
   {
     "L3MON4D3/LuaSnip",
     optional = true,
-    opts = function()
-      require("luasnip").filetype_extend("dart", { "flutter" })
-    end,
+    opts = function() require("luasnip").filetype_extend("dart", { "flutter" }) end,
   },
   {
     "igorlfs/nvim-dap-view",

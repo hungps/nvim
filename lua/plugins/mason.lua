@@ -1,9 +1,10 @@
 return {
   {
     "williamboman/mason.nvim",
+    version = "^1.0.0",
     dependencies = {
-      "WhoIsSethDaniel/mason-tool-installer.nvim",
-      "williamboman/mason-lspconfig.nvim",
+      { "WhoIsSethDaniel/mason-tool-installer.nvim" },
+      { "mason-org/mason-lspconfig.nvim", version = "^1.0.0" },
     },
     opts = {
       linters = {},

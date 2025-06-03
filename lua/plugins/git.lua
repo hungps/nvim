@@ -12,6 +12,10 @@ return {
   },
   {
     "tpope/vim-fugitive",
+    dependencies = {
+      "tpope/vim-rhubarb",
+      "shumphrey/fugitive-gitlab.vim",
+    },
     lazy = false,
     keys = {
       {
@@ -49,9 +53,7 @@ return {
       on_attach = function(buffer)
         local gs = require("gitsigns")
 
-        local function map(mode, l, r, desc)
-          vim.keymap.set(mode, l, r, { buffer = buffer, desc = desc })
-        end
+        local function map(mode, l, r, desc) vim.keymap.set(mode, l, r, { buffer = buffer, desc = desc }) end
 
         -- stylua: ignore start
         map("n", "]h", function() gs.nav_hunk("next") end, "Next [H]unk")

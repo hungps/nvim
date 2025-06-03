@@ -7,7 +7,7 @@ return {
     },
     opts = {
       sources = {
-        default = { "lsp", "path", "snippets" },
+        default = { "snippets", "lsp", "path" },
       },
       fuzzy = {
         implementation = "prefer_rust_with_warning",
@@ -15,6 +15,7 @@ return {
           "exact",
           "score",
           "sort_text",
+          "kind",
         },
       },
       keymap = { preset = "default" },
@@ -27,7 +28,24 @@ return {
           selection = { preselect = true, auto_insert = false },
         },
         menu = {
-          draw = { treesitter = { "lsp" } },
+          draw = {
+            treesitter = { "lsp" },
+            columns = { { "label", "label_description", gap = 1 }, { "kind_icon", "source_name", gap = 1 } },
+            components = {
+              kind_icon = {
+                highlight = function(ctx)
+                  local _, hl, _ = require("mini.icons").get("lsp", ctx.kind)
+                  return hl
+                end,
+              },
+              kind = {
+                highlight = function(ctx)
+                  local _, hl, _ = require("mini.icons").get("lsp", ctx.kind)
+                  return hl
+                end,
+              },
+            },
+          },
           scrollbar = false,
         },
         documentation = {
