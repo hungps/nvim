@@ -3,9 +3,21 @@ return {
     "saghen/blink.cmp",
     version = "*",
     dependencies = {
-      { "rafamadriz/friendly-snippets" },
+      {
+        "L3MON4D3/LuaSnip",
+        version = "v2.*",
+        build = "make install_jsregexp",
+        opts = {
+          update_events = { "TextChanged", "TextChangedI" },
+        },
+        config = function(_, opts)
+          require("luasnip").setup(opts)
+          require("luasnip.loaders.from_lua").load({ paths = { vim.fn.stdpath("config") .. "/lua/snippets" } })
+        end,
+      },
     },
     opts = {
+      snippets = { preset = "luasnip" },
       sources = {
         default = { "snippets", "lsp", "path" },
       },
