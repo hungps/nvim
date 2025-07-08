@@ -31,7 +31,7 @@ M.get_task_opts = function(defn)
   end
 
   if defn.args and not vim.tbl_isempty(defn.args) then
-    cmd = shell.escape_cmd(vim.list_extend(cmd, defn.args))
+    cmd = { shell.escape_cmd(vim.list_extend(cmd, defn.args)) }
   end
 
   return {

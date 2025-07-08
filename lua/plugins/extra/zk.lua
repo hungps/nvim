@@ -11,6 +11,7 @@ return {
   {
     "zk-org/zk-nvim",
     name = "zk",
+    cmd = { "ZkNew", "ZkNotes", "ZkTags" },
     opts = {
       picker = "snacks_picker",
     },

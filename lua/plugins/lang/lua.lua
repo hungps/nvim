@@ -8,7 +8,7 @@ return {
       },
     },
   },
-  { -- optional blink completion source for require statements and module annotations
+  {
     "saghen/blink.cmp",
     optional = true,
     opts = function(_, opts)
@@ -30,7 +30,7 @@ return {
   {
     "williamboman/mason.nvim",
     optional = true,
-    opts = function(_, opts) table.insert(opts.formatters, "stylua") end,
+    opts = function(_, opts) vim.list_extend(opts.formatters, { "stylua" }) end,
   },
   {
     "stevearc/conform.nvim",
