@@ -21,7 +21,10 @@ return {
 
           vim.wo.foldmethod = "expr"
           vim.wo.foldexpr = "v:lua.vim.treesitter.foldexpr()"
-          vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+
+          -- -- https://www.reddit.com/r/neovim/comments/14n6iiy/if_you_have_treesitter_make_sure_to_disable/
+          -- vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+          -- vim.opt.smartindent = false
         end,
       })
     end,

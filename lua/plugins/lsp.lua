@@ -1,54 +1,29 @@
 return {
   {
     "neovim/nvim-lspconfig",
-    dependencies = {
-      {
-        "williamboman/mason-lspconfig.nvim",
-        dependencies = { "williamboman/mason.nvim" },
-      },
-    },
     opts = {
       servers = {},
       capabilities = {},
     },
     config = function(_, opts)
       local capabilities = vim.lsp.protocol.make_client_capabilities()
-      for _, value in ipairs(opts.capabilities) do
-        capabilities = vim.tbl_deep_extend("force", capabilities, value)
+      for _, extra_capabilities in pairs(opts.capabilities) do
+        capabilities = vim.tbl_deep_extend("force", capabilities, extra_capabilities)
       end
 
-      local servers = opts.servers or {}
-
-      local setup = function(server_name)
-        local server = servers[server_name] or {}
-        server.capabilities = vim.tbl_deep_extend("force", capabilities, server.capabilities or {})
-        require("lspconfig")[server_name].setup(server)
-      end
-
-      -- Filtering out the servers that are not exist in mason and install them manually
-      local all_masonlsp_servers = vim.tbl_keys(require("mason-lspconfig.mappings.server").lspconfig_to_package)
-      local ensure_installed = {}
-      for server in pairs(servers) do
-        if not vim.tbl_contains(all_masonlsp_servers, server) then
-          setup(server)
-        else
-          ensure_installed[#ensure_installed + 1] = server
-        end
-      end
-
-      -- setup mason lsp servers
-      require("mason-lspconfig").setup({
-        ensure_installed = ensure_installed,
-        handlers = { setup },
+      vim.lsp.config("*", {
+        capabilities = capabilities,
+        root_markers = { ".git" },
       })
 
-      -- Inject lsp keymap, highlight.. when attaching Lsp
+      for server in pairs(opts.servers) do
+        vim.lsp.enable(server)
+      end
+
       vim.api.nvim_create_autocmd("LspAttach", {
-        desc = "Mapping lsp actions when attached",
         group = vim.api.nvim_create_augroup("UserLspConfig", { clear = true }),
         callback = function(event)
           local client = vim.lsp.get_client_by_id(event.data.client_id)
-
           if not client then return end
 
           local map = function(modes, keys, func, desc)
@@ -63,13 +38,13 @@ return {
           map("n", "grn", vim.lsp.buf.rename, "Rename symbol")
           map({ "n", "v" }, "gra", vim.lsp.buf.code_action, "Code Action")
 
-          -- Enable inlay hints if the language server supports
+          -- Inlay hints
           if client:supports_method(vim.lsp.protocol.Methods.textDocument_inlayHint, event.buf) then
             local toggle_inlay_hint = function() vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled()) end
             map("n", "<leader>ti", toggle_inlay_hint, "[I]nlay [H]ints")
           end
 
-          -- Highlight references of the word under your cursor when your cursor rests there for a little while.
+          -- Highlight references of the word under your cursor
           if client:supports_method(vim.lsp.protocol.Methods.textDocument_documentHighlight, event.buf) then
             local highlight_augroup = vim.api.nvim_create_augroup("lsp-highlight", { clear = false })
             vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
@@ -93,7 +68,7 @@ return {
             })
           end
 
-          -- Set folding method to lsp.foldexpr if the language server supports folding
+          -- Set folding method to lsp.foldexpr
           if client:supports_method(vim.lsp.protocol.Methods.textDocument_foldingRange, event.buf) then
             local win = vim.api.nvim_get_current_win()
             vim.wo[win][0].foldmethod = "expr"

@@ -1,15 +1,15 @@
 return {
   {
     "williamboman/mason.nvim",
-    version = "^1.0.0",
     dependencies = {
       { "WhoIsSethDaniel/mason-tool-installer.nvim" },
-      { "mason-org/mason-lspconfig.nvim", version = "^1.0.0" },
+      { "mason-org/mason-lspconfig.nvim" },
     },
     opts = {
       linters = {},
       formatters = {},
       debuggers = {},
+      servers = {},
     },
     config = function(_, opts)
       local packages = vim
@@ -23,6 +23,7 @@ return {
 
       require("mason").setup()
       require("mason-tool-installer").setup({ ensure_installed = packages })
+      require("mason-lspconfig").setup({ ensure_installed = opts.servers })
     end,
   },
 }
