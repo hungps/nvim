@@ -9,7 +9,48 @@ return {
         build = "make install_jsregexp",
         opts = {
           update_events = { "TextChanged", "TextChangedI" },
+          keep_roots = true,
+          link_roots = true,
+          exit_roots = true,
+          link_children = true,
+          delete_check_events = "TextChanged",
+          ext_base_prio = 300,
+          ext_prio_increase = 1,
+          enable_autosnippets = true,
         },
+        keys = function()
+          local ls = require("luasnip")
+          return {
+            {
+              "<C-l>",
+              function()
+                if ls.locally_jumpable(1) then ls.jump(1) end
+              end,
+              mode = { "i", "s" },
+            },
+            {
+              "<C-h>",
+              function()
+                if ls.locally_jumpable(-1) then ls.jump(-1) end
+              end,
+              mode = { "i", "s" },
+            },
+            {
+              "<C-j>",
+              function()
+                if require("luasnip").choice_active() then require("luasnip").change_choice(1) end
+              end,
+              mode = { "i", "s" },
+            },
+            {
+              "<C-k>",
+              function()
+                if require("luasnip").choice_active() then require("luasnip").change_choice(-1) end
+              end,
+              mode = { "i", "s" },
+            },
+          }
+        end,
         config = function(_, opts)
           require("luasnip").setup(opts)
           require("luasnip.loaders.from_lua").load({ paths = { vim.fn.stdpath("config") .. "/lua/snippets" } })
@@ -30,7 +71,16 @@ return {
           "kind",
         },
       },
-      keymap = { preset = "default" },
+      keymap = {
+        preset = "none",
+        ["<C-space>"] = { "show", "show_documentation", "hide_documentation" },
+        ["<C-e>"] = { "hide" },
+        ["<C-y>"] = { "select_and_accept" },
+        ["<C-p>"] = { "select_prev", "fallback_to_mappings" },
+        ["<C-n>"] = { "select_next", "fallback_to_mappings" },
+        ["<C-b>"] = { "scroll_documentation_up", "fallback" },
+        ["<C-f>"] = { "scroll_documentation_down", "fallback" },
+      },
       cmdline = { enabled = false },
       completion = {
         accept = {
