@@ -2,22 +2,22 @@ local function augroup(name) return vim.api.nvim_create_augroup("custom-" .. nam
 
 local autocmd = vim.api.nvim_create_autocmd
 
--- Highlight when yanking text
 autocmd("TextYankPost", {
+  desc = "Highlight when yanking text",
   group = augroup("highlight-yank"),
   callback = function() vim.highlight.on_yank() end,
 })
 
--- Reload file when changed
 autocmd({ "FocusGained", "TermClose", "TermLeave" }, {
+  desc = "Reload file when changed",
   group = augroup("checktime"),
   callback = function()
     if vim.o.buftype ~= "nofile" then vim.cmd("checktime") end
   end,
 })
 
--- Auto create dir when saving a file, in case some intermediate directory does not exist
 autocmd({ "BufWritePre" }, {
+  desc = "Auto create dir when saving a file",
   group = augroup("auto_create_dir"),
   callback = function(event)
     if event.match:match("^%w%w+://") then return end

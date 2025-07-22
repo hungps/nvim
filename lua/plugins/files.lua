@@ -13,14 +13,12 @@ return {
             require("mini.files").open(vim.uv.cwd())
           end
         end,
-        desc = "File [E]xplorer",
+        desc = "File Explorer",
       },
       {
         "<leader>fE",
-        function()
-          require("mini.files").open(vim.uv.cwd())
-        end,
-        desc = "File [E]xplorer (root)",
+        function() require("mini.files").open(vim.uv.cwd()) end,
+        desc = "File Explorer (root)",
       },
     },
     opts = {
@@ -42,14 +40,10 @@ return {
       vim.g.minifiles_enable_filter = true
 
       opts.content.filter = function(fs_entry)
-        if not vim.g.minifiles_enable_filter then
-          return true
-        end
+        if not vim.g.minifiles_enable_filter then return true end
 
         for _, suffix in pairs(opts.content.hidden_file_suffix) do
-          if fs_entry.name == suffix or vim.endswith(fs_entry.name, suffix) then
-            return false
-          end
+          if fs_entry.name == suffix or vim.endswith(fs_entry.name, suffix) then return false end
         end
 
         return true

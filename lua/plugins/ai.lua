@@ -7,16 +7,13 @@ return {
       {
         "<leader>at",
         function() require("copilot.suggestion").toggle_auto_trigger() end,
-        desc = "[T]oggle autocomplete",
+        desc = "Toggle autocomplete",
       },
     },
     opts = {
       filetypes = {
         sh = function()
-          if string.match(vim.fs.basename(vim.api.nvim_buf_get_name(0)), "^%.env.*") then
-            -- disable for .env files
-            return false
-          end
+          if string.match(vim.fs.basename(vim.api.nvim_buf_get_name(0)), "^%.env.*") then return false end
           return true
         end,
       },
@@ -42,12 +39,12 @@ return {
       {
         "<leader>ac",
         "<Cmd>CodeCompanionChat<CR>",
-        desc = "[C]hat",
+        desc = "Chat",
       },
       {
         "<leader>aa",
         "<Cmd>CodeCompanionActions<CR>",
-        desc = "[A]ctions",
+        desc = "Actions",
         mode = { "n", "v" },
       },
       {
@@ -57,7 +54,7 @@ return {
             if input then vim.cmd("'<,'>CodeCompanion " .. input) end
           end)
         end,
-        desc = "[Q]uick ask",
+        desc = "Quick ask",
         mode = "v",
       },
     },

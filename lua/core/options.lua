@@ -14,9 +14,8 @@ vim.opt.listchars = { extends = "…", precedes = "…", tab = "» ", trail = "�
 vim.opt.fillchars = { eob = " ", fold = " " }
 vim.opt.mouse = "a"
 vim.opt.winborder = "single"
-vim.opt.scrolloff = 10
+vim.opt.scrolloff = 20
 vim.opt.conceallevel = 2
--- vim.opt.inccommand = "split"
 
 vim.opt.wildmode = "longest:full,full"
 vim.opt.completeopt = "menu,menuone"

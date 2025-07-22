@@ -4,8 +4,8 @@ return {
     optional = true,
     opts = function(_, opts)
       vim.list_extend(opts.spec, {
-        { "<leader>F", group = "[F]lutter" },
-        { "<leader>Fb", group = "[b]uild_runner" },
+        { "<leader>F", group = "Flutter" },
+        { "<leader>Fb", group = "build_runner" },
       })
     end,
   },
@@ -15,9 +15,9 @@ return {
     cmd = { "FlutterDevices", "FlutterEmulators" },
     dependencies = { "nvim-lua/plenary.nvim" },
     keys = {
-      { "<leader>Fd", "<Cmd>FlutterDevices<CR>", desc = "Select [D]evices" },
-      { "<leader>Fr", "<Cmd>FlutterRestart<CR>", desc = "Hot [R]estart" },
-      { "<leader>Fo", "<Cmd>FlutterOutlineToggle<CR>", desc = "Toggle [O]utline" },
+      { "<leader>Fd", "<Cmd>FlutterDevices<CR>", desc = "Select Devices" },
+      { "<leader>Fr", "<Cmd>FlutterRestart<CR>", desc = "Hot Restart" },
+      { "<leader>Fo", "<Cmd>FlutterOutlineToggle<CR>", desc = "Toggle Outline" },
     },
     opts = {
       debugger = {
@@ -56,9 +56,6 @@ return {
           showTodos = false,
           completeFunctionCalls = false,
           analysisExcludedFolders = {
-            vim.fn.expand("$HOME/.pub-cache"),
-            vim.fn.expand("$HOME/fvm"),
-            vim.fn.expand("$HOME/flutter"),
             vim.uv.cwd() .. "/.git",
             vim.uv.cwd() .. "/.fvm",
             vim.uv.cwd() .. "/.dart_tool",

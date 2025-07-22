@@ -7,12 +7,12 @@ return {
       {
         "<leader>bd",
         function() require("snacks").bufdelete.delete() end,
-        desc = "Close [C]urrent Buffer",
+        desc = "Close current buffer",
       },
       {
         "<leader>bo",
         function() require("snacks").bufdelete.other() end,
-        desc = "Close [O]ther Buffer",
+        desc = "Close other buffer",
       },
       {
         "<leader>ts",
@@ -27,58 +27,58 @@ return {
       {
         "<leader>go",
         function() require("snacks").gitbrowse.open() end,
-        desc = "[O]pen in browser",
+        desc = "Open in browser",
       },
       {
         "<leader>tn",
         function() require("snacks").notifier.show_history() end,
-        desc = "[N]otification history",
+        desc = "Notification history",
       },
       {
         "<leader>ff",
         function() require("snacks").picker.files() end,
-        desc = "Find [F]ile",
+        desc = "Find File",
       },
       {
         "<leader>fo",
         function() require("snacks").picker.recent() end,
-        desc = "Find [O]ld files",
+        desc = "Find Old files",
       },
       {
         "<leader>fr",
         function() require("snacks").picker.resume() end,
-        desc = "[R]esume last find",
+        desc = "Resume last find",
       },
       {
         "<leader>fg",
         function() require("snacks").picker.grep() end,
-        desc = "Find by [G]rep",
+        desc = "Find by Grep",
       },
       {
         "<leader>fg",
         function() require("snacks").picker.grep_word() end,
-        desc = "Find by [G]rep selected text",
+        desc = "Find by Grep selected text",
         mode = { "x", "v" },
       },
       {
         "<leader>fc",
         function() require("snacks").picker.commands() end,
-        desc = "Find [C]ommand",
+        desc = "Find Command",
       },
       {
         "<leader>fh",
         function() require("snacks").picker.highlights() end,
-        desc = "Find [H]ighlight group",
+        desc = "Find Highlight group",
       },
       {
         "<leader>fs",
         function() require("snacks").picker.lsp_symbols() end,
-        desc = "Find Document [S]ymbol",
+        desc = "Find Document Symbol",
       },
       {
         "<leader>fS",
         function() require("snacks").picker.lsp_workspace_symbols() end,
-        desc = "Find workspace [S]ymbol",
+        desc = "Find workspace Symbol",
       },
       {
         "<leader>tz",

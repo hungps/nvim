@@ -6,7 +6,7 @@ return {
       {
         "<leader>cf",
         function() require("conform").format({ lsp_fallback = true }) end,
-        desc = "[F]ormat",
+        desc = "Format",
       },
     },
     opts = {

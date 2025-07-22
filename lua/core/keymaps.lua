@@ -1,4 +1,5 @@
 local map = vim.keymap.set
+local del = vim.keymap.del
 
 map("n", "q:", "<nop>", { noremap = true })
 
@@ -23,11 +24,22 @@ map("i", "<C-A-k>", "<Esc><Cmd>m .-2<CR>==gi", { desc = "Move Up" })
 map("v", "<C-A-j>", ":m '>+1<CR>gv=gv", { desc = "Move Down" })
 map("v", "<C-A-k>", ":m '<-2<CR>gv=gv", { desc = "Move Up" })
 
-map("n", "<leader>bo", "<Cmd>:w|%bd|e#|bd#<CR>", { desc = "Close Other Buffer" })
+map("v", "<", "<gv", { desc = "Decrease indent" })
+map("v", ">", ">gv", { desc = "Increase indent" })
+del("s", "<")
+del("s", ">")
+
+map("n", "[t", "<cmd>tabp<CR>", { desc = "Go to prev tab" })
+map("n", "]t", "<cmd>tabn<CR>", { desc = "Go to next tab" })
+map("n", "[e", function() vim.diagnostic.jump({ severity = "ERROR", count = -1, float = true }) end)
+map("n", "]e", function() vim.diagnostic.jump({ severity = "ERROR", count = 1, float = true }) end)
+map("n", "[w", function() vim.diagnostic.jump({ severity = "WARN", count = -1, float = true }) end)
+map("n", "]w", function() vim.diagnostic.jump({ severity = "WARN", count = 1, float = true }) end)
+map("n", "]d", function() vim.diagnostic.jump({ count = 1, float = true }) end)
+map("n", "[d", function() vim.diagnostic.jump({ count = -1, float = true }) end)
 
 map({ "i", "n" }, "<Esc>", "<Cmd>noh<CR><Esc>", { desc = "Escape and Clear hlsearch" })
 
-map("v", "<C-A-h>", "<gv", { desc = "Decrease indent" })
-map("v", "<C-A-l>", ">gv", { desc = "Increase indent" })
-
+map("n", "<leader>tr", "<Cmd>set rnu!<CR>", { desc = "Toggle relative number" })
+map("n", "<leader>bo", "<Cmd>:w|%bd|e#|bd#<CR>", { desc = "Close Other Buffer" })
 map("n", "<leader>qq", "<Cmd>qa<CR>", { desc = "Quit All" })
