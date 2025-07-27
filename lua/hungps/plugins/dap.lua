@@ -30,7 +30,7 @@ return {
       { "<leader>ds", function() require("dap").session() end, desc = "Session" },
       { "<leader>di", function() require("dap.ui.widgets").hover() end, desc = "Inspect value under cursor" },
       { "<leader>dI", function() require("dap.ui.widgets").centered_float(require("dap.ui.widgets").scopes()) end, desc = "Inspect values in scope" },
-      { "<leader>da", desc = "Actions" },
+      { "<leader>da", desc = "+Actions" },
       { "<leader>dap", function() require("dap").pause() end, desc = "Pause" },
       { "<leader>dat", function() require("dap").terminate() end, desc = "Terminate" },
       { "<leader>dac", function() require("dap").continue() end, desc = "Continue" },
@@ -49,18 +49,12 @@ return {
 
       local dap, dv = require("dap"), require("dap-view")
 
-      dap.listeners.before.attach["dap-view-config"] = function()
-        dv.open()
-      end
-      dap.listeners.before.launch["dap-view-config"] = function()
-        dv.open()
-      end
+      dap.listeners.before.attach["dap-view-config"] = function() dv.open() end
+      dap.listeners.before.launch["dap-view-config"] = function() dv.open() end
       -- dap.listeners.before.event_terminated["dap-view-config"] = function()
       --   dv.close()
       -- end
-      dap.listeners.before.event_exited["dap-view-config"] = function()
-        dv.close()
-      end
+      dap.listeners.before.event_exited["dap-view-config"] = function() dv.close() end
     end,
   },
 }

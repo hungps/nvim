@@ -1,17 +1,7 @@
 return {
-  {
-    "echasnovski/mini.bracketed",
-    event = { "BufReadPre", "BufNewFile" },
-    opts = {},
-  },
-  {
-    "echasnovski/mini.jump",
-    event = { "BufReadPre", "BufNewFile" },
-    opts = {},
-  },
+  { "echasnovski/mini.jump", opts = {} },
   {
     "echasnovski/mini.ai",
-    event = { "BufReadPre", "BufNewFile" },
     dependencies = {
       "echasnovski/mini.extra",
     },
@@ -21,7 +11,6 @@ return {
 
       return {
         custom_textobjects = {
-          -- Tweak function call to not detect dot in function name
           f = gen_spec.function_call({ name_pattern = "[%w_]" }),
           F = gen_spec.treesitter({ a = "@function.outer", i = "@function.inner" }),
           c = gen_spec.treesitter({ a = "@class.outer", i = "@class.inner" }),

@@ -50,9 +50,8 @@ return {
       {
         "<leader>aq",
         function()
-          vim.ui.input({ prompt = "Quick Chat: " }, function(input)
-            if input then vim.cmd("'<,'>CodeCompanion " .. input) end
-          end)
+          local input = vim.fn.input("Ask: ")
+          if input then vim.cmd("'<,'>CodeCompanion " .. input) end
         end,
         desc = "Quick ask",
         mode = "v",

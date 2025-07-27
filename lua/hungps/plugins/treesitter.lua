@@ -4,9 +4,6 @@ return {
     lazy = false,
     branch = "main",
     build = ":TSUpdate",
-    dependencies = {
-      "nvim-treesitter/nvim-treesitter-context",
-    },
     opts = {
       ensure_installed = { "vim", "vimdoc", "http", "sh", "json", "bash", "cmake", "dockerfile", "editorconfig" },
     },

@@ -1,7 +1,6 @@
 return {
   {
     "echasnovski/mini.statusline",
-    event = "VeryLazy",
     opts = {
       content = {
         active = function()
@@ -34,10 +33,7 @@ return {
   },
   {
     "echasnovski/mini.hipatterns",
-    event = { "BufReadPre", "BufNewFile" },
-    dependencies = {
-      "echasnovski/mini.extra",
-    },
+    dependencies = { "echasnovski/mini.extra" },
     opts = function()
       local hipatterns = require("mini.hipatterns")
       local hi_words = require("mini.extra").gen_highlighter.words
@@ -69,12 +65,6 @@ return {
       }
     end,
   },
-  {
-    "j-hui/fidget.nvim",
-    opts = {},
-  },
-  {
-    "echasnovski/mini.icons",
-    opts = {},
-  },
+  { "j-hui/fidget.nvim", opts = {} },
+  { "echasnovski/mini.icons", opts = {} },
 }

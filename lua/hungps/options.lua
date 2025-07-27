@@ -42,3 +42,23 @@ vim.opt.undolevels = 10000
 vim.o.foldenable = true
 vim.o.foldlevel = 99
 vim.o.foldtext = ""
+
+vim.diagnostic.config({
+  severity_sort = true,
+  virtual_text = true,
+  -- virtual_lines = {
+  --   current_line = true,
+  -- },
+  float = {
+    severity_sort = true,
+    source = true,
+  },
+  signs = {
+    text = {
+      [vim.diagnostic.severity.ERROR] = "󰅚",
+      [vim.diagnostic.severity.WARN] = "󰀪",
+      [vim.diagnostic.severity.HINT] = "󰌶",
+      [vim.diagnostic.severity.INFO] = "",
+    },
+  },
+})

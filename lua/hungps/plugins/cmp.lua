@@ -53,7 +53,7 @@ return {
         end,
         config = function(_, opts)
           require("luasnip").setup(opts)
-          require("luasnip.loaders.from_lua").load({ paths = { vim.fn.stdpath("config") .. "/lua/snippets" } })
+          require("luasnip.loaders.from_lua").load({ paths = { vim.fn.stdpath("config") .. "/lua/hungps/snippets" } })
         end,
       },
     },
@@ -92,21 +92,7 @@ return {
         menu = {
           draw = {
             treesitter = { "lsp" },
-            columns = { { "label", "label_description", gap = 1 }, { "kind_icon", "source_name", gap = 1 } },
-            components = {
-              kind_icon = {
-                highlight = function(ctx)
-                  local _, hl, _ = require("mini.icons").get("lsp", ctx.kind)
-                  return hl
-                end,
-              },
-              kind = {
-                highlight = function(ctx)
-                  local _, hl, _ = require("mini.icons").get("lsp", ctx.kind)
-                  return hl
-                end,
-              },
-            },
+            columns = { { "kind_icon" }, { "label", "label_description", gap = 1 }, { "source_name" } },
           },
           scrollbar = false,
         },
@@ -127,13 +113,5 @@ return {
         },
       },
     },
-  },
-  {
-    "neovim/nvim-lspconfig",
-    optional = true,
-    opts = function(_, opts)
-      opts.capabilities = opts.capabilities or {}
-      opts.capabilities.cmp = require("blink.cmp").get_lsp_capabilities()
-    end,
   },
 }

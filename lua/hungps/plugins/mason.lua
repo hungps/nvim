@@ -3,7 +3,6 @@ return {
     "williamboman/mason.nvim",
     dependencies = {
       { "WhoIsSethDaniel/mason-tool-installer.nvim" },
-      { "mason-org/mason-lspconfig.nvim" },
     },
     opts = {
       linters = {},
@@ -23,7 +22,6 @@ return {
 
       require("mason").setup()
       require("mason-tool-installer").setup({ ensure_installed = packages })
-      require("mason-lspconfig").setup({ ensure_installed = opts.servers })
     end,
   },
 }
