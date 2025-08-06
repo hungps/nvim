@@ -1,8 +1,11 @@
-require("hungps.options")
-require("hungps.keymaps")
-require("hungps.autocmds")
-require("hungps.lazy")
+local groups = {
+  vim.api.nvim_get_runtime_file("lua/hungps/core/*.lua", true),
+  vim.api.nvim_get_runtime_file("lua/hungps/plugins/*.lua", true),
+  vim.api.nvim_get_runtime_file("lua/hungps/plugins/*/*.lua", true),
+}
 
-pcall(require, "hungps.local")
-
-vim.cmd.colorscheme("catppuccin")
+for _, files in ipairs(groups) do
+  for _, file in ipairs(files) do
+    loadfile(file)()
+  end
+end

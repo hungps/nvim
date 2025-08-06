@@ -1,0 +1,51 @@
+-- stylua: ignore start
+
+--- @param desc string
+--- @param group integer|string
+--- @param event string|table
+--- @param pattern string|string[]|integer Autocmd pattern or buffer id
+--- @param callback string|(fun(args?: vim.api.keyset.create_autocmd.callback_args): boolean?)
+_G.autocmd = function(desc, group, event, pattern, callback)
+  local opts = { group = group, desc = desc, callback = callback }
+
+  if type(pattern) == "number" then
+    opts.buffer = pattern
+  else
+    opts.pattern = pattern
+  end
+
+  vim.api.nvim_create_autocmd(event, opts)
+end
+
+--- @param name string
+--- @param clear? boolean
+--- @return integer
+_G.augroup = function(name, clear) return vim.api.nvim_create_augroup("User" .. name, { clear = clear }) end
+
+local group = augroup("custom-autocmds")
+
+autocmd('Highlight yanked text', group, 'TextYankPost', '*', function()
+  vim.hl.on_yank()
+end)
+
+autocmd('Show relative line numbers', group, 'ModeChanged', 'n:[nvox]*', function()
+  vim.wo.relativenumber = vim.wo.number
+end)
+
+autocmd('Hide relative line numbers', group, 'ModeChanged', '*:[ni]', function()
+  vim.wo.relativenumber = false
+end)
+
+autocmd('Reload file when changed', group, { 'FocusGained', 'TermClose', 'TermLeave' }, '*', function()
+  if vim.o.buftype ~= 'nofile' then vim.cmd('checktime') end
+end)
+
+autocmd('Diagnostic popup on hover', augroup('diagnostic-float'), 'CursorHold', '*', function()
+  vim.diagnostic.open_float(nil, {
+    focusable = false,
+    close_events = { 'BufLeave', 'CursorMoved', 'InsertEnter', 'FocusLost' },
+    source = true,
+    scope = 'line',
+    severity_sort = true,
+  })
+end)

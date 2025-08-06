@@ -1,4 +1,4 @@
-return {}, {
+return {
   s(
     "local",
     fmt([[local {name} = {value}]], {
@@ -41,15 +41,14 @@ return {}, {
   s(
     "func",
     fmt(
-      [[
-        function({args})
-          {body}
-        end
-      ]],
+      [[function({args}){body}end]],
       {
         args = i(1),
-        body = i(0),
+        body = c(2, {
+          sn(nil, { t(' '), i(1), t(' ') }),
+          sn(nil, { t({ '', '\t' }), i(1), t({ '', '' }) }),
+        }),
       }
     )
   ),
-}
+}, {}

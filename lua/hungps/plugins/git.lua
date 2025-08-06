@@ -1,91 +1,69 @@
-return {
-  {
-    "tpope/vim-fugitive",
-    dependencies = {
-      "tpope/vim-rhubarb",
-      "shumphrey/fugitive-gitlab.vim",
+add({
+  "tpope/vim-fugitive",
+  "tpope/vim-rhubarb",
+  "shumphrey/fugitive-gitlab.vim",
+}, function()
+  map("n", "<Leader>gg", "<Cmd>tab Git<CR>", "Git")
+  map("n", "<Leader>gl", "<Cmd>Git log<CR>", "Git log")
+end)
+
+add({ source = "lewis6991/gitsigns.nvim", checkout = "v1.0.2" }, function()
+  local gs = require("gitsigns")
+
+  gs.setup({
+    signs = {
+      add = { text = "▎" },
+      change = { text = "▎" },
+      delete = { text = "▎" },
+      topdelete = { text = "▎" },
+      changedelete = { text = "▎" },
+      untracked = { text = "▎" },
     },
-    keys = {
-      { "<leader>gg", "<Cmd>tab Git<CR>", desc = "Git" },
-      { "<leader>gl", "<Cmd>Git log<CR>", desc = "Git Log" },
+    signs_staged = {
+      add = { text = "▎" },
+      change = { text = "▎" },
+      delete = { text = "▎" },
+      topdelete = { text = "▎" },
+      changedelete = { text = "▎" },
+      untracked = { text = "▎" },
     },
-  },
-  {
-    "lewis6991/gitsigns.nvim",
-    opts = {
-      signs = {
-        add = { text = "▎" },
-        change = { text = "▎" },
-        delete = { text = "▎" },
-        topdelete = { text = "▎" },
-        changedelete = { text = "▎" },
-        untracked = { text = "▎" },
-      },
-      signs_staged = {
-        add = { text = "▎" },
-        change = { text = "▎" },
-        delete = { text = "▎" },
-        topdelete = { text = "▎" },
-        changedelete = { text = "▎" },
-        untracked = { text = "▎" },
-      },
-      on_attach = function(buffer)
-        local gs = require("gitsigns")
-
-        local function map(mode, l, r, desc) vim.keymap.set(mode, l, r, { buffer = buffer, desc = desc }) end
-
-        -- stylua: ignore start
-        map("n", "]h", function() gs.nav_hunk("next") end, "Next hunk")
-        map("n", "[h", function() gs.nav_hunk("prev") end, "Previous hunk")
-        map("n", "]H", function() gs.nav_hunk("last") end, "Last hunk")
-        map("n", "[H", function() gs.nav_hunk("first") end, "First hunk")
-
-        map("n", "<leader>gp", gs.preview_hunk, "Preview hunk")
-        map("n", "<leader>gP", gs.preview_hunk_inline, "Inline Preview hunk")
-        map("n", "<leader>gb", gs.blame_line, "Blame line")
-
-        map('n', '<leader>gh', "<nop>", "+Hunk")
-        map('n', '<leader>ghs', gs.stage_hunk, "Stage hunk")
-        map('n', '<leader>ghS', gs.stage_buffer, "Stage buffer")
-        map('n', '<leader>ghr', gs.reset_hunk, "Reset hunk")
-        map('n', '<leader>ghR', gs.reset_buffer, "Reset buffer")
-        map('n', '<leader>ghu', gs.undo_stage_hunk, "Undo stage hunk")
-        map('n', '<leader>ghq', function() gs.setqflist({ target = "attached" }) end, "Send buffer hunks to qflist")
-        map('n', '<leader>ghQ', function() gs.setqflist({ target = "all" }) end, "Send all hunks to qflist")
-
-        map('n', '<leader>gt', "<nop>", "+Toggle")
-        map('n', '<leader>gtd', gs.toggle_deleted, "Toggle deleted")
-        map('n', '<leader>gtb', gs.toggle_current_line_blame, "Toggle blame")
-
-        map({'o', 'x'}, 'ih', ':<C-U>Gitsigns select_hunk<CR>')
-        map({'o', 'x'}, 'ah', ':<C-U>Gitsigns select_hunk<CR>')
-      end,
+    word_diff = false,
+    preview_config = {
+      style = "minimal",
+      relative = "cursor",
+      row = 0,
+      col = 1,
     },
-  },
-  {
-    "sindrets/diffview.nvim",
-    cmd = { "DiffviewOpen", "DiffviewFileHistory" },
-    keys = {
-      { "<leader>gd", desc = "+Diff" },
-      { "<leader>gda", "<Cmd>DiffviewFileHistory<CR>", desc = "All History" },
-      { "<leader>gdf", "<Cmd>DiffviewFileHistory --follow %<CR>", desc = "File history" },
-      { "<leader>gdl", "<Cmd>.DiffviewFileHistory --follow<CR>", desc = "Line history" },
-    },
-    opts = {
-      keymaps = {
-        view = {
-          { "n", "<esc>", "<Cmd>DiffviewClose<CR>", { desc = "Close DiffView" } },
-          { "n", "q", "<Cmd>DiffviewClose<CR>", { desc = "Close DiffView" } },
-        },
-        file_panel = {
-          { "n", "<esc>", "<Cmd>DiffviewClose<CR>", { desc = "Close DiffView" } },
-          { "n", "q", "<Cmd>DiffviewClose<CR>", { desc = "Close DiffView" } },
-        },
-        file_history_panel = {
-          { "n", "<esc>", "<Cmd>DiffviewClose<CR>", { desc = "Close DiffView" } },
-          { "n", "q", "<Cmd>DiffviewClose<CR>", { desc = "Close DiffView" } },
-        },
-      },
-    },
-  },
-}
+    sign_priority = 100,
+    on_attach = function(buffer)
+      local opts = { buffer = buffer }
+
+      map("n", "]h", function() gs.nav_hunk("next") end, "Next hunk", opts)
+      map("n", "[h", function() gs.nav_hunk("prev") end, "Previous hunk", opts)
+      map("n", "]H", function() gs.nav_hunk("last") end, "Last hunk", opts)
+      map("n", "[H", function() gs.nav_hunk("first") end, "First hunk", opts)
+
+      map("n", "<leader>gb", function() gs.blame_line({ full = true }) end, "Blame line", opts)
+      map("n", "<leader>gB", gs.toggle_current_line_blame, "Toggle blame", opts)
+
+      map("n", "<leader>gd", function() gs.diffthis() end, "Diff with index", opts)
+      map("n", "<leader>gD", function() gs.diffthis("~") end, "Diff with ~", opts)
+
+      map("n", "<leader>gp", gs.preview_hunk, "Preview hunk", opts)
+      map("n", "<leader>gP", gs.preview_hunk_inline, "Inline preview hunk", opts)
+
+      map("n", "<leader>gr", gs.reset_hunk, "Reset hunk", opts)
+      map("v", "<leader>gr", function() gs.reset_hunk({ vim.fn.line("."), vim.fn.line("v") }) end, "Reset hunk", opts)
+      map("n", "<leader>gR", gs.reset_buffer, "Reset buffer", opts)
+
+      map("n", "<leader>gs", gs.stage_hunk, "Stage hunk", opts)
+      map("v", "<leader>gs", function() gs.stage_hunk({ vim.fn.line("."), vim.fn.line("v") }) end, "Stage hunk", opts)
+      map("n", "<leader>gS", gs.stage_buffer, "Stage buffer", opts)
+
+      map("n", "<leader>gq", function() gs.setqflist("attached") end, "Send buffer hunks to qflist", opts)
+      map("n", "<leader>gQ", function() gs.setqflist("all") end, "Send all hunks to qflist", opts)
+
+      map({ "o", "x" }, "ih", ":<C-U>Gitsigns select_hunk<CR>", "Select hunk", opts)
+    end,
+  })
+end)

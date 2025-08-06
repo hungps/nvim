@@ -1,96 +1,68 @@
-return {
-  {
-    "echasnovski/mini.files",
-    event = "VeryLazy",
-    keys = {
-      {
-        "<leader>fe",
-        function()
-          local buffer = vim.api.nvim_buf_get_name(0)
-          if vim.startswith(buffer, "/") then
-            require("mini.files").open(buffer)
-          else
-            require("mini.files").open(vim.uv.cwd())
-          end
-        end,
-        desc = "File Explorer",
-      },
-      {
-        "<leader>fE",
-        function() require("mini.files").open(vim.uv.cwd()) end,
-        desc = "File Explorer (root)",
-      },
+add("echasnovski/mini.files", function()
+  local files = require("mini.files")
+
+  local filter = function(fs_entry)
+    for _, pattern in ipairs(Config.hidden_file_patterns) do
+      if fs_entry.name:match(pattern) then return false end
+    end
+
+    return true
+  end
+
+  files.setup({
+    content = {
+      filter = filter,
     },
-    opts = {
-      content = {
-        hidden_file_patterns = {
-          "^%.git$",
-          "^%.DS_Store$",
-        },
-      },
-      options = {
-        permanent_delete = false,
-      },
-      windows = {
-        preview = true,
-        width_preview = 60,
-      },
+    options = {
+      permanent_delete = false,
     },
-    config = function(_, opts)
-      local files = require("mini.files")
+    windows = {
+      preview = true,
+      width_preview = 60,
+    },
+  })
 
-      local show_hidden_files = false
+  local set_root, system_open = vim.fn.chdir, vim.ui.open
+  local yank = function(text) vim.fn.setreg(vim.v.register, text) end
 
-      opts.content.filter = function(fs_entry)
-        if show_hidden_files then return true end
+  local open = function(path)
+    if vim.loop.fs_stat(path) then
+      files.open(path)
+    else
+      files.open(vim.uv.cwd())
+    end
+  end
 
-        for _, pattern in ipairs(opts.content.hidden_file_patterns) do
-          if fs_entry.name:match(pattern) then return false end
-        end
+  local trash_path = function() return vim.fn.stdpath("data") .. "/mini.files/trash" end
+  local entry_path = function() return (files.get_fs_entry() or {}).path end
+  local entry_dir_path = function() return vim.fs.dirname(entry_path()) end
 
-        return true
-      end
+  local toggle_hidden_files = function()
+    vim.g.minifiles_show_hidden_file = not vim.g.minifiles_show_hidden_file
+    files.refresh({ content = { filter = vim.g.minifiles_show_hidden_file and filter or nil } })
+  end
 
-      files.setup(opts)
+  map("n", "<Leader>fe", function() open(vim.api.nvim_buf_get_name(0)) end, "File explorer")
+  map("n", "<Leader>fE", function() open(vim.uv.cwd()) end, "File explorer (cwd)")
 
-      local toggle_hidden_files = function()
-        show_hidden_files = not show_hidden_files
-        files.refresh(opts)
-      end
+  autocmd("MiniFiles keymaps", augroup("MiniFilesKeymaps"), "User", "MiniFilesBufferCreate", function(ev)
+    local buffer = ev.data.buffer
 
-      local open_trash = function() files.open(vim.fn.stdpath("data") .. "/mini.files/trash") end
+    map("n", "g~", function() set_root(entry_dir_path()) end, "Set as root", { buffer = buffer })
+    map("n", "gy", function() yank(entry_path()) end, "Yank path", { buffer = buffer })
+    map("n", "gY", function() yank(entry_dir_path()) end, "Yank parent dir path", { buffer = buffer })
+    map("n", "go", function() system_open(entry_path()) end, "Open in System", { buffer = buffer })
+    map("n", "gO", function() system_open(entry_dir_path()) end, "Open parent dir in System", { buffer = buffer })
+    map("n", "g.", toggle_hidden_files, "Toggle hidden files", { buffer = buffer })
+  end)
 
-      local get_fs_entry_path = function() return (files.get_fs_entry() or {}).path end
-
-      local set_cwd = function() vim.fn.chdir(vim.fs.dirname(get_fs_entry_path())) end
-
-      local yank_path = function() vim.fn.setreg(vim.v.register, get_fs_entry_path()) end
-
-      local open_in_system = function() vim.ui.open(get_fs_entry_path()) end
-
-      vim.api.nvim_create_autocmd("User", {
-        pattern = "MiniFilesBufferCreate",
-        callback = function(args)
-          local bufnr = args.data.buf_id
-
-          vim.keymap.set("n", "g.", toggle_hidden_files, { buffer = bufnr, desc = "Toggle hidden files" })
-          vim.keymap.set("n", "g~", set_cwd, { buffer = bufnr, desc = "Set as root directory" })
-          vim.keymap.set("n", "gy", yank_path, { buffer = bufnr, desc = "Yank path" })
-          vim.keymap.set("n", "go", open_in_system, { buffer = bufnr, desc = "Open in System" })
-          vim.keymap.set("n", "gt", open_trash, { buffer = bufnr, desc = "Open trash bin" })
-        end,
-      })
-
-      vim.api.nvim_create_autocmd("User", {
-        pattern = "MiniFilesExplorerOpen",
-        callback = function()
-          files.set_bookmark("c", vim.fn.stdpath("config"), { desc = "Config" })
-          files.set_bookmark("s", vim.fn.stdpath("config") .. "/lua/hungps/snippets", { desc = "Snippets" })
-          files.set_bookmark("w", vim.fn.getcwd, { desc = "Working dir" })
-          files.set_bookmark("~", "~", { desc = "Home" })
-          files.set_bookmark(".", "~/.dotfiles", { desc = "Dotfiles" })
-        end,
-      })
-    end,
-  },
-}
+  autocmd("MiniFiles bookmarks", augroup("MiniFilesBookmarks"), "User", "MiniFilesExplorerOpen", function()
+    files.set_bookmark("c", vim.fn.stdpath("config"), { desc = "Config" })
+    files.set_bookmark("d", vim.fn.stdpath("data"), { desc = "Data" })
+    files.set_bookmark("w", vim.fn.getcwd, { desc = "Working dir" })
+    files.set_bookmark("s", Config.snippets_path, { desc = "Snippets" })
+    files.set_bookmark("t", trash_path, { desc = "Trash" })
+    files.set_bookmark("~", "~", { desc = "Home" })
+    files.set_bookmark(".", "~/.dotfiles", { desc = "Dotfiles" })
+  end)
+end)

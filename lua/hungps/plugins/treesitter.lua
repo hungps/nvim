@@ -1,38 +1,27 @@
-return {
+add({
   {
-    "nvim-treesitter/nvim-treesitter",
-    lazy = false,
-    branch = "main",
-    build = ":TSUpdate",
-    opts = {
-      ensure_installed = { "vim", "vimdoc", "http", "sh", "json", "bash", "cmake", "dockerfile", "editorconfig" },
-    },
-    config = function(_, opts)
-      require("nvim-treesitter").setup(opts)
-      require("nvim-treesitter").install(opts.ensure_installed)
-
-      vim.api.nvim_create_autocmd("FileType", {
-        pattern = opts.ensure_installed,
-        callback = function()
-          vim.treesitter.start()
-
-          vim.wo.foldmethod = "expr"
-          vim.wo.foldexpr = "v:lua.vim.treesitter.foldexpr()"
-
-          -- -- https://www.reddit.com/r/neovim/comments/14n6iiy/if_you_have_treesitter_make_sure_to_disable/
-          -- vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
-          -- vim.opt.smartindent = false
-        end,
-      })
-    end,
+    source = "nvim-treesitter/nvim-treesitter",
+    checkout = "main",
+    hooks = { post_checkout = function() vim.cmd("TSUpdate") end },
   },
   {
-    "nvim-treesitter/nvim-treesitter-context",
-    dependencies = { "nvim-treesitter/nvim-treesitter" },
-    opts = {
-      enable = true,
-      max_lines = 3,
-      line_numbers = true,
-    },
+    source = "nvim-treesitter/nvim-treesitter-textobjects",
+    checkout = "main",
   },
-}
+}, function()
+  local parsers = Config.treesitter_parsers
+  local filetypes = vim.iter(parsers):map(vim.treesitter.language.get_filetypes):flatten():totable()
+
+  require("nvim-treesitter").install(parsers)
+
+  autocmd("Enable treesitter", augroup("Treesitter"), "FileType", filetypes, function(ev)
+    vim.treesitter.start(ev.buf)
+
+    vim.wo.foldmethod = "expr"
+    vim.wo.foldexpr = "v:lua.vim.treesitter.foldexpr()"
+
+    -- -- https://www.reddit.com/r/neovim/comments/14n6iiy/if_you_have_treesitter_make_sure_to_disable/
+    -- vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+    -- vim.opt.smartindent = false
+  end)
+end)
