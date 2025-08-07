@@ -35,48 +35,48 @@ local config_by_ft = {
     formatters = { "stylua" },
   },
   dart = {
-    lsp_servers = { dartls = {} },
-    debuggers = { "dart-debug-adapter" },
-    dap = {
-      dart = {
-        {
-          type = "dart",
-          request = "launch",
-          name = "Launch dart",
-          dartSdkPath = dart_utils.dart_path(),
-          flutterSdkPath = dart_utils.flutter_path(),
-          program = "${workspaceFolder}/lib/main.dart",
-          cwd = "${workspaceFolder}",
-        },
-        {
-          type = "flutter",
-          request = "launch",
-          name = "Launch flutter",
-          dartSdkPath = dart_utils.dart_path(),
-          flutterSdkPath = dart_utils.flutter_path(),
-          program = "${workspaceFolder}/lib/main.dart",
-          cwd = "${workspaceFolder}",
-        },
-      },
-    },
-    dap_adapters = {
-      dart = {
-        type = "executable",
-        command = dart_utils.dart_path(),
-        args = { "debug_adapter" },
-        options = {
-          detached = false,
-        },
-      },
-      flutter = {
-        type = "executable",
-        command = dart_utils.flutter_path(),
-        args = { "debug_adapter" },
-        options = {
-          detached = false,
-        },
-      },
-    },
+    -- debuggers = { "dart-debug-adapter" },
+    -- lsp_servers = { dartls = {} },
+    -- dap = {
+    --   dart = {
+    --     {
+    --       type = "dart",
+    --       request = "launch",
+    --       name = "Launch dart",
+    --       dartSdkPath = dart_utils.dart_path(),
+    --       flutterSdkPath = dart_utils.flutter_path(),
+    --       program = "${workspaceFolder}/lib/main.dart",
+    --       cwd = "${workspaceFolder}",
+    --     },
+    --     {
+    --       type = "flutter",
+    --       request = "launch",
+    --       name = "Launch flutter",
+    --       dartSdkPath = dart_utils.dart_path(),
+    --       flutterSdkPath = dart_utils.flutter_path(),
+    --       program = "${workspaceFolder}/lib/main.dart",
+    --       cwd = "${workspaceFolder}",
+    --     },
+    --   },
+    -- },
+    -- dap_adapters = {
+    --   dart = {
+    --     type = "executable",
+    --     command = dart_utils.dart_path(),
+    --     args = { "debug_adapter" },
+    --     options = {
+    --       detached = false,
+    --     },
+    --   },
+    --   flutter = {
+    --     type = "executable",
+    --     command = dart_utils.flutter_path(),
+    --     args = { "debug_adapter" },
+    --     options = {
+    --       detached = false,
+    --     },
+    --   },
+    -- },
     treesitter_parsers = { "dart", "yaml" },
     hidden_file_patterns = {
       ".%.g%.dart$",
