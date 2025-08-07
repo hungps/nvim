@@ -43,6 +43,9 @@ add("echasnovski/mini.clue", function()
       { mode = "x", keys = "i" },
       { mode = "o", keys = "a" },
       { mode = "x", keys = "a" },
+      { mode = "n", keys = "s" },
+      { mode = "x", keys = "s" },
+      { mode = "x", keys = "X" },
     },
     window = { delay = 300 },
   })
