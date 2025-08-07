@@ -27,10 +27,10 @@ map({ "n", "x" }, "^", [[v:count == 0 ? 'g^' : '^']], "better ^", { expr = true 
 map({ "n", "x" }, "$", [[v:count == 0 ? 'g$' : '$']], "better $", { expr = true })
 
 map({ "n", "x" }, "gy", '"+y', "Copy to system clipboard")
-map("n", "Paste from system clipboard", "gp", '"+p')
-map("x", "Paste from system clipboard", "gp", '"+P')
-map("n", "Paste from system clipboard", "gP", '"+P')
-map("x", "Paste from system clipboard", "gP", '"+P')
+map({ "n", "x" }, "gY", '"+Y', "Copy line to system clipboard")
+map("n", "gp", '"+p', "Paste from system clipboard")
+map("x", "gp", '"+P', "Paste from system clipboard")
+map({ "n", "x" }, "gP", '"+P', "Paste from system clipboard")
 
 map("v", "/", "/\\%V", "Search inside visual selection")
 
