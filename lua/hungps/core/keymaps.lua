@@ -29,6 +29,8 @@ map({ "n", "x" }, "$", [[v:count == 0 ? 'g$' : '$']], "better $", { expr = true 
 map({ "n", "x" }, "gy", '"+y', "Copy to system clipboard")
 map("n", "Paste from system clipboard", "gp", '"+p')
 map("x", "Paste from system clipboard", "gp", '"+P')
+map("n", "Paste from system clipboard", "gP", '"+P')
+map("x", "Paste from system clipboard", "gP", '"+P')
 
 map("v", "/", "/\\%V", "Search inside visual selection")
 
