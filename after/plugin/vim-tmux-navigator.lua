@@ -1,0 +1,5 @@
+map("n", "<C-h>", "<Cmd>TmuxNavigateLeft<CR>")
+map("n", "<C-j>", "<Cmd>TmuxNavigateDown<CR>")
+map("n", "<C-k>", "<Cmd>TmuxNavigateUp<CR>")
+map("n", "<C-l>", "<Cmd>TmuxNavigateRight<CR>")
+map("n", "<C-\\>", "<Cmd>TmuxNavigatePrevious<CR>")

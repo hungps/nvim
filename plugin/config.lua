@@ -1,4 +1,4 @@
-local dart_utils = require("hungps.utils.dart")
+-- local dart_utils = require("hungps.utils.dart")
 
 _G.Config = {
   snippets_path = vim.fn.stdpath("config") .. "/lua/hungps/snippets",
@@ -6,9 +6,6 @@ _G.Config = {
   linters_by_ft = {},
   formatters_by_ft = {},
   debuggers_by_ft = {},
-  compilers = {
-    "tree-sitter-cli",
-  },
   dap = {},
   dap_adapters = {},
   treesitter_parsers = {
