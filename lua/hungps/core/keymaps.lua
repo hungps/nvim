@@ -16,10 +16,6 @@ _G.command = function(name, command, opts) return vim.api.nvim_create_user_comma
 
 vim.g.mapleader = " "
 
-map("n", "q:", "<nop>")
-map("n", ":Q", ":q")
-map("n", ":W", ":w")
-
 map({ "n", "x" }, "j", [[v:count == 0 ? 'gj' : 'j']], "better j", { expr = true })
 map({ "n", "x" }, "k", [[v:count == 0 ? 'gk' : 'k']], "better k", { expr = true })
 map({ "n", "x" }, "0", [[v:count == 0 ? 'g0' : '0']], "better 0", { expr = true })

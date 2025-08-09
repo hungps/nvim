@@ -6,7 +6,7 @@ add("akinsho/flutter-tools.nvim", function()
       exception_breakpoints = {},
       register_configurations = function()
         require("dap").configurations.dart = {}
-        -- require("dap.ext.vscode").load_launchjs()
+        require("dap.ext.vscode").load_launchjs()
       end,
     },
     fvm = true,
@@ -35,6 +35,7 @@ add("akinsho/flutter-tools.nvim", function()
       settings = {
         showTodos = false,
         completeFunctionCalls = false,
+        lineLength = require("hungps.utils.dart").get_line_length(),
       },
     },
   })
