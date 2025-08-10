@@ -2,6 +2,7 @@
 
 _G.Config = {
   snippets_path = vim.fn.stdpath("config") .. "/lua/hungps/snippets",
+  org_path = os.getenv("HOME") .. "/Documents/OrgMode",
   lsp_servers = {},
   linters_by_ft = {},
   formatters_by_ft = {},

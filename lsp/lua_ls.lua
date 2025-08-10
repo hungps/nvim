@@ -15,6 +15,7 @@ return {
       runtime = {
         version = "LuaJIT",
       },
+      diagnostics = { disable = { 'missing-fields' } },
     },
   },
 }

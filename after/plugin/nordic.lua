@@ -15,3 +15,8 @@ require("nordic").setup({
     highlights.FloatBorder = { bg = palette.bg }
   end,
 })
+
+-- It seems like calling vim.cmd.colorscheme is not enough when using custom highlighting
+autocmd("Load nordic highlights", augroup("NordicHighligh"), "ColorScheme", "nordic", function()
+  require("nordic").load()
+end)
