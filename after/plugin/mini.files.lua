@@ -63,4 +63,6 @@ autocmd("MiniFiles bookmarks", augroup("MiniFilesBookmarks"), "User", "MiniFiles
   files.set_bookmark("t", trash_path, { desc = "Trash" })
   files.set_bookmark("~", "~", { desc = "Home" })
   files.set_bookmark(".", "~/.dotfiles", { desc = "Dotfiles" })
+  files.set_bookmark("D", "~/Downloads", { desc = "Downloads" })
+  files.set_bookmark("S", "~/Sources", { desc = "Sources" })
 end)

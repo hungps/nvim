@@ -29,7 +29,7 @@ vim.o.smartindent = true
 vim.o.wildmode = "longest:full,full"
 vim.o.completeopt = "menu,menuone"
 
--- vim.o.clipboard = "unnamedplus"
+vim.o.clipboard = "unnamedplus"
 
 vim.o.expandtab = true
 vim.o.shiftwidth = 2

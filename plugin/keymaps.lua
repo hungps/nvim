@@ -40,6 +40,9 @@ map("n", "<S-Down>", "<Cmd>resize -2<CR>", "Decrease window height")
 map("n", "<S-Up>", "<Cmd>resize +2<CR>", "Increase window height")
 map("n", "<S-Right>", "<Cmd>vertical resize +2<CR>", "Increase window width")
 
+map("v", ">", ">gv", "Increase indent")
+map("v", "<", "<gv", "Decrease indent")
+
 map("n", "<C-d>", "<C-d>zz")
 map("n", "<C-u>", "<C-u>zz")
 map("n", "n", "nzzzv")

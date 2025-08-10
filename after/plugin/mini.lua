@@ -1,7 +1,9 @@
+require("mini.starter").setup()
 require("mini.pairs").setup()
 require("mini.splitjoin").setup()
 require("mini.jump").setup()
 require("mini.icons").setup()
+require("mini.align").setup()
 
 local clue = require("mini.clue")
 clue.setup({
@@ -59,6 +61,9 @@ jump2d.setup({
   spotter = jump2d.gen_spotter.pattern("[^%s%p]+"),
   labels = "arstgmneio",
   view = { dim = true, n_steps_ahead = 2 },
+  mappings = {
+    start_jumping = "<Leader><Leader>",
+  },
 })
 
 local surround = require("mini.surround")
