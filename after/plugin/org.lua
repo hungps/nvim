@@ -1,11 +1,9 @@
-local org_path = function(p) return Config.org_path .. (p and "/" .. p or "") end
-
 local orgmode = require("orgmode")
 local menu = require("org-modern.menu")
 
 orgmode.setup({
-  org_agenda_files = org_path("**/*"),
-  org_default_notes_file = org_path("refile.org"),
+  org_agenda_files = Config.org_path .. "/**/*.org",
+  org_default_notes_file = Config.org_path .. "/refile.org",
   org_todo_keywords = { "TODO(t)", "WAITING(w)", "|", "DONE(d)", "CANCELLED(c)", "DELEGATED(d)" },
   org_startup_folded = "content",
   org_todo_keyword_faces = {
@@ -16,19 +14,17 @@ orgmode.setup({
     CANCELLED = ":foreground #9399b3 :slant italic",
     DELEGATED = ":foreground #9399b3 :slant italic",
   },
-  -- org_startup_indented = true,
-  -- org_indent_mode_turns_off_org_adapt_indentation = false,
-  -- org_indent_mode_turns_on_hiding_stars = false,
   org_cycle_separator_lines = 1,
   org_todo_repeat_to_state = "TODO",
   org_tags_column = 0,
-  hyperlinks = {
-    sources = {},
-  },
   notifications = {
     enabled = true,
-    repeater_reminder_time = true,
-    deadline_warning_reminder_time = true,
+    cron_enabled = true,
+    repeater_reminder_time = 0,
+    deadline_warning_reminder_time = 0,
+    reminder_time = { 0, 5, 10 },
+    deadline_reminder = true,
+    scheduled_reminder = true,
   },
   org_capture_templates = {
     t = {
@@ -43,29 +39,6 @@ orgmode.setup({
       headline = "Inbox",
       properties = { empty_lines = 1 },
     },
-    j = {
-      description = "Journal",
-      template = "*** %<%Y-%m-%d> %<%A>\n%?",
-      target = org_path("journal/%<%Y>.org"),
-      datetree = {
-        tree_type = "custom",
-        tree = {
-          {
-            format = "%Y",
-            pattern = "^(%d%d%d%d)$",
-            order = { 1 },
-            properties = { empty_lines = 1 },
-          },
-          {
-            format = "%Y-%m",
-            pattern = "^(%d%d%d%d)%-(%d%d)$",
-            order = { 1, 2 },
-            properties = { empty_lines = 1 },
-          },
-        },
-      },
-      properties = { empty_lines = 1 },
-    },
   },
   mappings = {
     org = {
@@ -78,19 +51,19 @@ orgmode.setup({
       ---@diagnostic disable-next-line: redundant-parameter
       handler = function(data)
         menu
-            :new({
-              window = {
-                margin = { 1, 0, 1, 0 },
-                padding = { 0, 1, 0, 1 },
-                title_pos = "center",
-                border = "single",
-                zindex = 1000,
-              },
-              icons = {
-                separator = "➜",
-              },
-            })
-            :open(data)
+          :new({
+            window = {
+              margin = { 1, 0, 1, 0 },
+              padding = { 0, 1, 0, 1 },
+              title_pos = "center",
+              border = "single",
+              zindex = 1000,
+            },
+            icons = {
+              separator = "➜",
+            },
+          })
+          :open(data)
       end,
     },
   },
@@ -126,7 +99,6 @@ if has_minifiles then map("n", "<Leader>fn", function() minifiles.open(Config.or
 map("n", "<Leader>o", "<nop>", "+Orgmode")
 
 autocmd("Orgmode", augroup("OrgAgenda"), "FileType", { "org", "orgagenda" }, function(ev)
-  map("n", "<Leader>on", "<nop>", "+note", { buffer = ev.buf })
   map("n", "<Leader>oi", "<nop>", "+insert", { buffer = ev.buf })
   map("n", "<Leader>ox", "<nop>", "+time", { buffer = ev.buf })
 
@@ -134,12 +106,39 @@ autocmd("Orgmode", augroup("OrgAgenda"), "FileType", { "org", "orgagenda" }, fun
 end)
 
 autocmd("Orgmode", augroup("Org"), "FileType", "org", function(ev)
-  map("n", "<Leader>ob", "<nop>", "+tangle", { buffer = ev.buf })
   map("n", "<Leader>ol", "<nop>", "+link", { buffer = ev.buf })
   map("n", "<Leader>od", "<nop>", "+date", { buffer = ev.buf })
 end)
 
 -- stylua: ignore
-autocmd("Reindent *.org file on save", augroup("ReindentOrg"), "BufWritePre", "*.org", function(args)
+autocmd("Reindent *.org file on save", augroup("ReindentOrg"), "BufWritePre", "*.org", function()
   vim.cmd([[normal! mzgg=G'z]])
 end)
+
+require("org-roam").setup({
+  directory = Config.org_path .. "/notes",
+  add_alias = "<LocalLeader>na",
+  remove_alias = "<LocalLeader>nA",
+  add_origin = "<LocalLeader>no",
+  remove_origin = "<LocalLeader>nO",
+  insert_node = "<LocalLeader>ni",
+  insert_node_immediate = "<LocalLeader>nI",
+  capture = "<LocalLeader>nc",
+  complete_at_point = "<LocalLeader>n.",
+  find_node = "<LocalLeader>nf",
+  goto_next_node = "<LocalLeader>nn",
+  goto_prev_node = "<LocalLeader>np",
+  quickfix_backlinks = "<LocalLeader>nq",
+  toggle_roam_buffer_fixed = "<LocalLeader>nb",
+  toggle_roam_buffer = "<LocalLeader>nB",
+  templates = {
+    d = {
+      description = "Default",
+      template = "%?",
+      target = "%<%Y%m%d%H%M>-%[slug].org",
+    },
+  },
+})
+
+map("n", "<Leader>n", "<nop>", "+Note")
+map("n", "<Leader>nd", "<nop>", "+Dailies")

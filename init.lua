@@ -62,6 +62,7 @@ add({
   -- misc
   { src = "nvim-orgmode/orgmode" },
   { src = "danilshvalov/org-modern.nvim" },
+  { src = "chipsenkbeil/org-roam.nvim" }
 })
 
 vim.schedule(function()

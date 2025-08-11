@@ -1,9 +1,6 @@
 require("mini.starter").setup()
-require("mini.pairs").setup()
-require("mini.splitjoin").setup()
-require("mini.jump").setup()
 require("mini.icons").setup()
-require("mini.align").setup()
+require("fidget").setup()
 
 local clue = require("mini.clue")
 clue.setup({
@@ -53,45 +50,11 @@ clue.setup({
     -- { mode = "x", keys = "s" },
     -- { mode = "x", keys = "X" },
   },
-  window = { delay = 300 },
-})
-
-local jump2d = require("mini.jump2d")
-jump2d.setup({
-  spotter = jump2d.gen_spotter.pattern("[^%s%p]+"),
-  labels = "arstgmneio",
-  view = { dim = true, n_steps_ahead = 2 },
-  mappings = {
-    start_jumping = "<Leader><Leader>",
-  },
-})
-
-local surround = require("mini.surround")
-surround.setup({
-  mappings = {
-    add = "gsa",
-    delete = "gsd",
-    find = "gsf",
-    find_left = "gsF",
-    highlight = "gsh",
-    replace = "gsr",
-    update_n_lines = "gsn",
-    suffix_last = "l",
-    suffix_next = "n",
-  },
-})
-
-local ai = require("mini.ai")
-local gen_spec = ai.gen_spec
-local gen_spec_extra = require("mini.extra").gen_ai_spec
-ai.setup({
-  custom_textobjects = {
-    c = gen_spec.treesitter({ a = "@class.outer", i = "@class.inner" }),
-    l = gen_spec.treesitter({ a = "@loop.outer", i = "@loop.inner" }),
-    d = gen_spec.treesitter({ a = "@comment.outer", i = "@comment.inner" }),
-    f = gen_spec.treesitter({ a = "@function.outer", i = "@function.inner" }),
-    F = gen_spec.function_call({ name_pattern = "[%w_]" }),
-    B = gen_spec_extra.buffer(),
+  window = {
+    delay = 100,
+    config = {
+      width = "auto",
+    },
   },
 })
 

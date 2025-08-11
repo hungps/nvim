@@ -12,7 +12,7 @@ autocmd("Update treesitter parsers on update", augroup("TreesitterUpdated"), "Pa
 end)
 
 autocmd("Enable treesitter", augroup("Treesitter"), "FileType", filetypes, function(ev)
-  local ok = pcall(vim.treesitter.start, ev, ev.buf)
+  local ok = pcall(vim.treesitter.start, ev.buf)
   if not ok then return end
 
   vim.wo.foldmethod = "expr"
