@@ -2,7 +2,7 @@ vim.lsp.config("*", {
   root_markers = { ".git" },
 })
 
-vim.lsp.enable(vim.tbl_keys(Config.lsp_servers))
+vim.lsp.enable(Config.lsp_servers)
 
 vim.api.nvim_create_autocmd("LspAttach", {
   group = vim.api.nvim_create_augroup("UserLspAttach", { clear = true }),

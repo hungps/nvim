@@ -28,13 +28,13 @@ _G.Config = {
 
 local config_by_ft = {
   lua = {
-    lsp_servers = { lua_ls = {} },
+    lsp_servers = { "lua_ls" },
     treesitter_parsers = { "lua", "luadoc" },
     formatters = { "stylua" },
   },
   dart = {
     -- debuggers = { "dart-debug-adapter" },
-    -- lsp_servers = { dartls = {} },
+    -- lsp_servers = { "dartls" },
     -- dap = {
     --   dart = {
     --     {
@@ -88,14 +88,14 @@ local config_by_ft = {
     },
   },
   swift = {
-    lsp_servers = { sourcekit = {} },
+    lsp_servers = { "sourcekit" },
     treesitter_parsers = { "swift" },
   },
   markdown = {
     treesitter_parsers = { "markdown", "markdown_inline" },
   },
   ruby = {
-    lsp_servers = { ruby_lsp = {} },
+    lsp_servers = { "ruby_lsp" },
     treesitter_parsers = { "ruby" },
   },
 }
@@ -105,10 +105,10 @@ for ft, config in pairs(config_by_ft) do
   _G.Config.linters_by_ft[ft] = config.linters or {}
   _G.Config.debuggers_by_ft[ft] = config.debuggers or {}
 
-  _G.Config.lsp_servers = vim.tbl_extend("error", _G.Config.lsp_servers, config.lsp_servers or {})
   _G.Config.dap = vim.tbl_extend("error", _G.Config.dap, config.dap or {})
   _G.Config.dap_adapters = vim.tbl_extend("error", _G.Config.dap_adapters, config.dap_adapters or {})
 
+  vim.list_extend(_G.Config.lsp_servers, config.lsp_servers or {})
   vim.list_extend(_G.Config.hidden_file_patterns, config.hidden_file_patterns or {})
   vim.list_extend(_G.Config.treesitter_parsers, config.treesitter_parsers or {})
 end

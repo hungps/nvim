@@ -8,17 +8,17 @@ require("vim._extui").enable({})
 
 local add = function(specs)
   specs = vim
-      .iter(specs)
-      :map(function(s)
-        local spec = type(s) == "string" and { src = s } or s
+    .iter(specs)
+    :map(function(s)
+      local spec = type(s) == "string" and { src = s } or s
 
-        if not spec.src:match("^https?") and not spec.src:match("^/") then
-          spec.src = "https://github.com/" .. spec.src
-        end
+      if not spec.src:match("^https?") and not spec.src:match("^/") then
+        spec.src = "https://github.com/" .. spec.src
+      end
 
-        return spec
-      end)
-      :totable()
+      return spec
+    end)
+    :totable()
 
   vim.pack.add(specs)
 end
@@ -26,16 +26,16 @@ end
 add({
   { src = "nvim-lua/plenary.nvim" },
   -- Colorschemes
-  { src = "catppuccin/nvim",                             name = "catppuccin" },
+  { src = "catppuccin/nvim", name = "catppuccin" },
   { src = "AlexvZyl/nordic.nvim" },
   -- Tmux
   { src = "christoomey/vim-tmux-navigator" },
   -- Treesitter
-  { src = "nvim-treesitter/nvim-treesitter",             version = "main" },
+  { src = "nvim-treesitter/nvim-treesitter", version = "main" },
   { src = "nvim-treesitter/nvim-treesitter-textobjects", version = "main" },
   -- Cmp
-  { src = "L3MON4D3/LuaSnip",                            version = "v2.4.0" },
-  { src = "saghen/blink.cmp",                            version = "v1.6.0" },
+  { src = "L3MON4D3/LuaSnip", version = "v2.4.0" },
+  { src = "saghen/blink.cmp", version = "v1.6.0" },
   -- Mini
   { src = "echasnovski/mini.nvim" },
   -- Coding
@@ -62,9 +62,7 @@ add({
   -- misc
   { src = "nvim-orgmode/orgmode" },
   { src = "danilshvalov/org-modern.nvim" },
-  { src = "chipsenkbeil/org-roam.nvim" }
+  { src = "chipsenkbeil/org-roam.nvim" },
 })
 
-vim.schedule(function()
-  vim.cmd.colorscheme("nordic")
-end)
+vim.schedule(function() vim.cmd.colorscheme("nordic") end)
