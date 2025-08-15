@@ -3,9 +3,9 @@ local menu = require("org-modern.menu")
 
 orgmode.setup({
   org_agenda_files = Config.org_path .. "/**/*.org",
-  org_default_notes_file = Config.org_path .. "/refile.org",
+  org_default_notes_file = Config.org_path .. "/inbox.org",
   org_todo_keywords = { "TODO(t)", "WAITING(w)", "|", "DONE(d)", "CANCELLED(c)", "DELEGATED(d)" },
-  org_startup_folded = "content",
+  org_startup_folded = "inherit",
   org_todo_keyword_faces = {
     TODO = ":foreground #89dcec :slant bold",
     NEXT = ":background #89dcec :foreground #1e1e2f :slant bold",
@@ -44,6 +44,7 @@ orgmode.setup({
     org = {
       org_add_note = { "<Leader>on" },
       org_babel_tangle = { "<Leader>ob" },
+      org_refile = { "<Leader>om" },
     },
   },
   ui = {
@@ -117,28 +118,34 @@ end)
 
 require("org-roam").setup({
   directory = Config.org_path .. "/notes",
-  add_alias = "<LocalLeader>na",
-  remove_alias = "<LocalLeader>nA",
-  add_origin = "<LocalLeader>no",
-  remove_origin = "<LocalLeader>nO",
-  insert_node = "<LocalLeader>ni",
-  insert_node_immediate = "<LocalLeader>nI",
-  capture = "<LocalLeader>nc",
-  complete_at_point = "<LocalLeader>n.",
-  find_node = "<LocalLeader>nf",
-  goto_next_node = "<LocalLeader>nn",
-  goto_prev_node = "<LocalLeader>np",
-  quickfix_backlinks = "<LocalLeader>nq",
-  toggle_roam_buffer_fixed = "<LocalLeader>nb",
-  toggle_roam_buffer = "<LocalLeader>nB",
+  immediate = {
+    target = "%<%y%m%d%H%M>-%[slug].org",
+  },
   templates = {
     d = {
       description = "Default",
       template = "%?",
-      target = "%<%Y%m%d%H%M>-%[slug].org",
+      target = "%<%y%m%d%H%M>-%[slug].org",
     },
+  },
+  bindings = {
+    prefix = "<Leader>or",
+    add_alias = "<prefix>a",
+    remove_alias = "<prefix>A",
+    add_origin = "<prefix>o",
+    remove_origin = "<prefix>O",
+    insert_node = "<prefix>i",
+    insert_node_immediate = "<prefix>I",
+    capture = "<prefix>c",
+    complete_at_point = "<prefix>.",
+    find_node = "<prefix>f",
+    goto_next_node = "<prefix>n",
+    goto_prev_node = "<prefix>p",
+    quickfix_backlinks = "<prefix>q",
+    toggle_roam_buffer_fixed = "<prefix>b",
+    toggle_roam_buffer = "<prefix>B",
   },
 })
 
-map("n", "<Leader>n", "<nop>", "+Note")
-map("n", "<Leader>nd", "<nop>", "+Dailies")
+map("n", "<Leader>or", "<nop>", "+Roam")
+map("n", "<Leader>ord", "<nop>", "+Dailies")

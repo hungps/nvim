@@ -1,5 +1,6 @@
 vim.o.undofile = true
 vim.o.swapfile = false
+vim.o.jumpoptions = ""
 
 vim.o.mouse = "a"
 
