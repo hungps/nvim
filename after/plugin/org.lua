@@ -30,20 +30,25 @@ orgmode.setup({
     t = {
       description = "Task",
       template = "** TODO %?\n  %u",
-      headline = "Inbox",
       properties = { empty_lines = 1 },
     },
     e = {
       description = "Event",
       template = "** 🗓️️ %?\n  %^T",
-      headline = "Inbox",
+      target = Config.org_path .. "/calendar.org",
+      headline = "One-time",
       properties = { empty_lines = 1 },
     },
   },
   mappings = {
     org = {
+      ---@diagnostic disable-next-line: assign-type-mismatch
+      org_babel_tangle = false,
+      ---@diagnostic disable-next-line: assign-type-mismatch
+      org_move_subtree_down = false,
+      ---@diagnostic disable-next-line: assign-type-mismatch
+      org_move_subtree_up = false,
       org_add_note = { "<Leader>on" },
-      org_babel_tangle = { "<Leader>ob" },
       org_refile = { "<Leader>om" },
     },
   },
@@ -130,20 +135,20 @@ require("org-roam").setup({
   },
   bindings = {
     prefix = "<Leader>or",
-    add_alias = "<prefix>a",
-    remove_alias = "<prefix>A",
-    add_origin = "<prefix>o",
-    remove_origin = "<prefix>O",
+    capture = "<prefix>c",
+    find_node = "<prefix>f",
     insert_node = "<prefix>i",
     insert_node_immediate = "<prefix>I",
-    capture = "<prefix>c",
-    complete_at_point = "<prefix>.",
-    find_node = "<prefix>f",
-    goto_next_node = "<prefix>n",
-    goto_prev_node = "<prefix>p",
-    quickfix_backlinks = "<prefix>q",
-    toggle_roam_buffer_fixed = "<prefix>b",
-    toggle_roam_buffer = "<prefix>B",
+    add_alias = "",
+    remove_alias = "",
+    add_origin = "",
+    remove_origin = "",
+    goto_next_node = "",
+    goto_prev_node = "",
+    complete_at_point = "",
+    quickfix_backlinks = "",
+    toggle_roam_buffer_fixed = "",
+    toggle_roam_buffer = "",
   },
 })
 
