@@ -41,7 +41,6 @@ add({
   -- Coding
   { src = "stevearc/conform.nvim" },
   { src = "mfussenegger/nvim-lint" },
-  { src = "gbprod/substitute.nvim" },
   -- Dap
   { src = "mfussenegger/nvim-dap" },
   { src = "igorlfs/nvim-dap-view" },
@@ -60,9 +59,6 @@ add({
   { src = "akinsho/flutter-tools.nvim" },
   { src = "MeanderingProgrammer/render-markdown.nvim" },
   -- misc
-  { src = "nvim-orgmode/orgmode" },
-  { src = "danilshvalov/org-modern.nvim" },
-  { src = "chipsenkbeil/org-roam.nvim" },
+  { src = "zk-org/zk-nvim" },
+  { src = "bngarren/checkmate.nvim" },
 })
-
-vim.schedule(function() vim.cmd.colorscheme("nordic") end)
