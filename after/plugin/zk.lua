@@ -2,7 +2,6 @@ local zk = require("zk")
 
 zk.setup({})
 
-map("n", "<leader>n", "<nop>", "+Note")
 map("n", "<leader>nn", "<Cmd>ZkNew<CR>", "New note")
 map("v", "<leader>nn", ":'<,'>ZkNewFromTitleSelection<CR>", "New note as title")
 map("v", "<leader>nN", ":'<,'>ZkNewFromContentSelection<CR>", "New note as content")

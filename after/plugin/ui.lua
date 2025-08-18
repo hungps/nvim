@@ -1,19 +1,27 @@
 require("mini.starter").setup()
 require("mini.icons").setup()
-require("fidget").setup()
+require("fidget").setup({})
 
 local clue = require("mini.clue")
 clue.setup({
   clues = {
     { mode = "n", keys = "<leader>a", desc = "+AI" },
+    { mode = "x", keys = "<leader>a", desc = "+AI" },
     { mode = "n", keys = "<leader>b", desc = "+Buffer" },
     { mode = "n", keys = "<leader>c", desc = "+Code" },
-    { mode = "v", keys = "<leader>c", desc = "+Code" },
+    { mode = "x", keys = "<leader>c", desc = "+Code" },
     { mode = "n", keys = "<leader>d", desc = "+Debug" },
+    { mode = "x", keys = "<leader>d", desc = "+Debug" },
     { mode = "n", keys = "<leader>f", desc = "+Find" },
+    { mode = "n", keys = "<leader>n", desc = "+Note" },
+    { mode = "x", keys = "<leader>n", desc = "+Note" },
     { mode = "n", keys = "<leader>g", desc = "+Git" },
+    { mode = "x", keys = "<leader>g", desc = "+Git" },
     { mode = "n", keys = "<leader>q", desc = "+Quit" },
+    { mode = "n", keys = "<leader>s", desc = "+Search&do" },
+    { mode = "x", keys = "<leader>s", desc = "+Search&do" },
     { mode = "n", keys = "<leader>t", desc = "+Toggle" },
+    { mode = "n", keys = "<leader>x", desc = "+Diagnostics" },
     { mode = "n", keys = "<leader>v", desc = "+Visits" },
     { mode = "n", keys = "<leader>x", desc = "+Diagnostics" },
     clue.gen_clues.builtin_completion(),
@@ -34,10 +42,10 @@ clue.setup({
     { mode = "x", keys = "g" },
     { mode = "n", keys = "'" },
     { mode = "x", keys = "'" },
+    { mode = "n", keys = '"' },
+    { mode = "x", keys = '"' },
     { mode = "n", keys = "`" },
     { mode = "x", keys = "`" },
-    { mode = "n", keys = "'" },
-    { mode = "x", keys = "'" },
     { mode = "n", keys = "z" },
     { mode = "x", keys = "z" },
     { mode = "n", keys = "]" },

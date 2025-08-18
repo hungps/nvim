@@ -49,3 +49,11 @@ autocmd('Diagnostic popup on hover', augroup('diagnostic-float'), 'CursorHold', 
     severity_sort = true,
   })
 end)
+
+autocmd('Open file at the last position', group, 'BufReadPost', '*', function()
+  local mark = vim.api.nvim_buf_get_mark(0, '"')
+  if mark[1] > 1 and mark[1] <= vim.api.nvim_buf_line_count(0) then
+    vim.api.nvim_win_set_cursor(0, mark)
+    vim.schedule(function() vim.cmd("norm! zz") end)
+  end
+end)

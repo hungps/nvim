@@ -30,8 +30,6 @@ vim.o.smartindent = true
 vim.o.wildmode = "longest:full,full"
 vim.o.completeopt = "menu,menuone"
 
-vim.o.clipboard = "unnamedplus"
-
 vim.o.expandtab = true
 vim.o.shiftwidth = 2
 vim.o.tabstop = 2
@@ -59,3 +57,17 @@ vim.diagnostic.config({
     },
   },
 })
+
+-- make :W, :Q, etc. works!
+vim.cmd([[
+  cnoreabbrev W! w!
+  cnoreabbrev Q! q!
+  cnoreabbrev Qa! qa!
+  cnoreabbrev Wa wa
+  cnoreabbrev Wq wq
+  cnoreabbrev wQ wq
+  cnoreabbrev WQ wq
+  cnoreabbrev W w
+  cnoreabbrev Q q
+  cnoreabbrev Qa qa
+]])
