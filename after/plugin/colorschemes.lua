@@ -10,6 +10,7 @@ require("catppuccin").setup({
   custom_highlights = function(colors)
     return {
       Pmenu = { bg = colors.base },
+      BlinkCmpMenuBorder = { bg = colors.base },
       NormalFloat = { bg = colors.base },
       TreesitterContext = { bg = colors.crust },
       FloatBorder = { bg = colors.base },
@@ -31,6 +32,8 @@ require("nordic").setup({
     highlights.LspReferenceRead = { bg = palette.gray2 }
     highlights.LspReferenceWrite = { bg = palette.gray2 }
     highlights.Pmenu = { bg = palette.bg }
+    ---@diagnostic disable-next-line: inject-field
+    highlights.PmenuKind = {}
     highlights.NormalFloat = { bg = palette.bg }
     highlights.FloatBorder = { bg = palette.bg }
   end,
