@@ -27,7 +27,7 @@ return {
         t(""),
       }),
       name = i(3, "someVariable"),
-      initial_value = c(0, {
+      initial_value = c(4, {
         sn(nil, { t(" = "), i(1, "SomeValue") }),
         t(""),
       }),
@@ -44,7 +44,7 @@ return {
   s(
     "setState",
     fmt([[setState({})]], {
-      c(0, {
+      c(1, {
         sn(
           nil,
           fmt(
@@ -85,7 +85,7 @@ return {
           t(";"),
           t(""),
         }),
-        body = c(0, {
+        body = c(3, {
           sn(nil, { t("child: "), i(1) }),
           sn(nil, { t("children: "), i(1) }),
           sn(nil, { t("slivers: "), i(1) }),
@@ -96,13 +96,13 @@ return {
     )
   ),
   s(
-    "padding",
-    fmt([[{}EdgeInsets.{},]], {
+    "pad",
+    fmt([[{}EdgeInsets.{}]], {
       c(1, {
         t("const "),
         t(""),
       }),
-      c(0, {
+      c(2, {
         sn(
           nil,
           fmt([[{}symmetric({})]], {
@@ -286,7 +286,7 @@ return {
           i(nil, "condition"),
           sn(nil, fmt([[{} case {}]], { i(1), i(2) })),
         }),
-        body = c(0, {
+        body = c(2, {
           sn(
             nil,
             fmt(
@@ -328,7 +328,7 @@ return {
             })
           ),
         }),
-        body = c(0, {
+        body = c(2, {
           sn(
             nil,
             fmt(
@@ -406,7 +406,7 @@ return {
         ),
         i(nil),
       }),
-      post = c(0, {
+      post = c(4, {
         sn(nil, fmt([[: super({})]], { i(1) })),
         sn(nil, fmt([[: {}]], { i(1) })),
         i(nil),
@@ -450,7 +450,7 @@ return {
         sn(nil, { i(1, "String"), t(" ") }),
       }),
       name = i(2, "someVariable"),
-      value = c(0, {
+      value = c(3, {
         sn(nil, { t(" = "), i(1, "value") }),
         sn(nil, { t(" = const "), i(1, "value") }),
         i(nil),

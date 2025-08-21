@@ -1,5 +1,4 @@
 -- stylua: ignore start
-
 vim.g.mapleader = " "
 
 --- @param mode string|string[]
@@ -11,13 +10,6 @@ _G.map = function(mode, lhs, rhs, desc, opts)
   opts = opts or {}
   opts.desc = desc or opts.desc
   vim.keymap.set(mode, lhs, rhs, opts)
-end
-
---- @param name string
---- @param command string|fun(args: vim.api.keyset.create_user_command.command_args)
---- @param opts? vim.api.keyset.user_command
-_G.command = function(name, command, opts)
-  return vim.api.nvim_create_user_command(name, command, opts or {})
 end
 
 map({ "n", "x" }, "j", [[v:count == 0 ? "gj" : "j"]], "better j", { expr = true })
@@ -71,6 +63,10 @@ map("n", "<C-s>", "<Cmd>w<CR>", "Save")
 map("n", "<Leader>qq", "<Cmd>qa<CR>", "Quit All")
 
 -- Optional mappings:
+map("n", "<Leader>bo", "<Cmd>BufCloseHidden<CR>", "Close hidden buffers")
+map("n", "<Leader>bs", "<Cmd>new | Scratch<CR>", "Open scratch buffer in slit")
+map("n", "<Leader>bS", "<Cmd>vnew | Scratch<CR>", "Open scratch buffer in vslit")
+
 map("n", "<Leader>sn", ":g//norm <left><left><left><left><left>", "Search and do in normal mode")
 map("x", "<Leader>sn", '"hy:g/<C-r>h/norm ', "Search visually selected text and do in normal mode")
 

@@ -46,6 +46,6 @@ map("n", "<Leader>gb", function() extra.pickers.git_branches() end, "Git branche
 map("n", "<Leader>fv", function() extra.pickers.visit_paths() end, "Find visit paths (cwd)")
 map("n", "<Leader>fV", function() extra.pickers.visit_paths({ cwd = "" }) end, "Find visit paths (all)")
 
-command("VisitsAddLabel", function() visits.add_label() end)
-command("VisitsRemoveLabel", function() visits.remove_label() end)
-command("VisitsSelectLabels", function() extra.pickers.visit_labels() end)
+command("VisitsAddLabel", "Add mini.visits label", function() visits.add_label() end)
+command("VisitsRemoveLabel", "Remove mini.visits label", function() visits.remove_label() end)
+command("VisitsSelectLabels", "Select mini.visits label", function() extra.pickers.visit_labels() end)
