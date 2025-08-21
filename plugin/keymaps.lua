@@ -28,7 +28,6 @@ map({ "n", "x" }, "gy", '"+y', "Copy to system clipboard")
 map({ "n", "x" }, "gY", '"+Y', "Copy line to system clipboard")
 map("n", "gp", '"+p', "Paste from system clipboard")
 map("x", "gp", '"+P', "Paste from system clipboard")
-map({ "n", "x" }, "gP", '"+P', "Paste from system clipboard")
 
 map("v", "/", "/\\%V", "Search inside visual selection")
 
@@ -60,12 +59,15 @@ map("t", "<Esc><Esc>", "<c-\\><c-n>", "Escape terminal mode")
 
 map("n", "<C-s>", "<Cmd>w<CR>", "Save")
 
+
 map("n", "<Leader>qq", "<Cmd>qa<CR>", "Quit All")
 
 -- Optional mappings:
+map("n", "<Leader>tt", "<Cmd>15split | term<CR>", "Toggle terminal")
+
 map("n", "<Leader>bo", "<Cmd>BufCloseHidden<CR>", "Close hidden buffers")
-map("n", "<Leader>bs", "<Cmd>new | Scratch<CR>", "Open scratch buffer in slit")
-map("n", "<Leader>bS", "<Cmd>vnew | Scratch<CR>", "Open scratch buffer in vslit")
+map("n", "<Leader>ts", "<Cmd>new | Scratch<CR>", "Open scratch buffer in slit")
+map("n", "<Leader>tS", "<Cmd>vnew | Scratch<CR>", "Open scratch buffer in vslit")
 
 map("n", "<Leader>sn", ":g//norm <left><left><left><left><left>", "Search and do in normal mode")
 map("x", "<Leader>sn", '"hy:g/<C-r>h/norm ', "Search visually selected text and do in normal mode")

@@ -2,15 +2,21 @@
 
 --- @param desc string
 --- @param group integer|string
---- @param event string|table
+--- @param event vim.api.keyset.events|vim.api.keyset.events[]
 --- @param pattern string|string[]|integer Autocmd pattern or buffer id
 --- @param callback string|(fun(args?: vim.api.keyset.create_autocmd.callback_args): boolean?)
-_G.autocmd = function(desc, group, event, pattern, callback)
-  local opts = { group = group, desc = desc, callback = callback }
+--- @param opts? vim.api.keyset.create_autocmd
+_G.autocmd = function(desc, group, event, pattern, callback, opts)
+  opts = vim.tbl_extend("error", opts or {}, {
+    group = group,
+    desc = desc,
+    callback = callback,
+  })
 
   if type(pattern) == "number" then
     opts.buffer = pattern
   else
+    ---@diagnostic disable-next-line: assign-type-mismatch
     opts.pattern = pattern
   end
 
@@ -56,4 +62,17 @@ autocmd('Open file at the last position', group, 'BufReadPost', '*', function()
     vim.api.nvim_win_set_cursor(0, mark)
     vim.schedule(function() vim.cmd("norm! zz") end)
   end
+end)
+
+autocmd("Terminal settings", group, "TermOpen", "*", function()
+  vim.opt_local.statuscolumn = ""
+  vim.cmd([[startinsert]])
+end)
+
+autocmd("Close terminal buffer on exit with status 0", group, "TermClose", "*", function()
+  vim.schedule(function()
+    if vim.bo.buftype == 'terminal' and vim.v.event.status == 0 then
+      vim.cmd("bdelete! " .. vim.fn.expand("<abuf>"))
+    end
+  end)
 end)
