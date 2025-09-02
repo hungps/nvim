@@ -10,10 +10,11 @@ vim.o.splitbelow = true
 vim.o.splitright = true
 
 vim.o.termguicolors = true
-vim.o.wrap = false
+vim.o.wrap = true
+vim.o.linebreak = true
 vim.o.showmode = false
 vim.o.list = true
-vim.o.listchars = "extends:…,precedes:…,tab:» ,trail:·,nbsp:␣,multispace:·,lead: "
+vim.o.listchars = "extends:…,precedes:…,tab:» ,trail:·,nbsp:␣,multispace:·,lead:·,eol:󱞣"
 vim.o.conceallevel = 2
 vim.o.scrolloff = 10
 vim.o.sidescrolloff = 8
