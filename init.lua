@@ -59,6 +59,7 @@ add({
   { src = "akinsho/flutter-tools.nvim" },
   { src = "MeanderingProgrammer/render-markdown.nvim" },
   -- misc
+  { src = "iofq/dart.nvim" },
   { src = "zk-org/zk-nvim" },
   { src = "bngarren/checkmate.nvim" },
 })
