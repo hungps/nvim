@@ -14,6 +14,8 @@ require("catppuccin").setup({
       NormalFloat = { bg = colors.base },
       TreesitterContext = { bg = colors.crust },
       FloatBorder = { bg = colors.base },
+      NonText = { fg = colors.surface1 },
+      Whitespace = { fg = colors.surface1 },
     }
   end,
   -- float = { transparent = false, solid = true },
@@ -36,6 +38,8 @@ require("nordic").setup({
     highlights.PmenuKind = {}
     highlights.NormalFloat = { bg = palette.bg }
     highlights.FloatBorder = { bg = palette.bg }
+    highlights.NonText = { fg = palette.gray2 }
+    highlights.Whitespace = { fg = palette.gray2 }
   end,
 })
 
