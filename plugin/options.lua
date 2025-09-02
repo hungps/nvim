@@ -71,4 +71,7 @@ vim.cmd([[
   cnoreabbrev W w
   cnoreabbrev Q q
   cnoreabbrev Qa qa
+  cnoreabbrev Vs vs
+  cnoreabbrev vS vs
+  cnoreabbrev VS vs
 ]])
