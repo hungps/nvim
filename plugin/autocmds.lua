@@ -34,7 +34,7 @@ autocmd('Highlight yanked text', group, 'TextYankPost', '*', function()
   vim.hl.on_yank()
 end)
 
-autocmd('Show relative line numbers', group, 'ModeChanged', 'n:[nvox]*', function()
+autocmd('Show relative line numbers', group, 'ModeChanged', 'n*:[noxvV\x16]*', function()
   vim.wo.relativenumber = vim.wo.number
 end)
 
