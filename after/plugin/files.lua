@@ -45,7 +45,7 @@ map("n", "<Leader>fe", function() open(vim.api.nvim_buf_get_name(0)) end, "File 
 map("n", "<Leader>fE", function() open(vim.uv.cwd()) end, "File explorer (cwd)")
 
 autocmd("MiniFiles keymaps", augroup("MiniFilesKeymaps"), "User", "MiniFilesBufferCreate", function(ev)
-  local buffer = ev.data.buffer
+  local buffer = ev.data.buf_id
 
   map("n", "g~", function() set_root(entry_dir_path()) end, "Set as root", { buffer = buffer })
   map("n", "gy", function() yank(entry_path()) end, "Yank path", { buffer = buffer })
