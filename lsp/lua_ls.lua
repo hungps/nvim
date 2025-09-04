@@ -1,3 +1,4 @@
+---@type vim.lsp.Config
 return {
   cmd = { "lua-language-server" },
   filetypes = { "lua" },
@@ -15,7 +16,7 @@ return {
       runtime = {
         version = "LuaJIT",
       },
-      diagnostics = { disable = { 'missing-fields' } },
+      diagnostics = { disable = { "missing-fields" } },
     },
   },
 }

@@ -1,5 +1,6 @@
 local dart_utils = require("hungps.utils.dart")
 
+---@type vim.lsp.Config
 return {
   cmd = { dart_utils.dart_path(), "language-server", "--protocol=lsp" },
   filetypes = { "dart" },

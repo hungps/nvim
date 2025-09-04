@@ -43,9 +43,15 @@ vim.o.foldenable = true
 vim.o.foldlevel = 99
 vim.o.foldtext = ""
 
+vim.o.spell = true
+vim.o.spelllang = "en_us,cjk"
+vim.o.spelloptions = "camel"
+
 vim.diagnostic.config({
   severity_sort = true,
-  virtual_text = true,
+  virtual_text = {
+    severity = { min = vim.diagnostic.severity.WARN },
+  },
   float = {
     severity_sort = true,
     source = true,
@@ -57,6 +63,7 @@ vim.diagnostic.config({
       [vim.diagnostic.severity.HINT] = "󰌶",
       [vim.diagnostic.severity.INFO] = "",
     },
+    severity = { min = vim.diagnostic.severity.WARN },
   },
 })
 
