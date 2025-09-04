@@ -37,6 +37,7 @@ vim.o.tabstop = 2
 vim.o.softtabstop = 2
 
 vim.o.updatetime = 250 -- Required by CursorHold autocmds
+vim.o.timeoutlen = 200
 
 vim.o.foldenable = true
 vim.o.foldlevel = 99
