@@ -7,8 +7,7 @@ vim.g.mapleader = " "
 --- @param desc? string
 --- @param opts? vim.keymap.set.Opts
 _G.map = function(mode, lhs, rhs, desc, opts)
-  opts = opts or {}
-  opts.desc = desc or opts.desc
+  opts = vim.tbl_extend('keep', opts or {}, { noremap = true, desc = desc })
   vim.keymap.set(mode, lhs, rhs, opts)
 end
 
@@ -33,11 +32,15 @@ map("x", "@", ":norm @q<CR>", "Macro on visually selected lines")
 map("n", "dd", function() return vim.fn.getline("."):match("^%s*$") and '"_dd' or "dd" end, "Delete line without yanking empty", { expr = true })
 map("n", "x", '"_x', "Delete single character without yanking")
 
+map('x', '/', '<Esc>/\\%V', "Search within visual selection")
+
 map({ "n", "x" }, "gy", '"+y', "Copy to system clipboard")
 map("n", "gY", '"+yg_', "Copy line to system clipboard")
 map("n", "gp", '"+p', "Paste from system clipboard")
 map("x", "gp", '"+P', "Paste from system clipboard")
 map({ "n", "x" }, "gP", '"+P', "Paste from system clipboard")
+
+map({"i", "t"}, "<M-p>", "<C-r>+", "Paste from clipboard from within insert mode")
 
 map("n", "<C-h>", "<C-w><C-h>", "Focus on left window")
 map("n", "<C-l>", "<C-w><C-l>", "Focus on right window")
