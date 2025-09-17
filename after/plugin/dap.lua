@@ -36,8 +36,12 @@ local dap_view = require("dap-view")
 dap_view.setup({
   winbar = {
     show = true,
-    sections = { "repl", "watches", "exceptions", "breakpoints", "threads" },
+    sections = { "repl", "watches", "scopes", "exceptions", "breakpoints", "threads" },
     default_section = "repl",
+    controls = {
+      enabled = true,
+      position = "left",
+    },
   },
   windows = {
     terminal = {
