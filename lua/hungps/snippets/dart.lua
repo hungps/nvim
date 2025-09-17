@@ -42,6 +42,25 @@ return {
     })
   ),
   s(
+    "privategetter",
+    fmt(
+      [[
+        {type} _{name}{value};
+        {type_rep} get {name_rep} => _{name_rep};
+      ]],
+      {
+        type = i(1, "String"),
+        name = i(2, "someVariable"),
+        value = c(3, {
+          t(""),
+          sn(nil, { t(" = "), i(1) }),
+        }),
+        type_rep = rep(1),
+        name_rep = rep(2),
+      }
+    )
+  ),
+  s(
     "setState",
     fmt([[setState({})]], {
       c(1, {
@@ -66,6 +85,15 @@ return {
           )
         ),
       }),
+    })
+  ),
+  s(
+    "jsonvalue",
+    fmt("{json}[{quote}{key}{quote_rep}]", {
+      json = i(1, "json"),
+      quote = c(2, { t([["]]), t([[']]) }),
+      quote_rep = rep(2),
+      key = i(3),
     })
   ),
 
@@ -96,7 +124,7 @@ return {
     )
   ),
   s(
-    "pad",
+    "edgeinsets",
     fmt([[{}EdgeInsets.{}]], {
       c(1, {
         t("const "),
@@ -138,6 +166,8 @@ return {
       }),
     })
   ),
+  s("sizedboxshrink", { t("const SizedBox.shrink()") }),
+  s("testbox", { t("Container(color: Colors.red, width: 50, height: 50)") }),
 
   -- Cubit
   s(
