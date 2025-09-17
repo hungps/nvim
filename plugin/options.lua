@@ -43,10 +43,6 @@ vim.o.foldenable = true
 vim.o.foldlevel = 99
 vim.o.foldtext = ""
 
-vim.o.spell = true
-vim.o.spelllang = "en_us,cjk"
-vim.o.spelloptions = "camel"
-
 vim.diagnostic.config({
   severity_sort = true,
   virtual_text = {
