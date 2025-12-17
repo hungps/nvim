@@ -9,6 +9,7 @@ require("flutter-tools").setup({
     end,
   },
   fvm = true,
+
   widget_guides = {
     enabled = true,
   },
@@ -27,11 +28,12 @@ require("flutter-tools").setup({
       background = true,
       virtual_text = false,
     },
-    capabilities = {
-      [vim.lsp.protocol.Methods.workspace_willRenameFiles] = true,
-      [vim.lsp.protocol.Methods.workspace_didRenameFiles] = true,
-    },
     settings = {
+      analysisExcludedFolders = {
+        vim.fn.expand("$HOME/.pub-cache"),
+        vim.fn.expand("$HOME/fvm"),
+        ".dart_tool",
+      },
       showTodos = false,
       completeFunctionCalls = false,
       lineLength = require("hungps.utils.dart").get_line_length(),
