@@ -11,8 +11,9 @@ M.get_dart_path = function() return M.flutter_home_path() .. "/bin/dart" end
 M.get_flutter_path = function() return M.flutter_home_path() .. "/bin/flutter" end
 
 M.line_length_sources = {
+  analysis_options = { path = "analysis_options.yaml", pattern = "page_width: (%d-)" },
   vscode = { path = ".vscode/settings.json", pattern = '"dart.lineLength": (%d-),' },
-  editorconfig = { path = ".editorconfig", pattern = '%[%*%.dart%].-max_line_length%s-=%s-(%d-)[\n%[$]' },
+  editorconfig = { path = ".editorconfig", pattern = "%[%*%.dart%].-max_line_length%s-=%s-(%d-)[\n%[$]" },
 }
 
 M.get_line_length = function()
