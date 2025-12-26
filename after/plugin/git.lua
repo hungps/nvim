@@ -1,5 +1,7 @@
 map("n", "<Leader>gg", "<Cmd>tab Git<CR>", "Git")
-map("n", "<Leader>gl", "<Cmd>Git log<CR>", "Git log")
+map("n", "<Leader>gl", "<Cmd>Gclog<CR>", "Git log (current)")
+map("n", "<Leader>gL", "<Cmd>Git log<CR>", "Git log (cwd)")
+map("n", "<Leader>gf", ":Git log -S ''<Left>", "Find commit that has changed")
 
 local gs = require("gitsigns")
 

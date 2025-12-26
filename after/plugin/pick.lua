@@ -16,8 +16,31 @@ pick.setup({
   },
   mappings = {
     toggle_info = "<C-k>",
-    mark = "<C-y>",
-    mark_all = "<C-Y>",
+    choose = "<CR>",
+    choose_marked = "",
+    refine = "",
+    refine_marked = "",
+    refine_or_refine_marked = {
+      char = "<C-Space>",
+      func = function()
+        local matches = pick.get_picker_matches()
+        if not matches then return end
+
+        local all, marked = matches.all, matches.marked
+
+        pick.set_picker_items(not vim.tbl_isempty(marked) and marked or all or {})
+        pick.set_picker_query({})
+        pick.set_picker_opts({ source = { name = "Refine" } })
+      end,
+    },
+  },
+  window = {
+    config = function()
+      return {
+        height = 20,
+        width = math.ceil(vim.o.columns * 0.8),
+      }
+    end,
   },
 })
 
