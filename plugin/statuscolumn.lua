@@ -34,19 +34,19 @@ M.folds = function()
   local foldlevel_before = vim.fn.foldlevel(math.max(line - 1, first_line))
   local foldlevel_after = vim.fn.foldlevel(math.min(line + 1, last_line))
 
-  if foldlevel == 0 then return " " end
-  if foldclosed ~= -1 then return "▶" end
-  if foldlevel > foldlevel_before then return "▽" end
-  if foldlevel > foldlevel_after then return "╰" end
-  return "╎"
+  if foldlevel == 0 then return "  " end
+  if foldclosed ~= -1 then return "▶ " end
+  if foldlevel > foldlevel_before then return "▽ " end
+  if foldlevel > foldlevel_after then return "╰ " end
+  return "╎ "
 end
 
 M.statuscolumn = function()
   return table.concat({
     M.signs(),
-    M.folds(),
     M.number(),
-    M.border(),
+    -- M.border(),
+    M.folds(),
   })
 end
 

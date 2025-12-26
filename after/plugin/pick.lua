@@ -1,8 +1,5 @@
 local pick = require("mini.pick")
 local extra = require("mini.extra")
-local visits = require("mini.visits")
-
-visits.setup()
 
 pick.setup({
   source = {
@@ -65,10 +62,3 @@ map("n", "<Leader>fq", function() extra.pickers.list({ scope = "quickfix" }) end
 
 map("n", "<Leader>gc", function() extra.pickers.git_commits() end, "Git commits")
 map("n", "<Leader>gb", function() extra.pickers.git_branches() end, "Git branches")
-
-map("n", "<Leader>fv", function() extra.pickers.visit_paths() end, "Find visit paths (cwd)")
-map("n", "<Leader>fV", function() extra.pickers.visit_paths({ cwd = "" }) end, "Find visit paths (all)")
-
-command("VisitsAddLabel", "Add mini.visits label", function() visits.add_label() end)
-command("VisitsRemoveLabel", "Remove mini.visits label", function() visits.remove_label() end)
-command("VisitsSelectLabels", "Select mini.visits label", function() extra.pickers.visit_labels() end)

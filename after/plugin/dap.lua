@@ -12,8 +12,7 @@ for name, adapter in pairs(Config.dap_adapters) do
 end
 
 -- stylua: ignore start
-map("n", "<leader>dB", function() dap.set_breakpoint(vim.fn.input("Breakpoint condition: ")) end,
-    "Breakpoint Condition")
+map("n", "<leader>dB", function() dap.set_breakpoint(vim.fn.input("Breakpoint condition: ")) end, "Breakpoint Condition")
 map("n", "<leader>db", function() dap.toggle_breakpoint() end, "Toggle Breakpoint")
 map("n", "<leader>ds", function() dap.session() end, "Session")
 map("n", "<leader>di", function() widgets.hover() end, "Inspect value under cursor")

@@ -11,20 +11,8 @@ _G.map = function(mode, lhs, rhs, desc, opts)
   vim.keymap.set(mode, lhs, rhs, opts)
 end
 
-map("n", "<Up>", "<nop>")
-map("n", "<Down>", "<nop>")
-map("n", "<Left>", "<nop>")
-map("n", "<Right>", "<nop>")
-
 map({ "n", "x" }, "j", [[v:count == 0 ? "gj" : "j"]], "better j", { expr = true })
 map({ "n", "x" }, "k", [[v:count == 0 ? "gk" : "k"]], "better k", { expr = true })
-
-map("n", "go", "o<Esc>", "Add new line to the bottom")
-map("n", "gO", "O<Esc>", "Add new line to the top")
-
-map("n", "H", "0")
-map("n", "L", "$")
-map("n", "M", "%")
 
 map("x", ".", ":norm .<CR>", "Dot repeat on visually selected lines")
 map("x", "@", ":norm @q<CR>", "Macro on visually selected lines")
@@ -40,12 +28,7 @@ map("n", "gp", '"+p', "Paste from system clipboard")
 map("x", "gp", '"+P', "Paste from system clipboard")
 map({ "n", "x" }, "gP", '"+P', "Paste from system clipboard")
 
-map({"i", "t"}, "<M-p>", "<C-r>+", "Paste from clipboard from within insert mode")
-
-map("n", "<C-h>", "<C-w><C-h>", "Focus on left window")
-map("n", "<C-l>", "<C-w><C-l>", "Focus on right window")
-map("n", "<C-j>", "<C-w><C-j>", "Focus on lower window")
-map("n", "<C-k>", "<C-w><C-k>", "Focus on upper window")
+map({"i", "t"}, "<C-p>", "<C-r>0", "Paste within insert mode")
 
 map("n", "<C-h>", "<C-w><C-h>", "Focus on left window")
 map("n", "<C-l>", "<C-w><C-l>", "Focus on right window")

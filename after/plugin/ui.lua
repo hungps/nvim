@@ -1,12 +1,10 @@
-require("mini.starter").setup()
+-- require("mini.starter").setup()
 require("mini.icons").setup()
 require("fidget").setup({})
 
 local clue = require("mini.clue")
 clue.setup({
   clues = {
-    { mode = "n", keys = "<leader>a", desc = "+AI" },
-    { mode = "x", keys = "<leader>a", desc = "+AI" },
     { mode = "n", keys = "<leader>b", desc = "+Buffer" },
     { mode = "n", keys = "<leader>c", desc = "+Code" },
     { mode = "x", keys = "<leader>c", desc = "+Code" },
@@ -20,8 +18,6 @@ clue.setup({
     { mode = "n", keys = "<leader>q", desc = "+Quit" },
     { mode = "n", keys = "<leader>y", desc = "+Yank" },
     { mode = "n", keys = "<leader>t", desc = "+Toggle" },
-    { mode = "n", keys = "<leader>x", desc = "+Diagnostics" },
-    { mode = "n", keys = "<leader>v", desc = "+Visits" },
     { mode = "n", keys = "<leader>x", desc = "+Diagnostics" },
     clue.gen_clues.builtin_completion(),
     clue.gen_clues.g(),
@@ -116,11 +112,27 @@ statusline.setup({
         "%<", -- Mark general truncate point
         { hl = "MiniStatuslineFilename", strings = { filename, diff } },
         "%=", -- End left alignment
-        { hl = "MiniStatuslineFilename", strings = { search_count, diagnostics } },
+        { hl = "MiniStatuslineFilename", strings = { search_count, diagnostics, vim.g.diagnostic_status or "" } },
         { hl = "MiniStatuslineFileinfo", strings = { lsp, fileinfo } },
         { hl = mode_hl, strings = { location } },
       })
     end,
   },
   set_vim_settings = false,
+})
+
+vim.api.nvim_create_autocmd("DiagnosticChanged", {
+  callback = function(args)
+    vim.g.diagnostic_status = #args.data.diagnostics > 0 and "⚠️" or ""
+    -- local trouble = require("trouble")
+    -- local symbols = trouble.statusline({
+    --   mode = "diagnostics",
+    --   groups = {},
+    --   max_items = 1,
+    --   format = "{severity_icon}",
+    -- })
+    --
+    -- vim.g.diagnostic_status = symbols.has() and symbols.get() or ""
+    vim.cmd("redrawstatus")
+  end,
 })

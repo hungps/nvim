@@ -42,7 +42,7 @@ autocmd('Hide relative line numbers', group, 'ModeChanged', '*:[ni]', function()
   vim.wo.relativenumber = false
 end)
 
-autocmd('Reload file when changed', group, { 'FocusGained', 'TermClose', 'TermLeave' }, '*', function()
+autocmd('Reload file when changed', group, 'FocusGained', '*', function()
   if vim.o.buftype ~= 'nofile' then vim.cmd('checktime') end
 end)
 
@@ -54,14 +54,6 @@ autocmd('Diagnostic popup on hover', augroup('diagnostic-float'), 'CursorHold', 
     scope = 'line',
     severity_sort = true,
   })
-end)
-
-autocmd('Open file at the last position', group, 'BufReadPost', '*', function()
-  local mark = vim.api.nvim_buf_get_mark(0, '"')
-  if mark[1] > 1 and mark[1] <= vim.api.nvim_buf_line_count(0) then
-    vim.api.nvim_win_set_cursor(0, mark)
-    vim.schedule(function() vim.cmd("norm! zz") end)
-  end
 end)
 
 autocmd("Terminal settings", group, "TermOpen", "*", function()

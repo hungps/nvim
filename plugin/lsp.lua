@@ -1,5 +1,19 @@
+local capabilities = vim.lsp.protocol.make_client_capabilities()
+capabilities.workspace.didChangeWatchedFiles.dynamicRegistration = true
+
 vim.lsp.config("*", {
   root_markers = { ".git" },
+  capabilities = capabilities,
+  init_options = {
+    workspace = {
+      didChangeWatchedFiles = {
+        dynamicRegistration = true,
+      },
+      refresh = {
+        enabled = true,
+      },
+    },
+  },
 })
 
 vim.lsp.enable(Config.lsp_servers)

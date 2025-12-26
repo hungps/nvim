@@ -1,11 +1,3 @@
-if vim.fn.has("nvim-0.11") == 0 then
-  vim.notify("Neovim 0.12+ required", vim.log.levels.ERROR)
-  return
-end
-
-vim.g._ts_force_sync_parsing = true
-require("vim._extui").enable({})
-
 local add = function(specs)
   specs = vim
     .iter(specs)
@@ -24,18 +16,11 @@ local add = function(specs)
 end
 
 add({
-  { src = "nvim-lua/plenary.nvim" },
+  { src = "nvim-lua/plenary.nvim", branch = "master" },
   -- Colorschemes
-  { src = "catppuccin/nvim", name = "catppuccin" },
   { src = "AlexvZyl/nordic.nvim" },
-  -- Tmux
-  { src = "christoomey/vim-tmux-navigator" },
-  -- Treesitter
-  { src = "nvim-treesitter/nvim-treesitter", version = "main" },
-  { src = "nvim-treesitter/nvim-treesitter-textobjects", version = "main" },
   -- Cmp
-  { src = "L3MON4D3/LuaSnip", version = "v2.4.0" },
-  { src = "saghen/blink.cmp", version = "v1.6.0" },
+  { src = "saghen/blink.cmp", version = "v1.8.0" },
   -- Mini
   { src = "echasnovski/mini.nvim" },
   -- Coding
@@ -49,17 +34,11 @@ add({
   -- Git
   { src = "tpope/vim-fugitive" },
   { src = "lewis6991/gitsigns.nvim" },
-  -- UI
-  { src = "j-hui/fidget.nvim" },
-  -- AI
-  { src = "zbirenbaum/copilot.lua" },
-  { src = "olimorris/codecompanion.nvim" },
   -- ft
   { src = "folke/lazydev.nvim" },
   { src = "akinsho/flutter-tools.nvim" },
   { src = "MeanderingProgrammer/render-markdown.nvim" },
-  -- misc
-  { src = "iofq/dart.nvim" },
-  { src = "zk-org/zk-nvim" },
-  { src = "bngarren/checkmate.nvim" },
+  -- util
+  { src = "noir4y/comment-translate.nvim" },
+  { src = "j-hui/fidget.nvim" },
 })

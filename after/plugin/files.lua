@@ -41,6 +41,18 @@ local toggle_hidden_files = function()
   files.refresh({ content = { filter = vim.g.minifiles_show_hidden_file and filter or nil } })
 end
 
+local preview_file = function()
+  local path = (MiniFiles.get_fs_entry() or {}).path
+  if path == nil then return end
+
+  vim.system({ "qlmanage", "-p", path }, {}, function(result)
+    if result.code ~= 0 then
+      vim.notify("'qlmanage -p' failed with code: " .. result.code)
+      vim.notify("Stderr:\n" .. result.stderr)
+    end
+  end)
+end
+
 map("n", "<Leader>fe", function() open(vim.api.nvim_buf_get_name(0)) end, "File explorer")
 map("n", "<Leader>fE", function() open(vim.uv.cwd()) end, "File explorer (cwd)")
 
@@ -53,16 +65,5 @@ autocmd("MiniFiles keymaps", augroup("MiniFilesKeymaps"), "User", "MiniFilesBuff
   map("n", "go", function() system_open(entry_path()) end, "Open in System", { buffer = buffer })
   map("n", "gO", function() system_open(entry_dir_path()) end, "Open parent dir in System", { buffer = buffer })
   map("n", "g.", toggle_hidden_files, "Toggle hidden files", { buffer = buffer })
-end)
-
-autocmd("MiniFiles bookmarks", augroup("MiniFilesBookmarks"), "User", "MiniFilesExplorerOpen", function()
-  files.set_bookmark("c", vim.fn.stdpath("config"), { desc = "Config" })
-  files.set_bookmark("d", vim.fn.stdpath("data"), { desc = "Data" })
-  files.set_bookmark("w", vim.fn.getcwd, { desc = "Working dir" })
-  files.set_bookmark("s", Config.snippets_path, { desc = "Snippets" })
-  files.set_bookmark("t", trash_path, { desc = "Trash" })
-  files.set_bookmark("~", "~", { desc = "Home" })
-  files.set_bookmark(".", "~/.dotfiles", { desc = "Dotfiles" })
-  files.set_bookmark("D", "~/Downloads", { desc = "Downloads" })
-  files.set_bookmark("S", "~/Sources", { desc = "Sources" })
+  map("n", "gl", preview_file, "Quick Look", { buffer = buffer })
 end)

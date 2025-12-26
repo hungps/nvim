@@ -2,24 +2,22 @@
 
 _G.Config = {
   snippets_path = vim.fn.stdpath("config") .. "/lua/hungps/snippets",
-  org_path = os.getenv("HOME") .. "/Documents/OrgMode",
   lsp_servers = {},
   linters_by_ft = {},
   formatters_by_ft = {},
   debuggers_by_ft = {},
   dap = {},
   dap_adapters = {},
-  treesitter_parsers = {
-    "vim",
-    "vimdoc",
-    "http",
-    "sh",
-    "json",
-    "bash",
-    "cmake",
-    "dockerfile",
-    "editorconfig",
-  },
+  -- treesitter_parsers = {
+  --   "vim",
+  --   "vimdoc",
+  --   "http",
+  --   "json",
+  --   "bash",
+  --   "cmake",
+  --   "dockerfile",
+  --   "editorconfig",
+  -- },
   hidden_file_patterns = {
     "^%.git$",
     "^%.DS_Store$",
@@ -29,7 +27,7 @@ _G.Config = {
 local config_by_ft = {
   lua = {
     lsp_servers = { "lua_ls" },
-    treesitter_parsers = { "lua", "luadoc" },
+    -- treesitter_parsers = { "lua", "luadoc" },
     formatters = { "stylua" },
   },
   dart = {
@@ -75,7 +73,7 @@ local config_by_ft = {
     --     },
     --   },
     -- },
-    treesitter_parsers = { "dart", "yaml" },
+    -- treesitter_parsers = { "dart", "yaml" },
     hidden_file_patterns = {
       ".%.g%.dart$",
       ".%.gr%.dart$",
@@ -89,14 +87,11 @@ local config_by_ft = {
   },
   swift = {
     lsp_servers = { "sourcekit" },
-    treesitter_parsers = { "swift" },
   },
-  markdown = {
-    treesitter_parsers = { "markdown", "markdown_inline" },
-  },
+  markdown = {},
   ruby = {
     lsp_servers = { "ruby_lsp" },
-    treesitter_parsers = { "ruby" },
+    -- treesitter_parsers = { "ruby" },
   },
 }
 
@@ -110,5 +105,5 @@ for ft, config in pairs(config_by_ft) do
 
   vim.list_extend(_G.Config.lsp_servers, config.lsp_servers or {})
   vim.list_extend(_G.Config.hidden_file_patterns, config.hidden_file_patterns or {})
-  vim.list_extend(_G.Config.treesitter_parsers, config.treesitter_parsers or {})
+  -- vim.list_extend(_G.Config.treesitter_parsers, config.treesitter_parsers or {})
 end

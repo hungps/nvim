@@ -1,4 +1,4 @@
-require("mini.pairs").setup()
+-- require("mini.pairs").setup()
 require("mini.splitjoin").setup()
 require("mini.align").setup()
 
@@ -35,4 +35,8 @@ local try_lint = function() lint.try_lint(nil, { ignore_errors = true }) end
 
 map("n", "<Leader>cl", try_lint, "Lint")
 
-autocmd("Auto lint on save", augroup("LintOnSave"), { "BufWritePost" }, "*", try_lint)
+vim.api.nvim_create_autocmd("BufWritePost", {
+  group = vim.api.nvim_create_augroup("LintOnSave", { clear = true }),
+  pattern = "*",
+  callback = try_lint,
+})

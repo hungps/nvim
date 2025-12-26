@@ -1,5 +1,3 @@
--- stylua: ignore start
-
 --- @param desc string
 --- @param name string
 --- @param command string|fun(args: vim.api.keyset.create_user_command.command_args)
@@ -10,9 +8,16 @@ _G.command = function(name, desc, command, opts)
   return vim.api.nvim_create_user_command(name, command, opts)
 end
 
-command("Scratch", "Open scratch buffer", function()
+command("Scratch", "Open a scratch buffer", function()
   local buf = vim.api.nvim_create_buf(false, true)
   vim.api.nvim_set_current_buf(buf)
+end)
+
+command("RestartLsp", "Restart LSP", function()
+  print("Restarting all attached LSP clients and reloading buffer...")
+  vim.iter(vim.lsp.get_clients()):each(function(client) client.stop() end)
+  vim.cmd("write")
+  vim.cmd("edit")
 end)
 
 command("BufCloseHidden", "Close hidden buffers", function()

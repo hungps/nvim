@@ -1,24 +1,24 @@
-local parsers = Config.treesitter_parsers
-local filetypes = vim.iter(parsers):map(vim.treesitter.language.get_filetypes):flatten():totable()
-
-require("nvim-treesitter").install(parsers)
-
-autocmd("Update treesitter parsers on update", augroup("TreesitterUpdated"), "PackChanged", "*", function(ev)
-  local spec = ev.data.spec
-  if spec and spec.name == "nvim-treesitter" and ev.data.kind == "update" then
-    vim.notify("nvim-treesitter was updated, running :TSUpdate", vim.log.levels.INFO)
-    vim.schedule(function() vim.cmd("TSUpdate") end)
-  end
-end)
-
-autocmd("Enable treesitter", augroup("Treesitter"), "FileType", filetypes, function(ev)
-  local ok = pcall(vim.treesitter.start, ev.buf)
-  if not ok then return end
-
-  vim.wo.foldmethod = "expr"
-  vim.wo.foldexpr = "v:lua.vim.treesitter.foldexpr()"
-
-  -- -- https://www.reddit.com/r/neovim/comments/14n6iiy/if_you_have_treesitter_make_sure_to_disable/
-  -- vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
-  -- vim.opt.smartindent = false
-end)
+-- local parsers = Config.treesitter_parsers
+-- local filetypes = vim.iter(parsers):map(vim.treesitter.language.get_filetypes):flatten():totable()
+--
+-- require("nvim-treesitter").install(parsers)
+--
+-- autocmd("Update treesitter parsers on update", augroup("TreesitterUpdated"), "PackChanged", "*", function(ev)
+--   local spec = ev.data.spec
+--   if spec and spec.name == "nvim-treesitter" and ev.data.kind == "update" then
+--     vim.notify("nvim-treesitter was updated, running :TSUpdate", vim.log.levels.INFO)
+--     --     vim.schedule(function() vim.cmd("TSUpdate") end)
+--   end
+-- end)
+--
+-- autocmd("Enable treesitter", augroup("Treesitter"), "FileType", filetypes, function(ev)
+--   local ok = pcall(vim.treesitter.start, ev.buf)
+--   if not ok then return end
+--
+--   vim.wo.foldmethod = "expr"
+--   vim.wo.foldexpr = "v:lua.vim.treesitter.foldexpr()"
+--
+--   -- -- https://www.reddit.com/r/neovim/comments/14n6iiy/if_you_have_treesitter_make_sure_to_disable/
+--   -- vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+--   -- vim.opt.smartindent = false
+-- end)

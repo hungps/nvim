@@ -9,7 +9,6 @@ require("flutter-tools").setup({
     end,
   },
   fvm = true,
-
   widget_guides = {
     enabled = true,
   },
@@ -45,3 +44,6 @@ map("n", "<Leader>F", "<nop>", "+Flutter")
 map("n", "<Leader>Fd", "<Cmd>FlutterDevices<CR>", "Select devices")
 map("n", "<Leader>Fr", "<Cmd>FlutterRestart<CR>", "Hot restart")
 map("n", "<Leader>Fo", "<Cmd>FlutterOutlineToggle<CR>", "Toggle outline")
+map("n", "<Leader>Ft", "<Cmd>FlutterOpenDevTools<CR>", "Open DevTools")
+map("n", "<Leader>Fc", "<Cmd>FlutterCopyProfilerUrl<CR>", "Copy profiler url")
+map("n", "<Leader>Fq", "<Cmd>FlutterQuit<CR>", "End session")
