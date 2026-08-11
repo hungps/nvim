@@ -2,6 +2,8 @@ require("nordic").setup({
   bold_keywords = true,
   bright_border = true,
   cursorline = { theme = "light", blend = 0.4 },
+  on_palette = function() end,
+  after_palette = function() end,
   on_highlight = function(highlights, palette)
     highlights.LspReferenceText = { bg = palette.gray2 }
     highlights.LspReferenceRead = { bg = palette.gray2 }

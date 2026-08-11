@@ -1,4 +1,3 @@
--- stylua: ignore start
 vim.g.mapleader = " "
 
 --- @param mode string|string[]
@@ -17,7 +16,6 @@ map({ "n", "x" }, "k", [[v:count == 0 ? "gk" : "k"]], "better k", { expr = true 
 map("x", ".", ":norm .<CR>", "Dot repeat on visually selected lines")
 map("x", "@", ":norm @q<CR>", "Macro on visually selected lines")
 
-map("n", "dd", function() return vim.fn.getline("."):match("^%s*$") and '"_dd' or "dd" end, "Delete line without yanking empty", { expr = true })
 map("n", "x", '"_x', "Delete single character without yanking")
 
 map('x', '/', '<Esc>/\\%V', "Search within visual selection")
@@ -27,8 +25,6 @@ map("n", "gY", '"+yg_', "Copy line to system clipboard")
 map("n", "gp", '"+p', "Paste from system clipboard")
 map("x", "gp", '"+P', "Paste from system clipboard")
 map({ "n", "x" }, "gP", '"+P', "Paste from system clipboard")
-
-map({"i", "t"}, "<C-p>", "<C-r>0", "Paste within insert mode")
 
 map("n", "<C-h>", "<C-w><C-h>", "Focus on left window")
 map("n", "<C-l>", "<C-w><C-l>", "Focus on right window")
@@ -56,6 +52,4 @@ map("t", "<Esc><Esc>", "<c-\\><c-n>", "Escape terminal mode")
 
 map("n", "<C-s>", "<Cmd>w<CR>", "Save")
 
-map("n", "<Leader>qq", "<Cmd>qa<CR>", "Quit All")
-
-map("n", "<leader>yr", "<cmd>let @+ = expand('%:~:.')<cr>", "File path")
+map("n", "<leader>yr", "<cmd>let @+ = expand('%:~:.')<cr>", "Yank file path")

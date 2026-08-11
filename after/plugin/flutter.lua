@@ -18,7 +18,7 @@ require("flutter-tools").setup({
     open_cmd = "10split",
   },
   dev_tools = {
-    autostart = false,
+    autostart = true,
     auto_open_browser = false,
   },
   lsp = {
@@ -35,7 +35,16 @@ require("flutter-tools").setup({
       },
       showTodos = false,
       completeFunctionCalls = false,
+      updateImportsOnRename = true,
       lineLength = require("hungps.utils.dart").get_line_length(),
+      inlayHints = {
+        dotShorthandTypes = { enabled = true },
+        parameterNames = "literal",
+        parameterTypes = { enabled = false },
+        returnTypes = { enabled = false },
+        typeArguments = { enabled = false },
+        variableTypes = { enabled = false },
+      },
     },
   },
 })

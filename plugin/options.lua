@@ -14,17 +14,18 @@ vim.o.splitbelow = true
 vim.o.splitright = true
 
 vim.o.termguicolors = true
-vim.o.wrap = false
+-- vim.o.wrap = false
 vim.o.linebreak = true
 vim.o.showmode = false
-vim.o.list = true
 vim.o.conceallevel = 2
-vim.o.scrolloff = 10
-vim.o.sidescrolloff = 8
+vim.o.scrolloff = 5
+vim.o.sidescrolloff = 5
 vim.o.winborder = "single"
 vim.o.signcolumn = "yes"
+
+vim.o.list = true
+vim.o.listchars = "extends:…,precedes:…,tab:» ,trail:·,nbsp:␣,multispace:·,lead:·,eol:󱞣" -- eol:󱞣
 vim.o.fillchars = "eob: ,fold:╌"
-vim.o.listchars = "extends:…,precedes:…,tab:» ,trail:·,nbsp:␣,multispace:·,lead:·,eol: " -- eol:󱞣
 
 vim.o.ignorecase = true
 vim.o.smartcase = true
@@ -82,20 +83,3 @@ vim.diagnostic.config({
     },
   },
 })
-
--- make :W, :Q, etc. works!
-vim.cmd([[
-  cnoreabbrev W! w!
-  cnoreabbrev Q! q!
-  cnoreabbrev Qa! qa!
-  cnoreabbrev Wa wa
-  cnoreabbrev Wq wq
-  cnoreabbrev wQ wq
-  cnoreabbrev WQ wq
-  cnoreabbrev W w
-  cnoreabbrev Q q
-  cnoreabbrev Qa qa
-  cnoreabbrev Vs vs
-  cnoreabbrev vS vs
-  cnoreabbrev VS vs
-]])

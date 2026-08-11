@@ -31,7 +31,7 @@ gs.setup({
   },
   sign_priority = 100,
   on_attach = function(buffer)
-    local opts = { buffer = buffer }
+    local opts = { buf = buffer }
 
     map("n", "]h", function() gs.nav_hunk("next") end, "Next hunk", opts)
     map("n", "[h", function() gs.nav_hunk("prev") end, "Previous hunk", opts)

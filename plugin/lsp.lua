@@ -24,7 +24,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
     local client = vim.lsp.get_client_by_id(ev.data.client_id)
     if not client then return end
 
-    local map = function(mode, lhs, rhs, desc) vim.keymap.set(mode, lhs, rhs, { buffer = ev.buf, desc = desc }) end
+    local map = function(mode, lhs, rhs, desc) vim.keymap.set(mode, lhs, rhs, { buf = ev.buf, desc = desc }) end
 
     map("n", "grd", vim.lsp.buf.definition, "Goto Definition")
     map("n", "grD", vim.lsp.buf.declaration, "Goto Declaration")

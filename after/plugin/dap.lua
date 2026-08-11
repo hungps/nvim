@@ -12,11 +12,12 @@ for name, adapter in pairs(Config.dap_adapters) do
 end
 
 -- stylua: ignore start
-map("n", "<leader>dB", function() dap.set_breakpoint(vim.fn.input("Breakpoint condition: ")) end, "Breakpoint Condition")
+
+map("n", "<leader>dB", function() dap.set_breakpoint(nil, nil, vim.fn.input("Breakpoint condition: ")) end,
+  "Breakpoint Condition")
 map("n", "<leader>db", function() dap.toggle_breakpoint() end, "Toggle Breakpoint")
 map("n", "<leader>ds", function() dap.session() end, "Session")
 map("n", "<leader>di", function() widgets.hover() end, "Inspect value under cursor")
-map("n", "<leader>dI", function() widgets.centered_float(widgets.scopes()) end, "Inspect values in scope")
 map("n", "<leader>dap", function() dap.pause() end, "Pause")
 map("n", "<leader>dat", function() dap.terminate() end, "Terminate")
 map("n", "<leader>dac", function() dap.continue() end, "Continue")
@@ -35,7 +36,7 @@ local dap_view = require("dap-view")
 dap_view.setup({
   winbar = {
     show = true,
-    sections = { "repl", "watches", "scopes", "exceptions", "breakpoints", "threads" },
+    sections = { "repl", "scopes", "watches", "exceptions", "breakpoints", "threads" },
     default_section = "repl",
     controls = {
       enabled = true,
@@ -47,6 +48,10 @@ dap_view.setup({
       hide = { "dart" },
     },
   },
+  virtual_text = {
+    enabled = true,
+    position = "eol",
+  }
 })
 
 dap.listeners.before.attach["dap-view-config"] = function() dap_view.open() end

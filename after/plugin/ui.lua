@@ -5,20 +5,16 @@ require("fidget").setup({})
 local clue = require("mini.clue")
 clue.setup({
   clues = {
-    { mode = "n", keys = "<leader>b", desc = "+Buffer" },
-    { mode = "n", keys = "<leader>c", desc = "+Code" },
-    { mode = "x", keys = "<leader>c", desc = "+Code" },
-    { mode = "n", keys = "<leader>d", desc = "+Debug" },
-    { mode = "x", keys = "<leader>d", desc = "+Debug" },
-    { mode = "n", keys = "<leader>f", desc = "+Find" },
-    { mode = "n", keys = "<leader>n", desc = "+Note" },
-    { mode = "x", keys = "<leader>n", desc = "+Note" },
-    { mode = "n", keys = "<leader>g", desc = "+Git" },
-    { mode = "x", keys = "<leader>g", desc = "+Git" },
-    { mode = "n", keys = "<leader>q", desc = "+Quit" },
-    { mode = "n", keys = "<leader>y", desc = "+Yank" },
-    { mode = "n", keys = "<leader>t", desc = "+Toggle" },
-    { mode = "n", keys = "<leader>x", desc = "+Diagnostics" },
+    { mode = { "n", "x" }, keys = "<leader>c", desc = "+Code" },
+    { mode = { "n", "x" }, keys = "<leader>d", desc = "+Debug" },
+    { mode = { "n", "x" }, keys = "<leader>n", desc = "+Note" },
+    { mode = { "n", "x" }, keys = "<leader>g", desc = "+Git" },
+    { mode = "n",          keys = "<leader>b", desc = "+Buffer" },
+    { mode = "n",          keys = "<leader>f", desc = "+Find" },
+    { mode = "n",          keys = "<leader>q", desc = "+Quit" },
+    { mode = "n",          keys = "<leader>y", desc = "+Yank" },
+    { mode = "n",          keys = "<leader>t", desc = "+Toggle" },
+    { mode = "n",          keys = "<leader>x", desc = "+Diagnostics" },
     clue.gen_clues.builtin_completion(),
     clue.gen_clues.g(),
     clue.gen_clues.marks(),
@@ -27,28 +23,21 @@ clue.setup({
     clue.gen_clues.z(),
   },
   triggers = {
-    { mode = "n", keys = "<Leader>" },
-    { mode = "x", keys = "<Leader>" },
-    { mode = "i", keys = "<C-x>" },
-    { mode = "i", keys = "<C-r>" },
-    { mode = "c", keys = "<C-r>" },
-    { mode = "n", keys = "<C-w>" },
-    { mode = "n", keys = "g" },
-    { mode = "x", keys = "g" },
-    { mode = "n", keys = "'" },
-    { mode = "x", keys = "'" },
-    { mode = "n", keys = '"' },
-    { mode = "x", keys = '"' },
-    { mode = "n", keys = "`" },
-    { mode = "x", keys = "`" },
-    { mode = "n", keys = "z" },
-    { mode = "x", keys = "z" },
-    { mode = "n", keys = "]" },
-    { mode = "n", keys = "[" },
-    { mode = "o", keys = "i" },
-    { mode = "x", keys = "i" },
-    { mode = "o", keys = "a" },
-    { mode = "x", keys = "a" },
+    { mode = "n",          keys = "<Leader>" },
+    { mode = "x",          keys = "<Leader>" },
+    { mode = "i",          keys = "<C-x>" },
+    { mode = "i",          keys = "<C-r>" },
+    { mode = "c",          keys = "<C-r>" },
+    { mode = "n",          keys = "<C-w>" },
+    { mode = "n",          keys = "]" },
+    { mode = "n",          keys = "[" },
+    { mode = { "n", "x" }, keys = "g" },
+    { mode = { "n", "x" }, keys = "'" },
+    { mode = { "n", "x" }, keys = '"' },
+    { mode = { "n", "x" }, keys = "`" },
+    { mode = { "n", "x" }, keys = "z" },
+    { mode = { "o", "x" }, keys = "i" },
+    { mode = { "o", "x" }, keys = "a" },
     -- { mode = "n", keys = "s" },
     -- { mode = "x", keys = "s" },
     -- { mode = "x", keys = "X" },
@@ -107,14 +96,14 @@ statusline.setup({
       local search_count = statusline.section_searchcount({})
 
       return statusline.combine_groups({
-        { hl = mode_hl, strings = { mode } },
+        { hl = mode_hl,                 strings = { mode } },
         { hl = "MiniStatuslineDevinfo", strings = { git } },
         "%<", -- Mark general truncate point
         { hl = "MiniStatuslineFilename", strings = { filename, diff } },
         "%=", -- End left alignment
         { hl = "MiniStatuslineFilename", strings = { search_count, diagnostics, vim.g.diagnostic_status or "" } },
         { hl = "MiniStatuslineFileinfo", strings = { lsp, fileinfo } },
-        { hl = mode_hl, strings = { location } },
+        { hl = mode_hl,                  strings = { location } },
       })
     end,
   },
@@ -136,3 +125,7 @@ vim.api.nvim_create_autocmd("DiagnosticChanged", {
     vim.cmd("redrawstatus")
   end,
 })
+
+local input = require("mini.input")
+
+input.setup()

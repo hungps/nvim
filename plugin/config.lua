@@ -1,23 +1,26 @@
 -- local dart_utils = require("hungps.utils.dart")
 
 _G.Config = {
-  snippets_path = vim.fn.stdpath("config") .. "/lua/hungps/snippets",
   lsp_servers = {},
   linters_by_ft = {},
-  formatters_by_ft = {},
+  formatters_by_ft = {
+    json = { "prettier" },
+    typescript = { "prettier" },
+    typescriptreact = { "prettier" },
+  },
   debuggers_by_ft = {},
   dap = {},
   dap_adapters = {},
-  -- treesitter_parsers = {
-  --   "vim",
-  --   "vimdoc",
-  --   "http",
-  --   "json",
-  --   "bash",
-  --   "cmake",
-  --   "dockerfile",
-  --   "editorconfig",
-  -- },
+  treesitter_parsers = {
+    "vim",
+    "vimdoc",
+    "http",
+    "json",
+    "bash",
+    "cmake",
+    "dockerfile",
+    "editorconfig",
+  },
   hidden_file_patterns = {
     "^%.git$",
     "^%.DS_Store$",
@@ -27,7 +30,7 @@ _G.Config = {
 local config_by_ft = {
   lua = {
     lsp_servers = { "lua_ls" },
-    -- treesitter_parsers = { "lua", "luadoc" },
+    treesitter_parsers = { "lua", "luadoc" },
     formatters = { "stylua" },
   },
   dart = {
@@ -73,7 +76,7 @@ local config_by_ft = {
     --     },
     --   },
     -- },
-    -- treesitter_parsers = { "dart", "yaml" },
+    treesitter_parsers = { "dart", "yaml" },
     hidden_file_patterns = {
       ".%.g%.dart$",
       ".%.gr%.dart$",
@@ -91,7 +94,18 @@ local config_by_ft = {
   markdown = {},
   ruby = {
     lsp_servers = { "ruby_lsp" },
-    -- treesitter_parsers = { "ruby" },
+    treesitter_parsers = { "ruby" },
+  },
+  rust = {
+    lsp_servers = { "rust_analyzer" },
+  },
+  fennel = {
+    lsp_servers = { "fennel_ls" },
+    treesitter_parsers = { "fennel" },
+  },
+  yaml = {
+    lsp_servers = { "yamlls" },
+    treesitter_parsers = { "yaml" },
   },
 }
 
@@ -105,5 +119,5 @@ for ft, config in pairs(config_by_ft) do
 
   vim.list_extend(_G.Config.lsp_servers, config.lsp_servers or {})
   vim.list_extend(_G.Config.hidden_file_patterns, config.hidden_file_patterns or {})
-  -- vim.list_extend(_G.Config.treesitter_parsers, config.treesitter_parsers or {})
+  vim.list_extend(_G.Config.treesitter_parsers, config.treesitter_parsers or {})
 end
